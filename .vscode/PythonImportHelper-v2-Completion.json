@@ -1,0 +1,741 @@
+[
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "oracledb",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "oracledb",
+        "description": "oracledb",
+        "detail": "oracledb",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "get_asgi_application",
+        "importPath": "django.core.asgi",
+        "description": "django.core.asgi",
+        "isExtraImport": true,
+        "detail": "django.core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "signUp",
+        "importPath": "signup.views",
+        "description": "signup.views",
+        "isExtraImport": true,
+        "detail": "signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "logIn",
+        "importPath": "login.views",
+        "description": "login.views",
+        "isExtraImport": true,
+        "detail": "login.views",
+        "documentation": {}
+    },
+    {
+        "label": "delete",
+        "importPath": "delete.views",
+        "description": "delete.views",
+        "isExtraImport": true,
+        "detail": "delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "importPath": "delete.views",
+        "description": "delete.views",
+        "isExtraImport": true,
+        "detail": "delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "sight",
+        "importPath": "delete.views",
+        "description": "delete.views",
+        "isExtraImport": true,
+        "detail": "delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "update",
+        "importPath": "update.views",
+        "description": "update.views",
+        "isExtraImport": true,
+        "detail": "update.views",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteConfig",
+        "kind": 6,
+        "importPath": "website.delete.apps",
+        "description": "website.delete.apps",
+        "peekOfCode": "class DeleteConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'delete'",
+        "detail": "website.delete.apps",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "def home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "sight",
+        "kind": 2,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "def sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value\n        for key, value in d.items():",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "delete",
+        "kind": 2,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "def delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value\n        for key, value in d.items():\n            if key == \"email\":\n                em = value",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "em",
+        "kind": 5,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "em = \"\"\nid = \"\"\nconnection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "id",
+        "kind": 5,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "id = \"\"\nconnection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "website.delete.views",
+        "description": "website.delete.views",
+        "peekOfCode": "connection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":",
+        "detail": "website.delete.views",
+        "documentation": {}
+    },
+    {
+        "label": "LoginConfig",
+        "kind": 6,
+        "importPath": "website.login.apps",
+        "description": "website.login.apps",
+        "peekOfCode": "class LoginConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'login'",
+        "detail": "website.login.apps",
+        "documentation": {}
+    },
+    {
+        "label": "logIn",
+        "kind": 2,
+        "importPath": "website.login.views",
+        "description": "website.login.views",
+        "peekOfCode": "def logIn(request):\n    global em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"email\":\n                em=value\n            if key==\"password\":\n                pw=value",
+        "detail": "website.login.views",
+        "documentation": {}
+    },
+    {
+        "label": "em",
+        "kind": 5,
+        "importPath": "website.login.views",
+        "description": "website.login.views",
+        "peekOfCode": "em = ''\npw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef logIn(request):\n    global em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():",
+        "detail": "website.login.views",
+        "documentation": {}
+    },
+    {
+        "label": "pw",
+        "kind": 5,
+        "importPath": "website.login.views",
+        "description": "website.login.views",
+        "peekOfCode": "pw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef logIn(request):\n    global em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"email\":",
+        "detail": "website.login.views",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "website.login.views",
+        "description": "website.login.views",
+        "peekOfCode": "connection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef logIn(request):\n    global em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"email\":\n                em=value",
+        "detail": "website.login.views",
+        "documentation": {}
+    },
+    {
+        "label": "SignupConfig",
+        "kind": 6,
+        "importPath": "website.signup.apps",
+        "description": "website.signup.apps",
+        "peekOfCode": "class SignupConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'signup'",
+        "detail": "website.signup.apps",
+        "documentation": {}
+    },
+    {
+        "label": "signUp",
+        "kind": 2,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "def signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"first_name\":\n                fn=value\n            if key==\"last_name\":\n                ln=value",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "fn",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "fn = ''\nln = ''\nsx = ''\nem = ''\npw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "ln",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "ln = ''\nsx = ''\nem = ''\npw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "sx",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "sx = ''\nem = ''\npw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "em",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "em = ''\npw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "pw",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "pw = ''\nconnection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"first_name\":",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "website.signup.views",
+        "description": "website.signup.views",
+        "peekOfCode": "connection = oracledb.connect(user='hr', password='hr', dsn='localhost:1521/ORCL')\n# Create your views here.\ndef signUp(request):\n    global fn, ln, sx, em, pw\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key==\"first_name\":\n                fn=value",
+        "detail": "website.signup.views",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateConfig",
+        "kind": 6,
+        "importPath": "website.update.apps",
+        "description": "website.update.apps",
+        "peekOfCode": "class UpdateConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'update'",
+        "detail": "website.update.apps",
+        "documentation": {}
+    },
+    {
+        "label": "update",
+        "kind": 2,
+        "importPath": "website.update.views",
+        "description": "website.update.views",
+        "peekOfCode": "def update(request):\n    global idn, slno, val\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"id\":\n                idn = value\n            if key == \"slno\":\n                slno = value",
+        "detail": "website.update.views",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "website.update.views",
+        "description": "website.update.views",
+        "peekOfCode": "connection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\nidn = \"\"\nslno = \"\"\nval = \"\"\n# Create your views here.\ndef update(request):\n    global idn, slno, val\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST",
+        "detail": "website.update.views",
+        "documentation": {}
+    },
+    {
+        "label": "idn",
+        "kind": 5,
+        "importPath": "website.update.views",
+        "description": "website.update.views",
+        "peekOfCode": "idn = \"\"\nslno = \"\"\nval = \"\"\n# Create your views here.\ndef update(request):\n    global idn, slno, val\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():",
+        "detail": "website.update.views",
+        "documentation": {}
+    },
+    {
+        "label": "slno",
+        "kind": 5,
+        "importPath": "website.update.views",
+        "description": "website.update.views",
+        "peekOfCode": "slno = \"\"\nval = \"\"\n# Create your views here.\ndef update(request):\n    global idn, slno, val\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"id\":",
+        "detail": "website.update.views",
+        "documentation": {}
+    },
+    {
+        "label": "val",
+        "kind": 5,
+        "importPath": "website.update.views",
+        "description": "website.update.views",
+        "peekOfCode": "val = \"\"\n# Create your views here.\ndef update(request):\n    global idn, slno, val\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"id\":\n                idn = value",
+        "detail": "website.update.views",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "website.website.asgi",
+        "description": "website.website.asgi",
+        "peekOfCode": "application = get_asgi_application()",
+        "detail": "website.website.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-hhonox+olf6-zwufxqz@d1i&1$)wgq(=!^_c8310jz_e@!0n-^'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-hhonox+olf6-zwufxqz@d1i&1$)wgq(=!^_c8310jz_e@!0n-^'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_HOSTS",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'signup',",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "INSTALLED_APPS",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'signup',\n    'login',\n]",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MIDDLEWARE",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'website.urls'",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_URLCONF",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "ROOT_URLCONF = 'website.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': ['templates'],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.debug',\n                'django.template.context_processors.request',",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TEMPLATES",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': ['templates'],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.debug',\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "WSGI_APPLICATION",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "WSGI_APPLICATION = 'website.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.oracle',\n        'NAME': 'ORCL',\n        'USER': 'hr',\n        'PASSWORD': 'hr',\n    }",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASES",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.oracle',\n        'NAME': 'ORCL',\n        'USER': 'hr',\n        'PASSWORD': 'hr',\n    }\n}\n# Password validation\n# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_PASSWORD_VALIDATORS",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "AUTH_PASSWORD_VALIDATORS = [\n    {\n        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',\n    },",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LANGUAGE_CODE",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_ZONE",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_I18N",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_TZ",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATICFILES_DIRS",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "STATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_AUTO_FIELD",
+        "kind": 5,
+        "importPath": "website.website.settings",
+        "description": "website.website.settings",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "website.website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "website.website.urls",
+        "description": "website.website.urls",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', sight),\n    path('home/', home),\n    path('delete/', delete),\n    path('update/', update),\n    path('signup/', signUp),\n    path('login/', logIn),\n]",
+        "detail": "website.website.urls",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "website.website.wsgi",
+        "description": "website.website.wsgi",
+        "peekOfCode": "application = get_wsgi_application()",
+        "detail": "website.website.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "website.manage",
+        "description": "website.manage",
+        "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
+        "detail": "website.manage",
+        "documentation": {}
+    }
+]

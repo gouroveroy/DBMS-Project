@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Account Delete
+{% endblock title %}
+
+{% block head %}
+    
+{% endblock head %}
+
+{% block body %}
+<center>
+    <h1>Account deletion</h1>
+</center>
+<form action="#" method="post">
+    {% csrf_token %} {% load static %}
+    <center>
+        <div class="container">
+            <label for="email"><b>Email : </b></label>
+            <input type="email" placeholder="Enter email" name="email" /><br />
+            <center>
+                <h3>OR</h3>
+            </center>
+            <label for="id"><b>ID : </b></label>
+            <input type="number" placeholder="Enter id" name="id" /><br /><br />
+            <button type="submit"><b>Delete</b></button><br />
+        </div>
+    </center>
+</form>
+{% endblock body %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Delete</title>
+</head>
+
+<body>
+    <center>
+        <h1>Account deletion</h1>
+    </center>
+    <form action="#" method="post">
+        {% csrf_token %} {% load static %}
+        <center>
+            <div class="container">
+                <label for="email"><b>Email : </b></label>
+                <input type="email" placeholder="Enter email" name="email" /><br />
+                <center>
+                    <h3>OR</h3>
+                </center>
+                <label for="id"><b>ID : </b></label>
+                <input type="number" placeholder="Enter id" name="id" /><br /><br />
+                <button type="submit"><b>Delete</b></button><br />
+            </div>
+        </center>
+    </form>
+</body>
+
+</html> {% endcomment %}
