@@ -40,6 +40,22 @@
         "documentation": {}
     },
     {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
         "label": "AppConfig",
         "importPath": "django.apps",
         "description": "django.apps",
@@ -136,11 +152,19 @@
         "documentation": {}
     },
     {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
         "isExtraImport": true,
-        "detail": "django.test",
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
         "documentation": {}
     },
     {
@@ -165,6 +189,30 @@
         "description": "django.test",
         "isExtraImport": true,
         "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -290,6 +338,14 @@
         "documentation": {}
     },
     {
+        "label": "addPlayer",
+        "importPath": "addplayer.views",
+        "description": "addplayer.views",
+        "isExtraImport": true,
+        "detail": "addplayer.views",
+        "documentation": {}
+    },
+    {
         "label": "get_wsgi_application",
         "importPath": "django.core.wsgi",
         "description": "django.core.wsgi",
@@ -307,6 +363,87 @@
         "documentation": {}
     },
     {
+        "label": "AddplayerConfig",
+        "kind": 6,
+        "importPath": "website.addplayer.apps",
+        "description": "website.addplayer.apps",
+        "peekOfCode": "class AddplayerConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'addplayer'",
+        "detail": "website.addplayer.apps",
+        "documentation": {}
+    },
+    {
+        "label": "addPlayer",
+        "kind": 2,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "def addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"first_name\":\n                fn = value\n            if key == \"last_name\":\n                ln = value",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "connection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\nfn = \"\"\nln = \"\"\nag = \"\"\nna = \"\"\njd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "fn",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "fn = \"\"\nln = \"\"\nag = \"\"\nna = \"\"\njd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "ln",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "ln = \"\"\nag = \"\"\nna = \"\"\njd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "ag",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "ag = \"\"\nna = \"\"\njd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "na",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "na = \"\"\njd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "jd",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "jd = \"\"\nps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"first_name\":",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
+        "label": "ps",
+        "kind": 5,
+        "importPath": "website.addplayer.views",
+        "description": "website.addplayer.views",
+        "peekOfCode": "ps = \"\"\n# Create your views here.\ndef addPlayer(request):\n    global fn, ln, ag, na, jd, ps\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        for key, value in d.items():\n            if key == \"first_name\":\n                fn = value",
+        "detail": "website.addplayer.views",
+        "documentation": {}
+    },
+    {
         "label": "DeleteConfig",
         "kind": 6,
         "importPath": "website.delete.apps",
@@ -320,7 +457,7 @@
         "kind": 2,
         "importPath": "website.delete.views",
         "description": "website.delete.views",
-        "peekOfCode": "def home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST",
+        "peekOfCode": "def home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    em = \"\"\n    id = \"\"\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()",
         "detail": "website.delete.views",
         "documentation": {}
     },
@@ -329,7 +466,7 @@
         "kind": 2,
         "importPath": "website.delete.views",
         "description": "website.delete.views",
-        "peekOfCode": "def sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value\n        for key, value in d.items():",
+        "peekOfCode": "def sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    em = \"\"\n    id = \"\"\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value",
         "detail": "website.delete.views",
         "documentation": {}
     },
@@ -338,25 +475,7 @@
         "kind": 2,
         "importPath": "website.delete.views",
         "description": "website.delete.views",
-        "peekOfCode": "def delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value\n        for key, value in d.items():\n            if key == \"email\":\n                em = value",
-        "detail": "website.delete.views",
-        "documentation": {}
-    },
-    {
-        "label": "em",
-        "kind": 5,
-        "importPath": "website.delete.views",
-        "description": "website.delete.views",
-        "peekOfCode": "em = \"\"\nid = \"\"\nconnection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id",
-        "detail": "website.delete.views",
-        "documentation": {}
-    },
-    {
-        "label": "id",
-        "kind": 5,
-        "importPath": "website.delete.views",
-        "description": "website.delete.views",
-        "peekOfCode": "id = \"\"\nconnection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0",
+        "peekOfCode": "def delete(request):\n    em = \"\"\n    id = \"\"\n    flag = 0\n    if request.method == \"POST\":\n        cursor = connection.cursor()\n        d = request.POST\n        # emid = d.items().value\n        for key, value in d.items():\n            if key == \"email\":",
         "detail": "website.delete.views",
         "documentation": {}
     },
@@ -365,7 +484,7 @@
         "kind": 5,
         "importPath": "website.delete.views",
         "description": "website.delete.views",
-        "peekOfCode": "connection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    global em, id\n    flag = 0\n    if request.method == \"POST\":",
+        "peekOfCode": "connection = oracledb.connect(user=\"hr\", password=\"hr\", dsn=\"localhost:1521/ORCL\")\n# Create your views here.\ndef home(request):\n    return render(request, \"home.html\")\ndef sight(request):\n    return render(request, \"sight.html\")\ndef delete(request):\n    em = \"\"\n    id = \"\"\n    flag = 0",
         "detail": "website.delete.views",
         "documentation": {}
     },
@@ -716,7 +835,7 @@
         "kind": 5,
         "importPath": "website.website.urls",
         "description": "website.website.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', sight),\n    path('home/', home),\n    path('delete/', delete),\n    path('update/', update),\n    path('signup/', signUp),\n    path('login/', logIn),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', sight),\n    path('home/', home),\n    path('addplayer/', addPlayer),\n    path('delete/', delete),\n    path('update/', update),\n    path('signup/', signUp),\n    path('login/', logIn),\n]",
         "detail": "website.website.urls",
         "documentation": {}
     },

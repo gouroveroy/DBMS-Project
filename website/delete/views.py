@@ -6,9 +6,6 @@ oracledb.init_oracle_client(
     config_dir="C:/Users/2105017-GouroveRoy/Downloads/oracle/WINDOWS.X64_193000_db_home/network/admin"
 )
 
-em = ""
-id = ""
-
 connection = oracledb.connect(user="hr", password="hr", dsn="localhost:1521/ORCL")
 
 
@@ -20,9 +17,9 @@ def home(request):
 def sight(request):
     return render(request, "sight.html")
 
-
 def delete(request):
-    global em, id
+    em = ""
+    id = ""
     flag = 0
     if request.method == "POST":
         cursor = connection.cursor()

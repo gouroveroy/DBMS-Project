@@ -20,11 +20,13 @@ from signup.views import signUp
 from login.views import logIn
 from delete.views import delete, home, sight
 from update.views import update
+from addplayer.views import addPlayer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', sight),
     path('home/', home),
+    path('addplayer/', addPlayer),
     path('delete/', delete),
     path('update/', update),
     path('signup/', signUp),
