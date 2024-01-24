@@ -17,9 +17,9 @@ app.use("/static", express.static("static"));
 app.use(express.urlencoded());
 
 const dbConfig = {
-    user: "hr",
-    password: "hr",
-    connectString: "localhost/ORCL",
+    user: "CRICTOUR",
+    password: "12345",
+    connectString: "localhost/ORCLPDB",
 };
 
 // Read the EJS file content
