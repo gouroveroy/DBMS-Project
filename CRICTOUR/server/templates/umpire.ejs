@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umpire Information</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Umpire Information</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Nationality</th>
+                <th>Age</th>
+                <th>Image</th>
+                <th>Person ID</th>
+                <th>No. of Matches Conducted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data && Array.isArray(data)) { %>
+                <% data.forEach(function(umpire) { %>
+                    <tr>
+                        <td><%= umpire.full_name %></td>
+                        <td><%= umpire.nationality %></td>
+                        <td><%= umpire.age %></td>
+                        <td><img src="<%= umpire.image %>" alt="Umpire Image" style="max-width: 100px;"></td>
+                        <td><%= umpire.personid %></td>
+                        <td><%= umpire.no_of_match_conducted %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6">No data available</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
