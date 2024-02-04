@@ -63,18 +63,10 @@ async function run() {
                     [email, password]
                 );
 
-                const result1 = await pool.query(
-                    `SELECT * 
-                    FROM ADMIN
-                    `
-                );
-
-                console.log("SQL Query Result:", result1.rows);
-
                 if (result.rows.length !== 0) {
-                    res.redirect("/admin");
+                    res.json({flag: true});
                 } else {
-                    res.redirect("/error");
+                    res.json({flag: false});
                 }
             } catch (err) {
                 console.error(`PostgreSQL Error: ${err.message}`);

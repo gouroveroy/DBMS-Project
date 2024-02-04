@@ -1,13 +1,12 @@
-const name = "gourove";
-
-function display()
-{
-    
-}
-
-
-function Hello() {
-  return <h1>Hello Gourove {name}</h1>;
+function Hello(props) {
+  const {name, message, emoji, roll} = props;
+  return (
+    <div>
+      <h1>
+        {message} {name} {emoji} {roll}
+      </h1>
+    </div>
+  );
 }
 
 export default Hello;
