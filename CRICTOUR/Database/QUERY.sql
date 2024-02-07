@@ -55,6 +55,49 @@ SELECT
                 PERSON P ON
                 C.PERSONID = P.PERSONID;
 
+SELECT * FROM POINT_TABLE;
+SELECT * FROM TOURNAMENT;
+UPDATE TOURNAMENT SET TOURNAMENT_ID = 3
+WHERE TOURNAMENT_ID = 6;
+
+SELECT * FROM USERS;
+SELECT * FROM PLAYER;
+SELECT * FROM PERSON;
+
+SELECT
+                    P.IMAGE,
+                    (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                    T.TEAM_NAME AS TEAM,
+                    PL.TYPE,
+                    EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
+                FROM PLAYER PL
+                JOIN PERSON P ON PL.PLAYERID = P.PERSONID
+                LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID;
+
+INSERT INTO PLAYER (PLAYERID)
+SELECT P.PERSONID
+FROM PERSON P;
+
+INSERT INTO Bowler (playerId)
+SELECT playerId
+FROM Player
+WHERE type = 'Bowler';
+
+-- Insert batsmen data into Batsman table
+INSERT INTO Batsman (playerId, Batting_Style)
+SELECT playerId, 'Batsman' FROM Player WHERE type = 'Batsman';
+
+SELECT * FROM PLAYER;
+
+DELETE FROM PLAYER;
+
+
+
+
+
+
+
+
 
 
 

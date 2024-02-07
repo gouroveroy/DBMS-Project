@@ -10,6 +10,12 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Admin from './pages/Admin';
+import Umpire from './pages/Umpire';
+import Coach from './pages/Coach';
+import Player from './pages/Player';
+
+
+import Rank from './components/Rank';
 import Header from './components/Nav/Header';
 
 
@@ -22,6 +28,10 @@ export default function App() {
         <Route path="/login" element={<Login></Login>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
         <Route path="/admin" element={<Admin></Admin>} />
+        <Route path="/umpire" element={<Umpire></Umpire>} />
+        <Route path="/rank" element={<Rank></Rank>} />
+        <Route path="/coach" element={<Coach></Coach>} />
+        <Route path="/player" element={<Player></Player>} />
       </Route>
     )
   );

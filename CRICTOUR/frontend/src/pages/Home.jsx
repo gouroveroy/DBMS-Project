@@ -1,12 +1,12 @@
-import React from 'react';
-import Header from '../components/Nav/Header';
-import Img from './Img';
-import { Outlet } from 'react-router-dom';
+import React from "react";
+import Img from "./Img";
+import Rank from "../components/Rank";
 
 export default function Home() {
     return (
         <div>
             <Img></Img>
+            <Rank></Rank>
         </div>
     );
 }

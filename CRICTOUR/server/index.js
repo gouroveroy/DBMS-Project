@@ -64,12 +64,31 @@ async function run() {
                 );
 
                 if (result.rows.length !== 0) {
-                    res.json({flag: true});
+                    res.json({ flag: true });
                 } else {
-                    res.json({flag: false});
+                    res.json({ flag: false });
                 }
             } catch (err) {
                 console.error(`PostgreSQL Error: ${err.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
+        app.post("/signup", async (req, res) => {
+            const { email, password } = req.body;
+            try {
+                console.log("Received signup request:", { email, password });
+
+                await pool.query(`
+                    INSERT INTO USERS (EMAIL, PASSWORD)
+                    VALUES ($1, $2)`,
+                    [email, password]
+                );
+
+                // Optionally, you can send a success response back to the client
+                res.status(201).json({ message: "Signup successful" });
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).send("Internal Server Error");
             }
         });
@@ -98,15 +117,6 @@ async function run() {
             }
         });
 
-        app.get("/signup", async (req, res) => {
-            try {
-                const signupContent = await readEJSFile("./templates/signup.ejs");
-                res.render("signup", { content: signupContent });
-            } catch (err) {
-                console.error(`PostgreSQL Error: ${err.message}`);
-                res.status(500).send("Internal Server Error");
-            }
-        });
 
         app.get("/umpire", async (req, res) => {
             try {
@@ -123,8 +133,25 @@ async function run() {
               `;
 
                 const result = await pool.query(sql);
-                res.render("umpire", { data: result.rows });
-                // res.json(result.rows);
+                // res.render("umpire", { data: result.rows });
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        app.get("/pointTable", async (req, res) => {
+            try {
+                const sql = `
+                SELECT T.TEAM_NAME AS NAME,
+                P.MATCHES MATCHES,
+                P.WON WON, P.LOST LOST, P.DRAW DRAW, P.POINTS POINTS, P.NRR NRR
+                FROM POINT_TABLE P JOIN TEAM T
+                ON (P.TEAM_ID = T.TEAM_ID);
+                `
+                const result = await pool.query(sql);
+                res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
@@ -146,24 +173,41 @@ async function run() {
                     JOIN PERSON P ON C.PERSONID = P.PERSONID
                     LEFT JOIN TEAM T ON C.TEAM_ID = T.TEAM_ID;
                 `;
-        
+
                 // Execute the SQL query
                 const result = await pool.query(sql);
                 console.log(result.rows);
-        
-                // Check if any coach information is found
-                // if (result.rows.length !== 0) {
-                    res.render("coach", { data: result.rows });
-                // } else {
-                    // res.status(404).json({ error: 'No coaches found' });
-                // }
+                res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: 'Internal Server Error' });
             }
         });
+
+        app.get("/player", async (req, res) => {
+            try {
+                const sql = `
+                SELECT
+                    P.IMAGE,
+                    (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                    T.TEAM_NAME AS TEAM,
+                    PL.TYPE,
+                    EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
+                FROM PLAYER PL
+                JOIN PERSON P ON PL.PLAYERID = P.PERSONID
+                LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID;
+                `;
+                const result = await pool.query(sql);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
     } finally {
-        // You can add cleanup logic here if needed
+        // console.log("Shutting down server");
+        // pool.end();
     }
 }
 
@@ -172,5 +216,5 @@ run().catch((err) => console.error(err));
 
 // listening to the port
 app.listen(port, () => {
-    console.log(`test server running on ${port}`);
+    console.log(`Server is running on ${port}`);
 });
