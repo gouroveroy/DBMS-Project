@@ -13,6 +13,8 @@ import Admin from './pages/Admin';
 import Umpire from './pages/Umpire';
 import Coach from './pages/Coach';
 import Player from './pages/Player';
+import Teams from './pages/Teams';
+import Teamddetails from './pages/Teamdetails';
 
 
 import Rank from './components/Rank';
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/rank" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
         <Route path="/player" element={<Player></Player>} />
+        <Route path="/teams" element={<Teams></Teams>} />
+        <Route path="/teams/:team_id" element={<Teamddetails></Teamddetails>} />
       </Route>
     )
   );

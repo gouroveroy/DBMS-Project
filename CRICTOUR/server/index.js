@@ -2,12 +2,12 @@ const fs = require("fs").promises;
 const express = require("express");
 const cors = require("cors");
 const pool = require("../db");
-const bcrypt = require("bcrypt");
 const path = require("path");
 
 const port = 8000;
 require("dotenv").config();
 const app = express();
+
 app.use(express.urlencoded());
 
 // middleware
@@ -179,6 +179,65 @@ async function run() {
                 console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        //get all teams
+        app.get("/teams", async (req, res) => {
+
+            try {
+                const sql = `
+                SELECT* FROM TEAM;
+                `;
+                const result = await pool.query(sql);
+                console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+
+        // app.get('/teams/:team_id', async (req, res) => {
+        //     const { team_id } = req.params;
+          
+        //     try {
+        //       // Query to retrieve the team from the database
+        //       console.log("get team");
+        //       const query = 'SELECT * FROM team WHERE team_id = $1';
+        //       const result = await pool.query(query, [team_id]);
+          
+        //       // Check if team exists
+        //       if (result.rows.length === 0) {
+        //         return res.status(404).json({ error: 'Team not found' });
+        //       }
+        //       console.log(result);
+          
+        //       // Return the team data
+        //       res.json(result.rows);
+        //     } catch (error) {
+        //       console.error('Error retrieving team:', error);
+        //       res.status(500).json({ error: 'Internal server error' });
+        //     }
+        //   });
+
+        //get a team
+        app.get("/teams/:team_id", async (req, res,) => {
+            try {
+                console.log("get team");
+                console.log(req.params.team_id);
+                const sql =`
+                SELECT* FROM TEAM WHERE TEAM_ID = $1;
+                `;
+                const result = await pool.query(sql,[req.params.team_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: 'Internal Server Error' });
             }

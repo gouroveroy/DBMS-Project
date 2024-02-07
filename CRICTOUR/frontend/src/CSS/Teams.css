@@ -1,0 +1,55 @@
+/* FILEPATH: /d:/DBMS_Project/DBMS-Project/CRICTOUR/frontend/src/CSS/teams.css */
+.container>h1{
+    text-align: center;
+}
+
+.container{
+    margin-top: 20px;
+}
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; /* Align items along the x-axis */
+    justify-content: center;
+  }
+  
+  .team-box {
+    width: 227px;
+    height: 220px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .team-box>p{
+    font-weight: bold;
+    color: blue;
+  }
+
+  .team-box:hover {
+    background-color: #e6e6e6;
+  }
+
+  .team-box>p:hover{
+    cursor: pointer;
+    color: #2163b3;
+    text-decoration: underline;
+  }
+  
+  .team-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .team-flag {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
