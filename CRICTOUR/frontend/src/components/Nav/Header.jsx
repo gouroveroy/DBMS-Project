@@ -37,6 +37,7 @@ function Header() {
 }
 
 const headerStyle = {
+    margin: '0 0 0 0',
     background: 'radial-gradient(violet, transparent)',
     color: 'black',
     padding: '10px',
