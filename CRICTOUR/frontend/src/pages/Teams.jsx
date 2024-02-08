@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../CSS/Teams.css';
+import '../assets/CSS/Teams.css';
 
 function Teams() {
     const [teams, setTeams] = useState([]);
@@ -40,6 +40,6 @@ function Teams() {
             </div>
         </div>
     );
-};
+}
 
 export default Teams;
