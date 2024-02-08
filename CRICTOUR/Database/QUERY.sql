@@ -87,9 +87,13 @@ WHERE type = 'Bowler';
 INSERT INTO Batsman (playerId, Batting_Style)
 SELECT playerId, 'Batsman' FROM Player WHERE type = 'Batsman';
 
-SELECT * FROM PLAYER;
+SELECT * FROM POINT_TABLE;
 
-DELETE FROM PLAYER;
+SELECT T.TEAM_NAME AS NAME,
+P.MATCHES MATCHES,
+                P.WON WON, P.LOST LOST, P.DRAW DRAW, P.POINTS POINTS, P.NRR NRR
+                FROM POINT_TABLE P JOIN TEAM T
+                ON (P.TEAM_ID = T.TEAM_ID);
 
 
 

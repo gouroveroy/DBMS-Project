@@ -2,7 +2,6 @@ const fs = require("fs").promises;
 const express = require("express");
 const cors = require("cors");
 const pool = require("../db");
-const bcrypt = require("bcrypt");
 const path = require("path");
 
 const port = 8000;
