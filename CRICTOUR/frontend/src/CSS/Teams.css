@@ -4,7 +4,7 @@
 }
 
 body{
-    height: 1600px;
+    height: 1700px;
 }
 
 .container{
@@ -19,28 +19,25 @@ body{
   
   .team-box {
     width: 227px;
-    height: 220px;
-    margin: 10px;
+    height: 300px;
+    margin: 25px; /* Adjust the margin */
     padding: 20px;
     background-color: #f2f2f2;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
+    background-color: rgb(5 4 98);
+}
+
+/* Add a media query to change the margin when the screen size is smaller */
+@media screen and (max-width: 992px) {
+    .team-box {
+        margin: 10px 5px; /* Adjust the margin for smaller screens */
+    }
+}
 
   .team-box>p{
     font-weight: bold;
-    color: blue;
-  }
-
-  .team-box:hover {
-    background-color: #e6e6e6;
-  }
-
-  .team-box>p:hover{
-    cursor: pointer;
-    color: #2163b3;
-    text-decoration: underline;
+    color: rgb(255, 255, 255);
   }
   
   .team-name {
@@ -55,5 +52,14 @@ body{
     margin: 0 auto;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  .profileButton{
+    
+    margin-top: 130px;
+    border-radius: 5px;
+    width: fit-content;
+    height: 38px;
+    
   }
   

@@ -35,14 +35,13 @@ function Header() {
         </header>
     );
 }
-
 const headerStyle = {
-    margin: '0 0 0 0',
-    background: 'radial-gradient(violet, transparent)',
-    color: 'black',
-    padding: '10px',
+    margin: '0',
+    background: '#050462',
+    color: '#fff', // Change text color to white for better visibility
+    padding: '20px', // Increase padding for better spacing
     textAlign: 'center',
-    textShadow: '1px 1px aqua', // Corrected syntax for text-shadow
+    height: '85px',
 };
 
 const navStyle = {
@@ -57,13 +56,15 @@ const ulStyle = {
 };
 
 const liStyle = {
-    margin: '0 10px',
+    margin: '0 20px', // Increased margin for better spacing
 };
 
 const linkStyle = {
     color: '#fff',
     textDecoration: 'none',
+    fontSize: '1.2rem', // Increase font size
 };
+
 
 export default Header;
 

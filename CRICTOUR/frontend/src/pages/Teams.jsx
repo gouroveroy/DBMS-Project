@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../CSS/Teams.css';
 
 function Teams() {
@@ -14,9 +15,11 @@ function Teams() {
 
     const handleTeamSelect = async(e,team_id) => {
         e.preventDefault();
-        //e.stopPropagation();
+        e.stopPropagation();
         console.log("Team selected",team_id);
-        window.location.href = `/teams/${team_id}`;
+        setTimeout(() => {
+            window.location.href = `/teams/${team_id}`;
+        }, 0);
     }
 
     return (
@@ -26,8 +29,12 @@ function Teams() {
                 {teams.map(team => (
                     <div  key={team.team_id} className="team-box">
                         <img src={team.photoUrl} alt={team.team_name} />
-                        <p onClick={(e) => handleTeamSelect(e, team.team_id)}>{team.team_name}</p>
-                        <p>{team.team_id}</p>
+                        <p>{team.team_name}</p>
+                        <div className="teamProfile">
+                            <Link to={`/teams/${team.team_id}`} className='profileButton'>
+                               < button  className='profileButton'>Team Profile</button>
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>
