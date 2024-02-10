@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function Teamddetails() {
+function Teamdetails() {
     const { team_id } = useParams();
     const [teamDetail, setTeamDetail] = useState([]);
 
@@ -34,4 +34,4 @@ function Teamddetails() {
     );
 }
 
-export default Teamddetails;
+export default Teamdetails;
