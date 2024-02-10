@@ -5,7 +5,8 @@ import { FaUserCircle, FaKey, FaEye, FaEyeSlash } from 'react-icons/fa'; // Impo
 
 import '../assets/CSS/login.css';
 
-function Login() {
+function Login(props) {
+    const selection = props.selection;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
@@ -14,7 +15,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/login', { email, password });
+            const response = await axios.post('http://localhost:8000/login', { email, password, selection });
 
             if (response.data.flag) {
                 // Redirect to admin page or perform any other action
@@ -49,7 +50,7 @@ function Login() {
                             className="form-input"
                             id="txt-input"
                             type="text"
-                            placeholder="@UserName"
+                            placeholder="@EmailAddress"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required

@@ -51,22 +51,32 @@ async function run() {
         });
 
         app.post("/login", async (req, res) => {
-            const { email, password } = req.body;
+            const { email, password, selection } = req.body;
+            console.log(selection);
 
             try {
                 console.log("Received login request:", { email, password });
 
-                const result = await pool.query(
-                    `SELECT * 
-                    FROM ADMIN
-                    WHERE EMAIL = $1 AND PASSWORD = $2`,
-                    [email, password]
-                );
+                if(selection == 'user')
+                {
+                    const result = await pool.query(`SELECT * FROM USERS WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
+                    console.log(result);
+                    if (result.rows.length !== 0) {
+                        res.json({ flag: true });
+                    } else {
+                        res.json({ flag: false });
+                    }
+                }
 
-                if (result.rows.length !== 0) {
-                    res.json({ flag: true });
-                } else {
-                    res.json({ flag: false });
+                else if(selection == 'admin')
+                {
+                    const result = await pool.query(`SELECT * FROM ADMIN WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
+                    console.log(result);
+                    if (result.rows.length !== 0) {
+                        res.json({ flag: true });
+                    } else {
+                        res.json({ flag: false });
+                    }
                 }
             } catch (err) {
                 console.error(`PostgreSQL Error: ${err.message}`);
