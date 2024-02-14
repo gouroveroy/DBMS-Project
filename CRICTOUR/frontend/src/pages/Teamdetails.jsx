@@ -12,7 +12,7 @@ function Teamdetails() {
             .then(response => response.json())
             .then(data => setTeamDetail(data))
             .catch(error => console.error(error));
-    }, []);
+    }, [team_id]); // Include team_id in the dependency array
 
     if (!teamDetail) {
         return <div>Loading...</div>;

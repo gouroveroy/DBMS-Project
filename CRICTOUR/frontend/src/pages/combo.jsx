@@ -5,7 +5,7 @@ import '../assets/CSS/login.css';
 import Login from './Login';
 
 function Combo() {
-  const [ selection, setSelection ] = useState(''); // State to manage login selection [user, admin]
+  const [selection, setSelection] = useState(''); // State to manage login selection [user, admin]
   const [userLoginVisible, setUserLoginVisible] = useState(false);
   const [adminLoginVisible, setAdminLoginVisible] = useState(false);
 
@@ -29,28 +29,10 @@ function Combo() {
       </div>
 
       <div className={`login-section ${userLoginVisible ? 'visible' : ''}`}>
-        {/* <h2>User Login</h2> */}
-        {/* User login form */}
-        {/* <form>
-          <label>Email:</label>
-          <input type="email" />
-          <label>Password:</label>
-          <input type="password" />
-          <button>Login</button>
-        </form> */}
         <Login selection='user'></Login>
       </div>
 
       <div className={`login-section ${adminLoginVisible ? 'visible' : ''}`}>
-        {/* <h2>Admin Login</h2> */}
-        {/* Admin login form */}
-        {/* <form>
-          <label>Email:</label>
-          <input type="email" />
-          <label>Password:</label>
-          <input type="password" />
-          <button>Login</button>
-        </form> */}
         <Login selection='admin'></Login>
       </div>
     </div>

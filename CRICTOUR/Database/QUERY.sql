@@ -96,7 +96,7 @@ P.MATCHES MATCHES,
                 ON (P.TEAM_ID = T.TEAM_ID);
 
 
-
+SELECT * FROM PERSON;
 
 
 

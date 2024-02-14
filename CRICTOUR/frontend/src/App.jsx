@@ -15,6 +15,8 @@ import Player from './pages/Player';
 import Teams from './pages/Teams';
 import Combo from './pages/Combo';
 import Teamdetails from './pages/Teamdetails';
+import Tournaments from './pages/Tournaments';
+import Playerdetails from './pages/Playerdetails';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -33,9 +35,11 @@ export default function App() {
         <Route path="/rank" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
         <Route path="/player" element={<Player></Player>} />
+        <Route path='/player/:player_id' element={<Playerdetails></Playerdetails>} />
         <Route path="/teams" element={<Teams></Teams>} />
         <Route path="/teams/:team_id" element={<Teamdetails></Teamdetails>} />
         <Route path='/combo' element={<Combo></Combo>} />
+        <Route path='/tournaments' element={<Tournaments></Tournaments>} />
       </Route>
     )
   );

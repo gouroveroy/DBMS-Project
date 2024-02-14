@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import '../assets/CSS/player.css';
+
 function Player() {
     const [players, setPlayers] = useState([]);
 
@@ -12,33 +14,23 @@ function Player() {
             .catch(error => console.error(error));
     }, []);
 
-    console.log(players);
-
     return (
-        <div>
+        <div className='container'>
             <center>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Player Image</th>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th>Player Type</th>
-                            <th>Age</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {players.map((player, index) => (
-                            <tr key={index}>
-                                <td><img src={player.country} alt='Player' style={{ maxWidth: "100px" }}></img></td>
-                                <td>{player.full_name}</td>
-                                <td>{player.team}</td>
-                                <td>{player.type}</td>
-                                <td>{player.age}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <h2>Players</h2>
+                <div className="player-container">
+                    {players.map(player => (
+                        <div key={player.player_id} className="player-box">
+                            <img src={player.photoUrl} alt={player.full_name} />
+                            <p>{player.full_name}</p>
+                            <div className="playerProfile">
+                                <Link to={`/players/${player.player_id}`} className='profileButton'>
+                                    <button className='profileButton'>Player Profile</button>
+                                </Link>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </center>
         </div>
     );
