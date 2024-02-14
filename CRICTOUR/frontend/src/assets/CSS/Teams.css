@@ -12,23 +12,21 @@ body {
 }
 
 .team-container {
-  display        : flex;
-  flex-wrap      : wrap;
-  flex-direction : row;
-  /* Align items along the x-axis */
-  justify-content: center;
-}
-
-.team-box {
-  width           : 227px;
-  height          : 300px;
-  margin          : 25px;
-  /* Adjust the margin */
-  padding         : 20px;
-  background-color: #f2f2f2;
-  border-radius   : 10px;
-  text-align      : center;
-  background-color: rgb(5 4 98);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; /* Align items along the x-axis */
+    justify-content: center;
+  }
+  
+  .team-box {
+    width: 227px;
+    height: 300px;
+    margin: 25px; /* Adjust the margin */
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(5 4 98);
 }
 
 /* Add a media query to change the margin when the screen size is smaller */
