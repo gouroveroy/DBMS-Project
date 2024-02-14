@@ -10,7 +10,7 @@ function Header() {
                         <Link style={linkStyle} to="/home">Home</Link>
                     </li>
                     <li style={liStyle}>
-                        <Link style={linkStyle} to="/tournament">Tournaments</Link>
+                        <Link style={linkStyle} to="/tournaments">Tournaments</Link>
                     </li>
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/player">Players</Link>

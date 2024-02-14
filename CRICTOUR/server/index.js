@@ -202,7 +202,7 @@ async function run() {
                 SELECT* FROM TEAM;
                 `;
                 const result = await pool.query(sql);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             }
             catch (error) {
@@ -239,6 +239,7 @@ async function run() {
             try {
                 const sql = `
                 SELECT
+                    P.PERSONID AS PERSON_ID,
                     P.IMAGE,
                     (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
                     T.TEAM_NAME AS TEAM,
@@ -249,6 +250,29 @@ async function run() {
                 LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID;
                 `;
                 const result = await pool.query(sql);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        app.get("/player/:player_id", async (req, res) => {
+            try {
+                const sql = `
+                SELECT
+                    P.IMAGE,
+                    (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                    T.TEAM_NAME AS TEAM,
+                    PL.TYPE,
+                    EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
+                FROM PLAYER PL
+                JOIN PERSON P ON PL.PLAYERID = P.PERSONID
+                LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID
+                WHERE PL.PLAYERID = $1;
+                `;
+                const result = await pool.query(sql, [req.params.player_id]);
+                console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -275,6 +299,20 @@ async function run() {
         //         res.status(500).json({ error: "Internal Server Error" });
         //     }
         // });
+
+        app.get("/tournaments" , async (req, res) => {
+            try {
+                const sql = `
+                SELECT * FROM TOURNAMENT;
+                `;
+                const result = await pool.query(sql);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
 
     } finally {
         // console.log("Shutting down server");
