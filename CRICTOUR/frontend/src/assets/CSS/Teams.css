@@ -17,16 +17,40 @@ body{
     justify-content: center;
   }
   
-  .team-box {
+  /* .team-box {
     width: 227px;
     height: 300px;
     margin: 25px; /* Adjust the margin */
-    padding: 20px;
+   /* padding: 20px;
     background-color: #f2f2f2;
     border-radius: 10px;
     text-align: center;
     background-color: rgb(5 4 98);
+    box-shadow: black 0px 0px 10px;
+} */
+
+.team-box {
+  width: 227px;
+  height: 300px;
+  margin: 25px; /* Adjust the margin */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(5 4 98);
+  box-shadow: black 0px 0px 10px;
+  animation: pulse 2s infinite alternate; /* Use the pulse animation */
 }
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(1.05);
+  }
+}
+
 
 /* Add a media query to change the margin when the screen size is smaller */
 @media screen and (max-width: 992px) {

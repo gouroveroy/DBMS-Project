@@ -4,29 +4,33 @@ import { useParams } from 'react-router-dom';
 
 function Teamddetails() {
     const { team_id } = useParams();
-    const [teamDetail, setTeamDetail] = useState([]);
+    const [teamDetailS, setTeamDetailS] = useState([]);
+    const [captain_name, setCaptaninName] = useState('');
 
     useEffect(() => {
         // Fetch data for the specific team from the backend
         fetch(`http://localhost:8000/teams/${team_id}`)
             .then(response => response.json())
-            .then(data => setTeamDetail(data))
+            .then(data => setTeamDetailS(data))
             .catch(error => console.error(error));
+            teamDetailS.map(team => {
+                setCaptaninName(team.captain_name);
+            });
     }, []);
 
-    if (!teamDetail) {
+    if (!teamDetailS) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className='container'>
+        <div className='containers'>
             <h1>Team Details</h1>
             <div className="team-detail">
-               {teamDetail.map(team => (
+               {teamDetailS.map(team => (
                     <div  key={team.team_id} className="team-box">
                         <img src={team.photoUrl} alt={team.team_name} />
                         <p onClick={(e) => handleTeamSelect(e, team.team_id)}>{team.team_name}</p>
-                        <p>{team.team_id}</p>
+                        <p>{captain_name}</p>
                     </div>
                 ))}
             </div>
