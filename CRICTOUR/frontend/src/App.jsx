@@ -4,18 +4,17 @@
 // import "./App.css";
 
 import { RouterProvider } from 'react-router-dom';
-
 import { Route, createBrowserRouter, createRoutesFromElements, Outlet } from 'react-router-dom';
+
 import Home from './pages/Home';
-import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Admin from './pages/Admin';
 import Umpire from './pages/Umpire';
 import Coach from './pages/Coach';
 import Player from './pages/Player';
 import Teams from './pages/Teams';
-import Teamddetails from './pages/Teamdetails';
-
+import Combo from './pages/Combo';
+import Teamdetails from './pages/Teamdetails';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -27,7 +26,7 @@ export default function App() {
       <Route path="/" element={<Root></Root>}>
         <Route index element={<Home></Home>} />
         <Route path='/home' element={<Home></Home>} />
-        <Route path="/login" element={<Login></Login>} />
+        <Route path="/login" element={<Combo></Combo>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
         <Route path="/admin" element={<Admin></Admin>} />
         <Route path="/umpire" element={<Umpire></Umpire>} />
@@ -35,7 +34,8 @@ export default function App() {
         <Route path="/coach" element={<Coach></Coach>} />
         <Route path="/player" element={<Player></Player>} />
         <Route path="/teams" element={<Teams></Teams>} />
-        <Route path="/teams/:team_id" element={<Teamddetails></Teamddetails>} />
+        <Route path="/teams/:team_id" element={<Teamdetails></Teamdetails>} />
+        <Route path='/combo' element={<Combo></Combo>} />
       </Route>
     )
   );
@@ -47,7 +47,7 @@ export default function App() {
   );
 }
 
-const Root = () => {
+function Root() {
   return (
     <>
       <div>

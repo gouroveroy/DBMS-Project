@@ -7,9 +7,6 @@ function Header() {
             <nav style={navStyle}>
                 <ul style={ulStyle}>
                     <li style={liStyle}>
-                        <Link style={linkStyle} to="/login">Admin</Link>
-                    </li>
-                    <li style={liStyle}>
                         <Link style={linkStyle} to="/home">Home</Link>
                     </li>
                     <li style={liStyle}>
