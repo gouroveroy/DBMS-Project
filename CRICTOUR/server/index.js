@@ -218,12 +218,12 @@ async function run() {
                 console.log("get team");
                 console.log(req.params.team_id);
                 const sql =`
-                select t.*,p1.first_name||' '||p1.last_name as captain_name,pl.playerid,pl.type,p.first_name||' '||p.last_name as "player_name",p.image,p2.first_name||' '||p2.last_name as coach_name,p2.nationality,p2.image
+                select t.*,p1.first_name||' '||p1.last_name as captain_name,p1.image as captain_image,pl.playerid,pl.type,p.first_name||' '||p.last_name as "player_name",p.image as player_image,p2.first_name||' '||p2.last_name as coach_name,p2.nationality,p2.image as coach_image
                 from team t join player pl on pl.team_id=t.team_id
                 join person p on pl.playerid=p.personid
                 join person p1 on p1.personid=t.captain_id
                 join person p2 on t.coach_id=p2.personid
-                where t.team_id=$1;
+                 where t.team_id=$1;
                 `;
                 const result = await pool.query(sql,[req.params.team_id]);
                 console.log(result.rows);
