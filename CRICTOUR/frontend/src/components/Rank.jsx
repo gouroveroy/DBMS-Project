@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Rank = () => {
+function Rank() {
     const [teams, setTeams] = useState([]);
 
     useEffect(() => {
@@ -43,6 +43,6 @@ const Rank = () => {
             </center>
         </div>
     );
-};
+}
 
 export default Rank;
