@@ -17,44 +17,38 @@ body {
     flex-direction: row; /* Align items along the x-axis */
     justify-content: center;
   }
-  
-  .team-box {
-    width: 227px;
-    height: 300px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
-    background-color: rgb(5 4 98);
+
+.team-box {
+  width: 227px;
+  height: 300px;
+  margin: 25px; /* Adjust the margin */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(5 4 98);
+  box-shadow: black 0px 0px 10px;
+   /* Use the pulse animation */
 }
 
-/* Add a media query to change the margin when the screen size is smaller */
-@media screen and (max-width: 992px) {
-  .team-box {
-    margin: 10px 5px;
-    /* Adjust the margin for smaller screens */
+  .team-box>p{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
   }
-}
-
-.team-box>p {
-  font-weight: bold;
-  color      : rgb(255, 255, 255);
-}
-
-.team-name {
-  font-size    : 18px;
-  font-weight  : bold;
-  margin-bottom: 10px;
-}
-
-.team-flag {
-  width        : 100px;
-  height       : 100px;
-  margin       : 0 auto;
-  border-radius: 50%;
-  object-fit   : cover;
-}
+  
+  .team-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .team-flag {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
 .profileButton {
 

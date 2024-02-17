@@ -1,0 +1,109 @@
+.team-basic-info
+{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; /* Align items along the x-axis */
+    justify-content: space-between;
+    border-bottom: 4px solid black;
+    border-radius: 15px;
+}
+
+.captain-name{
+  width: 227px;
+  height: 300px;
+  margin: 25px 0; /* Adjust the margin */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(5 4 98);
+  box-shadow: black 0px 0px 10px;
+}
+
+.coach-name
+{
+  width: 227px;
+  height: 300px;
+  margin: 25px 0; /* Adjust the margin */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(5 4 98);
+  box-shadow: black 0px 0px 10px;
+}
+
+p{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.td-team-box
+{
+    position: relative;
+    width: 290px;
+    height: 350px;
+    margin: 25px 0; /* Adjust the margin */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(5 4 98);
+    box-shadow: black 0px 0px 10px;
+}
+
+.spacer-text {
+    position: absolute;
+    top: 0;
+    left: calc(24% - 50px);
+    width: 288px;
+    font-weight: bold;
+    margin-top: 73px;
+    height: 180px;
+}
+
+.captain{
+    position: absolute;
+    margin-top: 245px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.player-info
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; /* Align items along the x-axis */
+    justify-content: center;
+    border-bottom: 4px solid black;
+    border-radius: 8px;
+}
+
+h1{
+    text-decoration: underline;
+    /* text-shadow: rgb(5 4 98) 2px 2px 2px; */
+    color: solid red;
+}
+
+.player-infto-team-box
+{
+  width: 227px;
+  height: 300px;
+  margin: 25px; /* Adjust the margin */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(5 4 98);
+  box-shadow: black 0px 0px 10px;
+}
+
+.player-infto-team-box img
+{
+    width: 121%;
+    height: 100%;
+    display: block;
+    margin-top: -18px;
+    border-radius: 10px;
+    margin-left: -20px;
+}
+
