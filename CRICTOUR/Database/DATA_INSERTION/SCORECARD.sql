@@ -74,3 +74,5 @@ FROM (
 WHERE
     BALL_PLAYED <= RUN_SCORED + 10 AND
     TOTAL_SIXES_HIT * 6 + TOTAL_FOURS_HIT * 4 <= RUN_SCORED;
+
+-- entering data for Nidahas Trophy
