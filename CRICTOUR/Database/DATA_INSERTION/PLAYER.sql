@@ -303,3 +303,39 @@ VALUES (79, 'ALL-ROUNDER', 79110);
 
 INSERT INTO PLAYER (TEAM_ID, TYPE, PLAYERID)
 VALUES (79, 'BOWLER', 79111);
+
+-- inserting player of srilanka team by sadrul
+
+INSERT INTO PLAYER (TEAM_ID, TYPE, PLAYERID)
+VALUES 
+    (80, 'BATSMAN', 80101), -- Danushka Gunathilaka
+    (80, 'BATSMAN', 80102), -- Dimuth Karunaratne
+    (80, 'BATSMAN', 80103), -- Angelo Mathews
+    (80, 'BATSMAN', 80104), -- Kusal Perera
+    (80, 'BATSMAN', 80105), -- Dinesh Chandimal
+    (80, 'BATSMAN', 80106), -- Niroshan Dickwella
+    (80, 'ALLROUNDER', 80107), -- Dasun Shanaka
+    (80, 'BATSMAN', 80108), -- Pathum Nissanka
+    (80, 'ALLROUNDER', 80109), -- Wanindu Hasaranga
+    (80, 'BOWLER', 80110), -- Lahiru Kumara
+    (80, 'BOWLER', 80111); -- Dushmantha Chameera
+
+-- THERE WAS A SPELLING MISTAKE AND SO I UPDATED THE RIGHT ONE  
+UPDATE PLAYER
+SET TYPE = 'ALL-ROUNDER'
+WHERE TEAM_ID = 80 AND TYPE = 'ALLROUNDER';
+
+
+-- Inserting players FOR ZIMBAB81
+INSERT INTO PLAYER (TEAM_ID, TYPE, PLAYERID)
+VALUES 
+    (81, 'BATSMAN', 81101),  -- Brendan Taylor
+    (81, 'ALL-ROUNDER', 81102),  -- Sean Williams
+    (81, 'BATSMAN', 81103),  -- Craig Ervine
+    (81, 'ALL-ROUNDER', 81104),  -- Sikandar Raza
+    (81, 'BATSMAN', 81105),  -- Hamilton Masakadza
+    (81, 'ALL-ROUNDER', 81106),  -- Elton Chigumbura
+    (81, 'BOWLER', 81107),  -- Tendai Chatara
+    (81, 'BOWLER', 81108),  -- Kyle Jarvis
+    (81, 'BOWLER', 81109),  -- Blessing Muzarabani
+    (81, 'ALL-ROUNDER', 81110);  -- Wesley Madhevere

@@ -3,27 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../assets/CSS/TeamDetails.css';
 
-// function bufferToBase64(buffer) {
-//     const bytes = new Uint8Array(buffer);
-//     let binary = '';
-//     for (let i = 0; i < bytes.byteLength; i++) {
-//         binary += String.fromCharCode(bytes[i]);
-//     }
-//     return window.btoa(binary);
-// }
-
-
-function bufferToBase64(buffer) {
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-    bytes.forEach(byte => {
-        binary += String.fromCharCode(byte);
-    });
-    return btoa(binary);
-}
-
-
-
 
 function Teamdetails() {
     const { team_id } = useParams();
@@ -41,7 +20,8 @@ function Teamdetails() {
         fetch(`http://localhost:8000/teams/${team_id}`)
             .then(response => response.json())
             .then(data => {
-                setTeamDetailS(data)
+                setTeamDetailS(data);
+                console.log(data);
                 if(data.length>0)
                 {
                     setCaptaninName(data[0].captain_name);
@@ -60,6 +40,28 @@ function Teamdetails() {
         return <div>Loading...</div>;
     }
 
+    const decodeBase64ToUrl = (base64String) => {
+        const binaryString = atob(base64String);
+        const byteArray = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            byteArray[i] = binaryString.charCodeAt(i);
+        }
+        const blob = new Blob([byteArray], { type: 'image/jpg' });
+        return URL.createObjectURL(blob);
+    };
+
+    const base64ToUrl = (base64String) => {
+        return `data:image/jpeg;base64,${base64String}`;
+    };
+
+    const base64String = "ZnJvbnRlbmQvc3JjL2Fzc2V0cy9pbWFnZXMvMTExLkpQRw==";
+    const url = decodeBase64ToUrl(base64String);
+
+    console.log(url);
+
+    const url2 = base64ToUrl(base64String);
+    console.log(url2);
+
     return (
         <div className='TeamDetails-Container'>
             <h1>{team_name}</h1>
@@ -67,7 +69,7 @@ function Teamdetails() {
                 <div className="td-team-box">
                     <p>{team_name}</p>
                 </div>
-                <div class="spacer-text">
+                <div className="spacer-text">
                     <p>ODI Ranking: </p>
                     <p>TEST Ranking: </p>
                     <p>T20 Ranking: </p>
@@ -75,7 +77,6 @@ function Teamdetails() {
                 </div>
                 <div className="captain-name">
                     <p>{captain_name}</p>
-                    
                 </div>
                 <div className="coach-name">
                     <p>{coach_name}</p>
@@ -84,12 +85,11 @@ function Teamdetails() {
             <h1>BATSMAN</h1>
             <div className="player-info">
             {teamDetailS.map(team => (
-                    <div  key={team.team_id}>
+                    <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BATSMAN' &&
                             <div className="player-infto-team-box">
-                                {/* <img src="" alt={team.player_name} /> */}
-                                <img src={`data:image/jpg;base64, ${bufferToBase64(team.player_image)}`} alt={team.player_name} />
                                 <p>{team.player_name}</p>
+                                <img src={decodeBase64ToUrl(team.player_image)} alt="Player" />
                             </div>
                         }
                     </div>
@@ -98,10 +98,11 @@ function Teamdetails() {
             <h1>ALL-ROUNDER</h1>
             <div className="player-info">
             {teamDetailS.map(team => (
-                    <div  key={team.team_id}>
+                    <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'ALL-ROUNDER' &&
                             <div className="team-box">
                                 <p>{team.player_name}</p>
+                                <img src={base64ToUrl(team.player_image)} alt="Player" />
                             </div>
                         }
                     </div>
@@ -110,7 +111,7 @@ function Teamdetails() {
             <h1>BOWLER</h1>
             <div className="player-info">
             {teamDetailS.map(team => (
-                    <div  key={team.team_id}>
+                    <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BOWLER' &&
                             <div className="team-box">
                                 <p>{team.player_name}</p>

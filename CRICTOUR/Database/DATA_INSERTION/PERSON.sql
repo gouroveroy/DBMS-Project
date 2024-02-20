@@ -370,3 +370,48 @@ VALUES (78001, 'LANCE', 'KLUSENER', 'SOUTH AFRICA', TO_DATE('1971-09-04', 'YYYY-
 -- WEST INDIES COACH
 INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
 VALUES (79001, 'PHIL', 'SIMMONS', 'WEST INDIES', TO_DATE('1963-04-18', 'YYYY-MM-DD'), NULL);
+
+-- SRILANKA TEAM'S PERSON INSERT
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES (80101,'DANUSHKA','GUNATHILAKA','SRILANKA', TO_DATE('1995-04-18','YYYY-MM-DD'),NULL);
+
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES 
+    (80102, 'Dimuth', 'Karunaratne', 'Sri Lanka', TO_DATE('1988-04-21', 'YYYY-MM-DD'), NULL),
+    (80103, 'Angelo', 'Mathews', 'Sri Lanka', TO_DATE('1987-06-02', 'YYYY-MM-DD'), NULL),
+    (80104, 'Kusal', 'Perera', 'Sri Lanka', TO_DATE('1990-08-17', 'YYYY-MM-DD'), NULL),
+    (80105, 'Dinesh', 'Chandimal', 'Sri Lanka', TO_DATE('1989-11-18', 'YYYY-MM-DD'), NULL),
+    (80106, 'Niroshan', 'Dickwella', 'Sri Lanka', TO_DATE('1993-06-23', 'YYYY-MM-DD'), NULL);
+
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES 
+    (80107, 'Dasun', 'Shanaka', 'Sri Lanka', TO_DATE('1991-09-09', 'YYYY-MM-DD'), NULL),
+    (80108, 'Pathum', 'Nissanka', 'Sri Lanka', TO_DATE('1999-07-25', 'YYYY-MM-DD'), NULL),
+    (80109, 'Wanindu', 'Hasaranga', 'Sri Lanka', TO_DATE('1997-07-29', 'YYYY-MM-DD'), NULL),
+    (80110, 'Lahiru', 'Kumara', 'Sri Lanka', TO_DATE('1997-02-05', 'YYYY-MM-DD'), NULL),
+    (80111, 'Dushmantha', 'Chameera', 'Sri Lanka', TO_DATE('1992-01-11', 'YYYY-MM-DD'), NULL);
+
+-- insert srilanka's coach
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES 
+    (80001, 'Mickey', 'Arthur', 'Sri Lanka', TO_DATE('1968-05-17', 'YYYY-MM-DD'), NULL);
+
+
+
+-- Inserting players for team zimbabwe
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES 
+    (81101, 'Brendan', 'Taylor', 'Zimbabwe', TO_DATE('1986-02-06', 'YYYY-MM-DD'), NULL),
+    (81102, 'Sean', 'Williams', 'Zimbabwe', TO_DATE('1986-09-26', 'YYYY-MM-DD'), NULL),
+    (81103, 'Craig', 'Ervine', 'Zimbabwe', TO_DATE('1985-08-19', 'YYYY-MM-DD'), NULL),
+    (81104, 'Sikandar', 'Raza', 'Zimbabwe', TO_DATE('1986-04-24', 'YYYY-MM-DD'), NULL),
+    (81105, 'Hamilton', 'Masakadza', 'Zimbabwe', TO_DATE('1983-08-09', 'YYYY-MM-DD'), NULL),
+    (81106, 'Elton', 'Chigumbura', 'Zimbabwe', TO_DATE('1986-03-14', 'YYYY-MM-DD'), NULL),
+    (81107, 'Tendai', 'Chatara', 'Zimbabwe', TO_DATE('1990-02-28', 'YYYY-MM-DD'), NULL),
+    (81108, 'Kyle', 'Jarvis', 'Zimbabwe', TO_DATE('1989-01-16', 'YYYY-MM-DD'), NULL),
+    (81109, 'Blessing', 'Muzarabani', 'Zimbabwe', TO_DATE('1996-08-02', 'YYYY-MM-DD'), NULL),
+    (81110, 'Wesley', 'Madhevere', 'Zimbabwe', TO_DATE('2001-12-17', 'YYYY-MM-DD'), NULL);
+
+-- Inserting coach for zimbabwe
+INSERT INTO PERSON (PERSONID, FIRST_NAME, LAST_NAME, NATIONALITY, DATE_OF_BIRTH, IMAGE)
+VALUES (81001, 'Lalchand', 'Rajput', 'India', TO_DATE('1961-12-18', 'YYYY-MM-DD'), NULL);

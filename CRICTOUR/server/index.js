@@ -213,23 +213,57 @@ async function run() {
 
 
         //get a team
-        app.get("/teams/:team_id", async (req, res,) => {
+        // app.get("/teams/:team_id", async (req, res,) => {
+        //     try {
+        //         console.log("get team");
+        //         console.log(req.params.team_id);
+        //         const sql =`
+        //         select t.*,p1.first_name||' '||p1.last_name as captain_name,p1.image as captain_image,pl.playerid,pl.type,p.first_name||' '||p.last_name as "player_name",p.image as player_image,p2.first_name||' '||p2.last_name as coach_name,p2.nationality,p2.image as coach_image
+        //         from team t join player pl on pl.team_id=t.team_id
+        //         join person p on pl.playerid=p.personid
+        //         join person p1 on p1.personid=t.captain_id
+        //         join person p2 on t.coach_id=p2.personid
+        //          where t.team_id=$1;
+        //         `;
+        //         const result = await pool.query(sql,[req.params.team_id]);
+        //         console.log(result.rows);
+        //         res.json(result.rows);
+        //     }
+        //     catch (error) {
+        //         console.error(`PostgreSQL Error: ${error.message}`);
+        //         res.status(500).json({ error: 'Internal Server Error' });
+        //     }
+        // });
+
+        app.get("/teams/:team_id", async (req, res) => {
             try {
                 console.log("get team");
                 console.log(req.params.team_id);
                 const sql =`
-                select t.*,p1.first_name||' '||p1.last_name as captain_name,p1.image as captain_image,pl.playerid,pl.type,p.first_name||' '||p.last_name as "player_name",p.image as player_image,p2.first_name||' '||p2.last_name as coach_name,p2.nationality,p2.image as coach_image
-                from team t join player pl on pl.team_id=t.team_id
-                join person p on pl.playerid=p.personid
-                join person p1 on p1.personid=t.captain_id
-                join person p2 on t.coach_id=p2.personid
-                 where t.team_id=$1;
+                    SELECT 
+                        t.*,
+                        p1.first_name || ' ' || p1.last_name AS captain_name,
+                        encode(p1.image, 'base64') AS captain_image,
+                        pl.playerid,
+                        pl.type,
+                        p.first_name || ' ' || p.last_name AS "player_name",
+                        encode(p.image, 'base64') AS player_image,
+                        p2.first_name || ' ' || p2.last_name AS coach_name,
+                        p2.nationality,
+                        encode(p2.image, 'base64') AS coach_image
+                    FROM 
+                        team t 
+                        JOIN player pl ON pl.team_id = t.team_id
+                        JOIN person p ON pl.playerid = p.personid
+                        JOIN person p1 ON p1.personid = t.captain_id
+                        JOIN person p2 ON t.coach_id = p2.personid
+                    WHERE 
+                        t.team_id = $1;
                 `;
-                const result = await pool.query(sql,[req.params.team_id]);
+                const result = await pool.query(sql, [req.params.team_id]);
                 console.log(result.rows);
                 res.json(result.rows);
-            }
-            catch (error) {
+            } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: 'Internal Server Error' });
             }
