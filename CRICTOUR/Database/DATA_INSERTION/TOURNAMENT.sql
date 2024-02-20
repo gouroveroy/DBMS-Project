@@ -5,3 +5,6 @@ VALUES
     ('Cricket World Cup 2019', 'England', 75, 130, 500, 2, '2019-05-30', '2019-07-14'),
     ('Cricket World Cup 2015', 'Australia', 74, 110, 420, 1, '2015-02-14', '2015-03-29')
     ;
+
+INSERT INTO TOURNAMENT (TOURNAMENT_NAME, HOST, WINNER_TEAM_ID, NO_OF_SIXES, NO_OF_FOURS, NO_OF_HAT_TRICKS, START_DATE, END_DATE)
+VALUES ('Nidahas Trophy','Srilanka','71','130','200','5','2018-03-06','2018-03-18');
