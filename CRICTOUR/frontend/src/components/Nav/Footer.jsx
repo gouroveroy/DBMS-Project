@@ -14,16 +14,18 @@ function Footer() {
                 <div className="sb_footer_section_padding">
                     <div className="sb_footer-links">
                         <div className="sb_footer-links_div">
-                            <h4>For Business</h4>
-                            <Link to="/employer">
-                                <p>Employee</p>
-                            </Link>
-                            <Link to="/healthPlan">
-                                <p>Health Plan</p>
-                            </Link>
-                            <Link to="/individual">
-                                <p>Individual</p>
-                            </Link>
+                            <h4>Contact Us</h4>
+                            <div className="socialmedia">
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                                    <p><img src={fb} alt="" />Facebook</p>
+                                </a>
+                                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                                    <p><img src={tw} alt="" />Twitter</p>
+                                </a>
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                                    <p><img src={ig} alt="" />Instagram</p>
+                                </a>
+                            </div>
                         </div>
                         <div className="sb_footer-links_div">
                             <h4>Company</h4>
@@ -64,9 +66,9 @@ function Footer() {
                         <div className="sb_footer-links_div">
                             <h4>Follow Us</h4>
                             <div className="socialmedia">
-                                <Link to="/facebook">
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                                     <p><img src={fb} alt="" />Facebook</p>
-                                </Link>
+                                </a>
                                 <Link to="/twitter">
                                     <p><img src={tw} alt="" />Twitter</p>
                                 </Link>
