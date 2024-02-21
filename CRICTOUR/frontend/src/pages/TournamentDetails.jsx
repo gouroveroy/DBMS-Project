@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../assets/CSS/TournamentDetails.css';
 
 function formatDate(dateString) {
@@ -12,6 +13,7 @@ function formatDate(dateString) {
 
 function TournamentDetails() {
     const { tournament_id } = useParams();
+    const [tournamentId, setTournament_id] = useState('');
     const [tournamentData, setTournamentData] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => {
@@ -22,7 +24,12 @@ function TournamentDetails() {
         // Fetch data from the backend
         fetch(`http://localhost:8000/tournaments/${tournament_id}`)
             .then(response => response.json())
-            .then(data => setTournamentData(data))
+            .then(data => {
+                setTournamentData(data);
+                if (data.length > 0) {
+                    setTournament_id(data[0].tournament_id);
+                }
+            })
             .catch(error => console.log(error));
     }, []);
 
@@ -35,7 +42,7 @@ function TournamentDetails() {
                 <div style={{ ...sidebarStyle, display: isOpen ? 'block' : 'none' }}>
                     <ul style={ulStyle}>
                         <li style={liStyle}>
-                            <Link style={linkStyle} to="/tournament/matches">Matches</Link>
+                            <Link to={`/tournaments/${tournamentId}/matches`}>Matches</Link>
                         </li>
                         <li style={liStyle}>
                             <Link style={linkStyle} to="/tournament/awards">Awards</Link>
@@ -45,7 +52,7 @@ function TournamentDetails() {
             </div>
             {/* Tournament details */}
             {tournamentData ? (
-                <div>
+                <div className='tournamentContainer'>
                     {tournamentData.map((tournament) => (
                         <div key={tournament.tournament_id} >
                             <div className='tournamentBox'>
