@@ -57,8 +57,7 @@ async function run() {
             try {
                 console.log("Received login request:", { email, password });
 
-                if(selection == 'user')
-                {
+                if (selection == 'user') {
                     const result = await pool.query(`SELECT * FROM USERS WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
@@ -68,8 +67,7 @@ async function run() {
                     }
                 }
 
-                else if(selection == 'admin')
-                {
+                else if (selection == 'admin') {
                     const result = await pool.query(`SELECT * FROM ADMIN WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
@@ -239,7 +237,7 @@ async function run() {
             try {
                 console.log("get team");
                 console.log(req.params.team_id);
-                const sql =`
+                const sql = `
                     SELECT 
                         t.*,
                         p1.first_name || ' ' || p1.last_name AS captain_name,
@@ -334,12 +332,30 @@ async function run() {
         //     }
         // });
 
-        app.get("/tournaments" , async (req, res) => {
+        app.get("/tournaments", async (req, res) => {
             try {
                 const sql = `
                 SELECT * FROM TOURNAMENT;
                 `;
                 const result = await pool.query(sql);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        // retrieve tournament details
+
+        app.get("/tournaments/:tournament_id", async (req, res) => {
+            try {
+                const sql = `
+                select t.*, tm.team_name,tm.team_id
+                from tournament t join team tm on t.winner_team_id=tm.team_id
+                where t.tournament_id = $1;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
                 console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
