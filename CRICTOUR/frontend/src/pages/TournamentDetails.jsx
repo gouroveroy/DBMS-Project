@@ -13,6 +13,10 @@ function formatDate(dateString) {
 function TournamentDetails() {
     const { tournament_id } = useParams();
     const [tournamentData, setTournamentData] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
         // Fetch data from the backend
@@ -26,6 +30,19 @@ function TournamentDetails() {
 
     return (
         <div>
+            <div>
+                <button onClick={toggleSidebar}>≡</button>
+                <div style={{ ...sidebarStyle, display: isOpen ? 'block' : 'none' }}>
+                    <ul style={ulStyle}>
+                        <li style={liStyle}>
+                            <Link style={linkStyle} to="/tournament/matches">Matches</Link>
+                        </li>
+                        <li style={liStyle}>
+                            <Link style={linkStyle} to="/tournament/awards">Awards</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             {/* Tournament details */}
             {tournamentData ? (
                 <div>
@@ -75,4 +92,27 @@ function TournamentDetails() {
     );
 }
 
+const sidebarStyle = {
+    width: '250px',
+    height: '100%',
+    backgroundColor: '#333',
+    color: '#fff',
+    padding: '20px',
+};
+
+const ulStyle = {
+    listStyleType: 'none',
+    padding: '0',
+};
+
+const liStyle = {
+    marginBottom: '10px',
+};
+
+const linkStyle = {
+    color: '#fff',
+    textDecoration: 'none',
+};
+
 export default TournamentDetails;
+
