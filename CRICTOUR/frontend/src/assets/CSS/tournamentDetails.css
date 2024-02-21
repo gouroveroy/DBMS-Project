@@ -101,7 +101,7 @@
     box-shadow: black 0px 0px 10px;
 }
 
-p{
+.tournamentContainer>p{
     font-weight: bold;
     color: rgb(8, 36, 161);
     font-size: 20px;
