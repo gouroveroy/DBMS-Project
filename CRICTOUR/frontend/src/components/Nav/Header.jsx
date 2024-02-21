@@ -19,7 +19,7 @@ function Header() {
                         <Link style={linkStyle} to="/teams">Teams</Link>
                     </li>
                     <li style={liStyle}>
-                        <Link style={linkStyle} to="/match">Matches</Link>
+                        <Link style={linkStyle} to="/match">Rankings</Link>
                     </li>
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/login">Login</Link>

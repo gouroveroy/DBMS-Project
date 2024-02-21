@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import '../assets/CSS/tournaments.css'
 function Tournaments() {
@@ -19,6 +20,11 @@ function Tournaments() {
                 {tournaments.map(tournament => (
                     <div key={tournament.tournament_id} className='tournament-box'>
                         <p>{tournament.tournament_name}</p>
+                        <div className="tournamentProfile">
+                            <Link to={`/tournaments/${tournament.tournament_id}`} className='profileButton'>
+                                <button className='profileButton'>Tournament Profile</button>
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>
