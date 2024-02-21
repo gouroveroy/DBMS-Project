@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router-dom';
 import { Route, createBrowserRouter, createRoutesFromElements, Outlet } from 'react-router-dom';
 
 import Home from './pages/Home';
+import Main from './pages/Main';
 import SignUp from './pages/SignUp';
 import Admin from './pages/Admin';
 import Umpire from './pages/Umpire';
@@ -20,6 +21,7 @@ import Playerdetails from './pages/Playerdetails';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
+import Footer from './components/Nav/Footer';
 
 
 export default function App() {
@@ -27,6 +29,7 @@ export default function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root></Root>}>
         <Route index element={<Home></Home>} />
+        <Route path='/main' element={<Main></Main>} />
         <Route path='/home' element={<Home></Home>} />
         <Route path="/login" element={<Combo></Combo>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
@@ -57,6 +60,7 @@ function Root() {
       <div>
         <Header></Header>
         <Outlet></Outlet>
+        <Footer></Footer>
       </div>
     </>
   )

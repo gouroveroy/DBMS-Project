@@ -31,6 +31,6 @@ VALUES   (10, 'KENSINGTON OVAL', 28000, 'BRIDGETOWN, BARBADOS');
 
 INSERT INTO VENUE (VENUE_ID, VENUE_NAME, CAPACITY, LOCATION)
 VALUES 
-    (11, 'R. Premadasa Stadium', 35000, 'Colombo, Sri Lanka'),
-    (12, 'Pallekele International Cricket Stadium', 35000, 'Kandy, Sri Lanka'),
-    (13, 'Rangiri Dambulla International Stadium', 30000, 'Dambulla, Sri Lanka');
+    (11, 'R. PREMADASA STADIUM', 35000, 'COLOMBO, SRI LANKA'),
+    (12, 'PALLEKELE INTERNATIONAL CRICKET STADIUM', 35000, 'KANDY, SRI LANKA'),
+    (13, 'RANGIRI DAMBULLA INTERNATIONAL STADIUM', 30000, 'DAMBULLA, SRI LANKA');

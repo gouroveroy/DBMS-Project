@@ -62,6 +62,6 @@ const linkStyle = {
     fontSize: '1.2rem', // Increase font size
 };
 
+document.body.style.height = '0vh';
 
 export default Header;
-
