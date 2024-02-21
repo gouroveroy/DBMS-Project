@@ -61,9 +61,9 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM USERS WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ flag: true });
+                        res.json({ message: "user" });
                     } else {
-                        res.json({ flag: false });
+                        res.json({ message: "error" });
                     }
                 }
 
@@ -71,9 +71,9 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM ADMIN WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ flag: true });
+                        res.json({ message: "admin" });
                     } else {
-                        res.json({ flag: false });
+                        res.json({ message: "error" });
                     }
                 }
             } catch (err) {
@@ -331,6 +331,25 @@ async function run() {
         //         res.status(500).json({ error: "Internal Server Error" });
         //     }
         // });
+
+        app.post("/addTournament", async (req, res) => {
+            const { tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate } = req.body.seriesInfo;
+            try {
+                console.log("Received tournament details:", { tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate });
+
+                await pool.query(`
+                INSERT INTO TOURNAMENT (TOURNAMENT_ID, TOURNAMENT_NAME, HOST, WINNER_TEAM_ID, NO_OF_SIXES, NO_OF_FOURS, NO_OF_HAT_TRICKS, START_DATE, END_DATE)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, TO_DATE($8, 'YYYY-MM-DD'), TO_DATE($9, 'YYYY-MM-DD'))`,
+                    [tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate]
+                );
+
+                // Optionally, you can send a success response back to the client
+                res.status(201).json({ message: "Tournament added successfully" });
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
 
         app.get("/tournaments", async (req, res) => {
             try {

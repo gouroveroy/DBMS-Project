@@ -1,113 +1,83 @@
-import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import "./../assets/CSS/main.css";
+import React, { useState } from 'react';
+import AddSeries from './AddSeries';
+import DeleteSeries from './DeleteSeries';
 
-// import BackgroundImage from "../../assets/images/background.png";
-// import Logo from "../../assets/images/logo.png";
-import vite from "../../public/vite.svg";
-import react from "./../assets/react.svg";
+import '../assets/CSS/combo.css';
+import '../assets/CSS/login.css';
 
-function Main() {
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+export default function Main() {
+  const [addSeriesVisible, setAddSeriesVisible] = useState(false);
+  const [deleteSeriesVisible, setDeleteSeriesVisible] = useState(false);
 
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const showAddSeries = () => {
+    setAddSeriesVisible(true);
+    setDeleteSeriesVisible(false);
+  }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    await delay(500);
-    console.log(`Username :${inputUsername}, Password :${inputPassword}`);
-    if (inputUsername !== "admin" || inputPassword !== "admin") {
-      setShow(true);
-    }
-    setLoading(false);
-  };
-
-  const handlePassword = () => {};
-
-  function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  const showDeleteSeries = () => {
+    setDeleteSeriesVisible(true);
+    setAddSeriesVisible(false);
   }
 
   return (
-    <div
-      className="sign-in__wrapper"
-      style={{ backgroundImage: `url(${vite})` }}
-    >
-      {/* Overlay */}
-      <div className="sign-in__backdrop"></div>
-      {/* Form */}
-      <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
-        {/* Header */}
-        <img
-          className="img-thumbnail mx-auto d-block mb-2"
-          src={react}
-          alt="logo"
-        />
-        <div className="h4 mb-2 text-center">Sign In</div>
-        {/* ALert */}
-        {show ? (
-          <Alert
-            className="mb-2"
-            variant="danger"
-            onClose={() => setShow(false)}
-            dismissible
-          >
-            Incorrect username or password.
-          </Alert>
-        ) : (
-          <div />
-        )}
-        <Form.Group className="mb-2" controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            value={inputUsername}
-            placeholder="Username"
-            onChange={(e) => setInputUsername(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={inputPassword}
-            placeholder="Password"
-            onChange={(e) => setInputPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="checkbox">
-          <Form.Check type="checkbox" label="Remember me" />
-        </Form.Group>
-        {!loading ? (
-          <Button className="w-100" variant="primary" type="submit">
-            Log In
-          </Button>
-        ) : (
-          <Button className="w-100" variant="primary" type="submit" disabled>
-            Logging In...
-          </Button>
-        )}
-        <div className="d-grid justify-content-end">
-          <Button
-            className="text-muted px-0"
-            variant="link"
-            onClick={handlePassword}
-          >
-            Forgot password?
-          </Button>
+    <div style={container}>
+      <center>
+        <div className="btn-group container scs">
+          <button className="btn btn-primary active" onClick={() => showAddSeries()} style={box}>
+            <div style={adminStyle}>
+              Add Series
+            </div>
+          </button>
+          <button className="btn btn-primary active" onClick={() => showDeleteSeries()} style={box}>
+            <div style={adminStyle}>
+              Delete Series
+            </div>
+          </button>
         </div>
-      </Form>
-      {/* Footer */}
-      <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-        Made by Hendrik C | &copy;2022
+      </center>
+      <div className={`login-section ${addSeriesVisible ? 'visible' : ''}`}>
+        <AddSeries></AddSeries>
+      </div>
+      <div className={`login-section ${deleteSeriesVisible ? 'visible' : ''}`}>
+        <DeleteSeries></DeleteSeries>
       </div>
     </div>
   );
 }
 
-export default Main;
+const adminStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '20vh',
+  flexWrap: 'wrap',
+  flexDirection: 'row',
+};
+
+const container = {
+  margin: '20px',
+  width: '30%',
+}
+
+const box = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  flexDirection: 'row',
+  backgroundColor: 'rgb(5 4 98)',
+  backgroundImage: 'linear-gradient(10deg, indigo, transparent)',
+  borderRadius: '10px',
+  boxShadow: '0 0 5px 0px #000',
+  margin: '10px',
+  padding: '10px',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  color: 'black',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  textDecoration: 'none',
+  border: 'none',
+};

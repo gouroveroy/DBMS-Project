@@ -116,8 +116,10 @@ function Login(props) {
             setPassword(inputPassword);
             const response = await axios.post('http://localhost:8000/login', { email, password, selection });
 
-            if (response.data.flag) {
+            if (response.data.message === 'admin') {
                 window.location.href = '/admin';
+            } else if (response.data.message === 'user') {
+                window.location.href = '/home';
             } else {
                 setShow(true);
             }
