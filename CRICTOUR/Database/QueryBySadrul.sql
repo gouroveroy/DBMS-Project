@@ -37,16 +37,44 @@ from match
 where match_id=21;
 
 
--- scorecard for a tournament
+-- scorecard(batting data) for a tournament
 select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
-where s.match_id=21 and s.run_scored is not null and s.team_id=80
-;
+where s.match_id=21 and s.run_scored is not null and s.team_id=80;
+
 
 select* 
 from player;
+
+-- Bowling data for match
+select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+from scorecard s
+join person p on s.player_id = p.personid
+join team t on s.team_id=t.team_id
+where s.match_id=21 and s.overs_bowled is not null and s.team_id=80;
+
+select* from admin;
+
+select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name,
+from scorecard s
+join person p on s.player_id = p.personid;
+join team t on s.team_id=t.team_id
+where s.match_id=21 and s.run_scored is not null and s.team_id=80
+;
+
+select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,t.team_name as winner_name,v.venue_name, v.venue_id,v.location,p.first_name||' '||p.last_name as motm_name
+from match m
+join venue v on m.venue_id=v.venue_id
+join person p on m.man_of_the_match=p.personid
+join team t on t.team_id=m.winner
+where match_id=21
+;
+
+
+
+
 
 
 

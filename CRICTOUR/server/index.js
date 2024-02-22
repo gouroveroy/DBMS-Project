@@ -448,8 +448,26 @@ async function run() {
                 where s.match_id=$1 and s.run_scored is not null and s.team_id=$2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team_id]);
-                console.log(result.rows);
-                res.json(result.rows);
+                const battingData = result.rows;
+
+                const sql2 = `
+                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,v.location,p.first_name||' '||p.last_name as motm_name
+                from match m
+                join venue v on m.venue_id=v.venue_id
+                join person p on m.man_of_the_match=p.personid
+                join team t on m.winner=t.team_id
+                join tournament tr on m.tournament_id=tr.tournament_id
+                where match_id=$1;
+                `;
+                const matchResult = await pool.query(sql2, [req.params.match_id]);
+                const matchData = matchResult.rows;
+
+                const combinedData = {
+                    battingData,
+                    matchData
+                };
+                console.log(combinedData);
+                res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
@@ -464,11 +482,28 @@ async function run() {
                 from scorecard s
                 join person p on s.player_id = p.personid
                 join team t on s.team_id=t.team_id
-                where s.match_id=$1 and s.run_conceded is not null and s.team_id=$2;
+                where s.match_id=$1 and s.overs_bowled is not null and s.team_id=$2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team_id]);
-                console.log(result.rows);
-                res.json(result.rows);
+                const bowlingData = result.rows;
+                const sql2 = `
+                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,v.location,p.first_name||' '||p.last_name as motm_name
+                from match m
+                join venue v on m.venue_id=v.venue_id
+                join person p on m.man_of_the_match=p.personid
+                join team t on m.winner=t.team_id
+                join tournament tr on m.tournament_id=tr.tournament_id
+                where match_id=$1;
+                `;
+                const matchResult = await pool.query(sql2, [req.params.match_id]);
+                const matchData = matchResult.rows;
+
+                const combinedData = {
+                    bowlingData,
+                    matchData
+                };
+                console.log(combinedData);
+                res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
