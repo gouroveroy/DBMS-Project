@@ -337,10 +337,23 @@ async function run() {
             try {
                 console.log("Received tournament details:", { tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate });
 
+                // Convert empty strings to null
+                const normalizedData = {
+                    tournamentId,
+                    tournamentName,
+                    host,
+                    winnerTeam,
+                    numberOfSixes: numberOfSixes === '' ? null : numberOfSixes,
+                    numberOfFours: numberOfFours === '' ? null : numberOfFours,
+                    numberOfHatTricks: numberOfHatTricks === '' ? null : numberOfHatTricks,
+                    startDate,
+                    endDate
+                };
+
                 await pool.query(`
                 INSERT INTO TOURNAMENT (TOURNAMENT_ID, TOURNAMENT_NAME, HOST, WINNER_TEAM_ID, NO_OF_SIXES, NO_OF_FOURS, NO_OF_HAT_TRICKS, START_DATE, END_DATE)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, TO_DATE($8, 'YYYY-MM-DD'), TO_DATE($9, 'YYYY-MM-DD'))`,
-                    [tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate]
+                    [normalizedData.tournamentId, normalizedData.tournamentName, normalizedData.host, normalizedData.winnerTeam, normalizedData.numberOfSixes, normalizedData.numberOfFours, normalizedData.numberOfHatTricks, normalizedData.startDate, normalizedData.endDate]
                 );
 
                 // Optionally, you can send a success response back to the client

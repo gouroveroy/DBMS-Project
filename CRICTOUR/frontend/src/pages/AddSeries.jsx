@@ -39,6 +39,16 @@ function AddSeries() {
     // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Check if numberOfSixes, numberOfFours, and numberOfHatTricks are empty
+        const { numberOfSixes, numberOfFours, numberOfHatTricks, ...formData } = seriesInfo;
+        const dataToSend = {
+            ...formData,
+            numberOfSixes: numberOfSixes || null,
+            numberOfFours: numberOfFours || null,
+            numberOfHatTricks: numberOfHatTricks || null
+        };
+
+        console.log(dataToSend);
         // You can handle form submission here, for example, send data to server
         console.log(seriesInfo);
         setLoading(true);
@@ -46,7 +56,6 @@ function AddSeries() {
         try {
             const response = await axios.post('http://localhost:8000/addTournament', { seriesInfo });
             if (response.data.message === 'Tournament added successfully') {
-                setShow(false);
                 alert('Series added successfully');
             } else {
                 setShow(true);
@@ -151,7 +160,7 @@ function AddSeries() {
                         value={seriesInfo.numberOfSixes}
                         placeholder="sixes"
                         onChange={handleInputChange}
-                        required
+                    // required
                     />
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="username">
@@ -162,7 +171,7 @@ function AddSeries() {
                         value={seriesInfo.numberOfFours}
                         placeholder="fours"
                         onChange={handleInputChange}
-                        required
+                    // required
                     />
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="username">
@@ -173,7 +182,7 @@ function AddSeries() {
                         value={seriesInfo.numberOfHatTricks}
                         placeholder="hat-tricks"
                         onChange={handleInputChange}
-                        required
+                    // required
                     />
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="username">
