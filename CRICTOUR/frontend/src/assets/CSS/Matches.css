@@ -1,3 +1,8 @@
+.match-container{
+   padding-left:35px ;
+   padding-right: 35px;
+}
+
 .match-box{
     display: flex;
     flex-wrap: wrap;
@@ -87,4 +92,21 @@ span{
     color: white;
     font-weight: bold;
 }
+
+.tournament-name-id {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    margin: 10px auto;
+    width: 40%;
+    border: 2px solid #000;
+    flex-flow: column;
+}
+
+.tournament-name-id span {
+   font-size: 50px;
+   height: 80px;
+}
+
+
 

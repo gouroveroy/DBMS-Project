@@ -19,19 +19,34 @@ function getFirstThreeLetters(str) {
 function Matches() {
   const { tournament_id } = useParams();
   const [matches, setMatches] = useState([]);
+  const [tournamentName, setTournamentName] = useState('');
+  const [hostName, setHostName] = useState('');
+
 
   useEffect(() => {
     // Fetch the tournament data from the backend
     fetch(`http://localhost:8000/tournaments/${tournament_id}/matches`)
       .then(response => response.json())
-      .then(data => setMatches(data))
+      .then(data => {
+        setMatches(data);
+        if(data.length > 0) {
+          setTournamentName(data[0].tournament_name);
+          setHostName(data[0].host);
+        }
+      })
       .catch(error => console.error(error));
   }, []);
 
   return (
     <div>
-      <h1>Matches</h1>
-      <h1>{tournament_id}</h1>
+      <div className="tournament-name-id">
+        <span>
+          {tournamentName ? tournamentName : 'Tournament Name'}
+        </span>
+        <span>
+          {hostName ? hostName : 'Host Name'}
+        </span>
+      </div>
       {matches ? (
         <div className='match-container'>
           {matches.map(match => (
@@ -39,7 +54,7 @@ function Matches() {
               <div className="match-info">
                 <div className="date-card">
                   <span>
-                    {formatDate(match.match_date)} &nbsp;&nbsp;&nbsp; {getFirstThreeLetters(match.team1_name)} vs {getFirstThreeLetters(match.team2_name)}
+                    {getFirstThreeLetters(match.team1_name)} vs {getFirstThreeLetters(match.team2_name)}
                   </span>
                 </div>
                 <div className="venue-name">
