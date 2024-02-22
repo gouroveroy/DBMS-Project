@@ -364,6 +364,38 @@ async function run() {
             }
         });
 
+        app.post('/deleteTournament', async (req, res) => {
+            const { tournamentId } = req.body;
+            try {
+                console.log("Received request to delete tournament:", { tournamentId });
+
+                // Capture PostgreSQL notices
+                let notices = [];
+                await pool.query(`
+                    DELETE FROM TOURNAMENT
+                    WHERE TOURNAMENT_ID = $1
+                `, [tournamentId], (err, result) => {
+                    if (err) {
+                        console.error(`PostgreSQL Error: ${err.message}`);
+                        res.status(500).send("Internal Server Error");
+                        return;
+                    }
+                    notices = result.notices; // Capture PostgreSQL notices
+                });
+
+                if (notices.length > 0) {
+                    // If there are notices, send them along with the response
+                    res.status(200).json({ message: notices });
+                } else {
+                    // If no notices, send the success message only
+                    res.status(200).json({ message: "Tournament deleted successfully" });
+                }
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
         app.get("/tournaments", async (req, res) => {
             try {
                 const sql = `

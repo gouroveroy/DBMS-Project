@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import '../assets/CSS/combo.css';
 import '../assets/CSS/login.css';
-import Login from './Login';
+import Login from '../components/Login';
 
 function Combo() {
   const [selection, setSelection] = useState(''); // State to manage login selection [user, admin]
