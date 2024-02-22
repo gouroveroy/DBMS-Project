@@ -17,7 +17,7 @@ VALUES ('gouroveroy71@gmail.com', '12345');
 
 
 SELECT *
-FROM ADMIN;
+FROM USERS;
 
 SELECT * FROM UMPIRE;
 
