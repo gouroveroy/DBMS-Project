@@ -42,7 +42,7 @@ function TournamentDetails() {
                 <div style={{ ...sidebarStyle, display: isOpen ? 'block' : 'none' }}>
                     <ul style={ulStyle}>
                         <li style={liStyle}>
-                            <Link to={`/tournaments/${tournamentId}/matches`}>Matches</Link>
+                            <Link to={`/tournaments/${tournament_id}/matches`}>Matches</Link>
                         </li>
                         <li style={liStyle}>
                             <Link style={linkStyle} to="/tournament/awards">Awards</Link>

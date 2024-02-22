@@ -432,7 +432,7 @@ async function run() {
         app.get("/tournaments/:tournament_id/matches", async (req, res) => {
             try {
                 const sql = `
-                select m.*,pr.first_name ||' '||pr.last_name as motm_name, t1.team_name as winner_team_name, t2.team_name as team1_name, t3.team_name as team2_name,v.venue_name,v.location,t.tournament_name
+                select m.*,pr.first_name ||' '||pr.last_name as motm_name, t1.team_name as winner_team_name, t2.team_name as team1_name, t3.team_name as team2_name,v.venue_name,v.location,t.tournament_name,t.host
                  from match m
                  join player p on m.man_of_the_match=p.playerid
                  join person pr on p.playerid=pr.personid
@@ -445,6 +445,60 @@ async function run() {
                  order by m.match_date;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //retreive both team_id for a match
+        app.get("/matches/:match_id/teams", async (req, res) => {
+            try {
+                const sql = `
+                select team1_id,team2_id from match where match_id=$1;
+                `;
+                const result = await pool.query(sql, [req.params.match_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        // retreive data of batting-scorecard for a match
+        app.get("/matches/:match_id/scorecard/batting/:team_id", async (req, res) => {
+            try {
+                console.log(req.params.team_id);
+                const sql = `
+                select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+                from scorecard s
+                join person p on s.player_id = p.personid
+                join team t on s.team_id=t.team_id
+                where s.match_id=$1 and s.run_scored is not null and s.team_id=$2;
+                `;
+                const result = await pool.query(sql, [req.params.match_id, req.params.team_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //retreive bowling data for a match
+        app.get("/matches/:match_id/scorecard/bowling/:team_id", async (req, res) => {
+            try {
+                const sql = `
+                select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+                from scorecard s
+                join person p on s.player_id = p.personid
+                join team t on s.team_id=t.team_id
+                where s.match_id=$1 and s.run_conceded is not null and s.team_id=$2;
+                `;
+                const result = await pool.query(sql, [req.params.match_id, req.params.team_id]);
                 console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
