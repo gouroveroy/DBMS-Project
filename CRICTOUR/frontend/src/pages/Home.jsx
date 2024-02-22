@@ -1,5 +1,5 @@
 import React from "react";
-import Img from "./Img";
+import Img from "../components/Img";
 import Rank from "../components/Rank";
 
 export default function Home() {

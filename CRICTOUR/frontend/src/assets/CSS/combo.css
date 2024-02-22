@@ -1,4 +1,5 @@
 .login-container {
+  height        : 175vh;
   display       : flex;
   flex-direction: column;
   align-items   : center;

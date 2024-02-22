@@ -69,7 +69,7 @@ function Root() {
         <Footer></Footer>
       </div>
     </>
-  )
+  );
 }
 
 
