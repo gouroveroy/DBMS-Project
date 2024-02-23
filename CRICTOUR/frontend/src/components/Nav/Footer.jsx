@@ -15,7 +15,7 @@ function Footer() {
                     <div className="sb_footer-links">
                         <div className="sb_footer-links_div">
                             <h4>Contact Us</h4>
-                            <div className="socialmedia">
+                            <div className="socialmedia" style={{textAlign: 'center'}}>
                                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                                     <p><img src={fb} alt="" />Facebook</p>
                                 </a>
@@ -63,7 +63,7 @@ function Footer() {
                                 <p>Security</p>
                             </Link>
                         </div>
-                        <div className="sb_footer-links_div">
+                        {/* <div className="sb_footer-links_div">
                             <h4>Follow Us</h4>
                             <div className="socialmedia">
                                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
@@ -76,7 +76,7 @@ function Footer() {
                                     <p><img src={ig} alt="" />Instagram</p>
                                 </Link>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <hr />
                     <div className="sb_footer-below">
