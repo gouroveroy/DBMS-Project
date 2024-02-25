@@ -28,6 +28,11 @@ function getFirstThreeLetters(str) {
 }
 
 function toggleActive(button) {
+    // var buttons = document.querySelectorAll('.scoreButton');
+    // buttons.forEach(function (btn) {
+    //     btn.classList.remove('active');
+    // });
+    // button.classList.add('active');
     var buttons = document.querySelectorAll('.scoreButton');
     buttons.forEach(function (btn) {
         btn.classList.remove('active');
@@ -179,9 +184,9 @@ function Scorecard() {
 
     console.log(winner_team);
 
-    const [scoreboardVisible, setScoreboardVisible] = useState(false);
+    const [scoreboardVisible, setScoreboardVisible] = useState(true);
     const [statsVisible, setStatsVisible] = useState(false);
-    const [team1InningsVisible, setTeam1Innings] = useState(false);
+    const [team1InningsVisible, setTeam1Innings] = useState(true);
     const [team2InningsVisible, setTeam2Innings] = useState(false);
 
 
@@ -189,7 +194,7 @@ function Scorecard() {
         console.log("Scoreboard button clicked");
         setScoreboardVisible(true);
         setStatsVisible(false);
-        setTeam1Innings(false);
+        setTeam1Innings(true);
         setTeam2Innings(false);
     }
 
@@ -264,14 +269,14 @@ function Scorecard() {
                     <div className="option-button">
                         <ul className='whichTeamScore'>
                             <li className="team1-innings">
-                                <button className="scoreButton" onClick={(event) => { toggleActive(event.target); showTeam1Innings(); }}>
+                                <div className="scoreButton" onClick={(event) => { toggleActive(event.target); showTeam1Innings(); }}>
                                     {getFirstThreeLetters(team1Name)} Innings
-                                </button>
+                                </div>
                             </li>
                             <li className="team2-innings">
-                                <button className="scoreButton" onClick={(event) => { toggleActive(event.target); showTeam2Innings(); }}>
+                                <div className="scoreButton" onClick={(event) => { toggleActive(event.target); showTeam2Innings(); }}>
                                     {getFirstThreeLetters(team2Name)} Innings
-                                </button>
+                                </div>
                             </li>
                         </ul>
                     </div>

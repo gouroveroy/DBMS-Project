@@ -32,9 +32,9 @@ select min(ball_for_half_century)
 	where ball_for_half_century is not null
 );
 
-select team1_id, team2_id
-from match
-where match_id=21;
+selecT*
+from SCORECARD
+where match_id=27;
 
 
 -- scorecard(batting data) for a tournament
@@ -42,18 +42,18 @@ select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
-where s.match_id=21 and s.run_scored is not null and s.team_id=80;
+where s.match_id=27 and s.run_scored is not null and s.team_id=72;
 
 
 select* 
-from player;
+from PERSON;
 
 -- Bowling data for match
 select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
-where s.match_id=21 and s.overs_bowled is not null and s.team_id=80;
+where s.match_id=27 and s.overs_bowled is not null and s.team_id=72;
 
 select* from admin;
 
@@ -80,8 +80,7 @@ select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.tea
                 join person p on m.man_of_the_match=p.personid
                 join team t on m.winner=t.team_id
                 join tournament tr on m.tournament_id=tr.tournament_id
-                where match_id=21;
-
+                where match_id=27;
 
 
 

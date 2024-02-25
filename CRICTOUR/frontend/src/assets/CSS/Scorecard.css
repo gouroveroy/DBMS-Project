@@ -147,6 +147,7 @@ button.scoreButton:hover {
   transition: none;
 }
 
+
 .whichTeamScore {
   overflow: auto;
 }
@@ -158,9 +159,17 @@ button.scoreButton:hover {
 
 .whichTeamScore .scoreButton {
   width: 530px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.whichTeamScore .scoreButton:hover {
+/* .whichTeamScore .scoreButton:active {
+  background-color: #00175F;
+  color: #ffffff;
+} */
+
+.scoreButton.active {
   background-color: #00175F;
   color: #ffffff;
 }
