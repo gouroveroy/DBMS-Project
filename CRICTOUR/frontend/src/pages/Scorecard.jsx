@@ -43,7 +43,7 @@ function toggleActive(button) {
 function calculateEconomy(bowler) {
     const overs = parseFloat(bowler.overs_bowled);
     const runs = parseFloat(bowler.run_given);
-    
+
     if (!isNaN(overs) && !isNaN(runs) && overs !== 0) {
         const economyRate = (runs / overs);
         return economyRate.toFixed(2); // Return the economy rate rounded to 2 decimal places
@@ -55,7 +55,7 @@ function calculateEconomy(bowler) {
 function calculateStrikeRate(batsman) {
     const runs = parseFloat(batsman.run_scored);
     const balls = parseFloat(batsman.ball_played);
-    
+
     if (!isNaN(runs) && !isNaN(balls) && balls !== 0) {
         const strikeRate = (runs / balls) * 100;
         return strikeRate.toFixed(2); // Return the strike rate rounded to 2 decimal places
@@ -285,81 +285,85 @@ function Scorecard() {
             <div>
                 {team1InningsVisible && (
                     <div className="team1-innings-details">
-                        <div className="teamHeadline">
-                            <div className="team1Headline-name">
-                                <span>
-                                    {team1Name}
-                                </span>
+                        <div className='batting-show'>
+                            <div className="teamHeadline">
+                                <div className="team1Headline-name">
+                                    <span>
+                                        {team1Name}
+                                    </span>
+                                </div>
+                                <div className="team1Headline-score">
+                                    <span>
+                                        {team1Score}/{team1Wickets}
+                                    </span>
+                                </div>
                             </div>
-                            <div className="team1Headline-score">
-                                <span>
-                                    {team1Score}/{team1Wickets}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="table-batting-scorecard-show">
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Batsman</th>
-                                        <th>Runs</th>
-                                        <th>Balls</th>
-                                        <th>4s</th>
-                                        <th>6s</th>
-                                        <th>Strike rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {battingData1.map(batsman =>
-                                        <tr key={batsman.player_id}>
-                                            <td>{batsman.player_name}</td>
-                                            <td>{batsman.run_scored}</td>
-                                            <td>{batsman.ball_played}</td>
-                                            <td>{batsman.total_fours_hit}</td>
-                                            <td>{batsman.total_sixes_hit}</td>
-                                            <td>{calculateStrikeRate(batsman)}</td>
+                            <div className="table-batting-scorecard-show">
+                                <table className="table-table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Batsman</th>
+                                            <th>Runs</th>
+                                            <th>Balls</th>
+                                            <th>4s</th>
+                                            <th>6s</th>
+                                            <th>Strike rate</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="teamHeadline">
-                            <div className="team1Headline-name">
-                                <span>
-                                    {team2Name}
-                                </span>
+                                    </thead>
+                                    <tbody>
+                                        {battingData1.map(batsman =>
+                                            <tr key={batsman.player_id}>
+                                                <td>{batsman.player_name}</td>
+                                                <td>{batsman.run_scored}</td>
+                                                <td>{batsman.ball_played}</td>
+                                                <td>{batsman.total_fours_hit}</td>
+                                                <td>{batsman.total_sixes_hit}</td>
+                                                <td>{calculateStrikeRate(batsman)}</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div>
-                                <span>
-                                    Bowling
-                                </span>
-                            </div>
                         </div>
-                        <div className="table-bowling-data-show">
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Bowler</th>
-                                        <th>Overs</th>
-                                        <th>Run Given</th>
-                                        <th>Maiden Overs</th>
-                                        <th>Wickets</th>
-                                        <th>Economy rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {bowlingData2.map(bowler =>
-                                        <tr key={bowler.player_id}>
-                                            <td>{bowler.player_name}</td>
-                                            <td>{bowler.overs_bowled}</td>
-                                            <td>{bowler.run_given}</td>
-                                            <td>{bowler.maiden_overs}</td>
-                                            <td>{bowler.wicket_taken}</td>
-                                            <td>{calculateEconomy(bowler)}</td>
+                        <div className='bowling-show'>
+                            <div className="teamHeadline">
+                                <div className="team1Headline-name">
+                                    <span>
+                                        {team2Name}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        Bowling
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="table-bowling-data-show">
+                                <table className="table-table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Bowler</th>
+                                            <th>Overs</th>
+                                            <th>Run Given</th>
+                                            <th>Maiden Overs</th>
+                                            <th>Wickets</th>
+                                            <th>Economy rate</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {bowlingData2.map(bowler =>
+                                            <tr key={bowler.player_id}>
+                                                <td>{bowler.player_name}</td>
+                                                <td>{bowler.overs_bowled}</td>
+                                                <td>{bowler.run_given}</td>
+                                                <td>{bowler.maiden_overs}</td>
+                                                <td>{bowler.wicket_taken}</td>
+                                                <td>{calculateEconomy(bowler)}</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -367,81 +371,85 @@ function Scorecard() {
             <div>
                 {team2InningsVisible && (
                     <div className="team1-innings-details">
-                        <div className="teamHeadline">
-                            <div className="team1Headline-name">
-                                <span>
-                                    {team2Name}
-                                </span>
+                        <div className="batting-show">
+                            <div className="teamHeadline">
+                                <div className="team1Headline-name">
+                                    <span>
+                                        {team2Name}
+                                    </span>
+                                </div>
+                                <div className="team1Headline-score">
+                                    <span>
+                                        {team2Score}/{team2Wickets}
+                                    </span>
+                                </div>
                             </div>
-                            <div className="team1Headline-score">
-                                <span>
-                                    {team2Score}/{team2Wickets}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="table-batting-scorecard-show">
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Batsman</th>
-                                        <th>Runs</th>
-                                        <th>Balls</th>
-                                        <th>4s</th>
-                                        <th>6s</th>
-                                        <th>Strike rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {battingData2.map(batsman =>
-                                        <tr key={batsman.player_id}>
-                                            <td>{batsman.player_name}</td>
-                                            <td>{batsman.run_scored}</td>
-                                            <td>{batsman.ball_played}</td>
-                                            <td>{batsman.total_fours_hit}</td>
-                                            <td>{batsman.total_sixes_hit}</td>
-                                            <td>{calculateStrikeRate(batsman)}</td>
+                            <div className="table-batting-scorecard-show">
+                                <table className="table-table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Batsman</th>
+                                            <th>Run Scored</th>
+                                            <th>Ball Played</th>
+                                            <th>4s</th>
+                                            <th>6s</th>
+                                            <th>Strike rate</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="teamHeadline">
-                            <div className="team1Headline-name">
-                                <span>
-                                    {team1Name}
-                                </span>
+                                    </thead>
+                                    <tbody>
+                                        {battingData2.map(batsman =>
+                                            <tr key={batsman.player_id}>
+                                                <td>{batsman.player_name}</td>
+                                                <td>{batsman.run_scored}</td>
+                                                <td>{batsman.ball_played}</td>
+                                                <td>{batsman.total_fours_hit}</td>
+                                                <td>{batsman.total_sixes_hit}</td>
+                                                <td>{calculateStrikeRate(batsman)}</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div>
-                                <span>
-                                    Bowling
-                                </span>
-                            </div>
                         </div>
-                        <div className="table-bowling-data-show">
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Bowler</th>
-                                        <th>Overs</th>
-                                        <th>Run Given</th>
-                                        <th>Maiden Overs</th>
-                                        <th>Wickets</th>
-                                        <th>Economy rate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {bowlingData1.map(bowler =>
-                                        <tr key={bowler.player_id}>
-                                            <td>{bowler.player_name}</td>
-                                            <td>{bowler.overs_bowled}</td>
-                                            <td>{bowler.run_given}</td>
-                                            <td>{bowler.maiden_overs}</td>
-                                            <td>{bowler.wicket_taken}</td>
-                                            <td>{calculateEconomy(bowler)}</td>
+                        <div className='bowling-show'>
+                            <div className="teamHeadline">
+                                <div className="team1Headline-name">
+                                    <span>
+                                        {team1Name}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                        Bowling
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="table-bowling-data-show">
+                                <table className="table-table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Bowler</th>
+                                            <th>Overs</th>
+                                            <th>Run Given</th>
+                                            <th>Maiden Overs</th>
+                                            <th>Wickets</th>
+                                            <th>Economy rate</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {bowlingData1.map(bowler =>
+                                            <tr key={bowler.player_id}>
+                                                <td>{bowler.player_name}</td>
+                                                <td>{bowler.overs_bowled}</td>
+                                                <td>{bowler.run_given}</td>
+                                                <td>{bowler.maiden_overs}</td>
+                                                <td>{bowler.wicket_taken}</td>
+                                                <td>{calculateEconomy(bowler)}</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 )}
