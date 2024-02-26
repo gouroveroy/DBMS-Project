@@ -12,7 +12,7 @@ function Footer() {
         <footer>
             <div className="footer">
                 <div className="sb_footer_section_padding">
-                    <div className="sb_footer-links">
+                    <div className="sb_footer-links" style={linkStyle}>
                         <div className="sb_footer-links_div">
                             <h4>Contact Us</h4>
                             <div className="socialmedia" style={{textAlign: 'center'}}>
