@@ -271,6 +271,7 @@ button.scoreButton:hover {
 
 .table-table-bordered th{
   font-weight: bolder;
+  font-size: 21px;
 }
 
 /* Borders around table */

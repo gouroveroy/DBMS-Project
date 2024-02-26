@@ -542,6 +542,21 @@ async function run() {
             }
         });
 
+        // retreive the best batsman of both the team for a particular match
+        app.get("/matches/:match_id/bestBatsman/:team1_id/:team2_id", async (req, res) => {
+            try {
+                const sql = `
+                
+                `;
+                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id,req.params.team2_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();

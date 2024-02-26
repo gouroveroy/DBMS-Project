@@ -53,13 +53,14 @@ select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
-where s.match_id=27 and s.overs_bowled is not null and s.team_id=72;
+where s.match_id=27 and s.overs_bowled is not null and s.team_id=72
+;
 
 select* from admin;
 
-select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name,
+select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
-join person p on s.player_id = p.personid;
+join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
 where s.match_id=21 and s.run_scored is not null and s.team_id=80
 ;
@@ -83,12 +84,169 @@ select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.tea
                 where match_id=27;
 
 
+-- counting total given extras
+select sum(given_extras)
+from scorecard
+where team_id=72 and match_id=21 and overs_bowled is not null
+group by team_id;
+
+-- finding the best bowler of a team of a match
+SELECT 
+    PLAYER_ID,
+	p.first_name||' '|| p.last_name as player_name,
+    RUN_GIVEN,
+    WICKET_TAKEN,
+    OVERS_BOWLED,
+    RUN_GIVEN / OVERS_BOWLED AS ECONOMY_RATE
+FROM 
+    SCORECARD s
+	join person p on s.player_id=p.personid
+WHERE 
+    MATCH_ID = 21
+    AND TEAM_ID = 72
+    AND OVERS_BOWLED > 0
+ORDER BY 
+    ECONOMY_RATE ASC,
+    WICKET_TAKEN DESC
+;
+
+-- the best batsman of a match for a particular team
+SELECT 
+    PLAYER_ID,
+	p.first_name||' '||p.last_name as player_name,
+    RUN_SCORED AS TOTAL_RUNS_SCORED,
+    BALL_PLAYED AS TOTAL_BALLS_PLAYED,
+    ROUND((RUN_SCORED * 1.0 /BALL_PLAYED)*100,2) AS STRIKE_RATE
+FROM 
+    SCORECARD s
+	join person p on s.player_id=p.personid
+WHERE 
+    MATCH_ID = 21
+    AND TEAM_ID = 72
+    AND RUN_SCORED IS NOT NULL
+ORDER BY 
+    TOTAL_RUNS_SCORED DESC,
+    STRIKE_RATE DESC
+limit 1
+;
+
+
+select* from scorecard;
+
+-- best batsman for both the team
+SELECT 
+    PLAYER_ID,
+	player_name,
+    RUN_SCORED,
+    BALL_PLAYED,
+    STRIKE_RATE
+FROM (
+    SELECT 
+        PLAYER_ID,
+	    p.first_name||' '||p.last_name as player_name,
+        RUN_SCORED,
+        BALL_PLAYED,
+        ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
+    FROM 
+        SCORECARD s
+        JOIN person p ON s.player_id = p.personid
+    WHERE 
+        MATCH_ID = 21
+        AND TEAM_ID = 72
+        AND RUN_SCORED IS NOT NULL
+    ORDER BY 
+        RUN_SCORED DESC,
+        STRIKE_RATE DESC
+    LIMIT 1
+) AS team_72 
+UNION
+SELECT 
+    PLAYER_ID,
+	player_name,
+    RUN_SCORED,
+    BALL_PLAYED,
+    STRIKE_RATE
+FROM (
+    SELECT 
+        PLAYER_ID,
+	    p.first_name||' '||p.last_name as player_name,
+        RUN_SCORED,
+        BALL_PLAYED,
+        ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
+    FROM 
+        SCORECARD s
+        JOIN person p ON s.player_id = p.personid
+    WHERE 
+        MATCH_ID = 21
+        AND TEAM_ID = 80
+        AND RUN_SCORED IS NOT NULL
+    ORDER BY 
+        RUN_SCORED DESC,
+        STRIKE_RATE DESC
+    LIMIT 1
+) AS team_80;
 
 
 
+-- similarly best bowler for the team of a particular match
 
-
-
+SELECT 
+  PLAYER_ID,
+  PLAYER_NAME,
+  RUN_GIVEN,
+  WICKET_TAKEN,
+  OVERS_BOWLED,
+  ECONOMY_RATE
+FROM
+  (
+	SELECT
+        PLAYER_ID,
+	    p.first_name||' '|| p.last_name as player_name,
+        RUN_GIVEN,
+        WICKET_TAKEN,
+        OVERS_BOWLED,
+        ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
+    FROM 
+      SCORECARD s
+	  join person p on s.player_id=p.personid
+    WHERE 
+      MATCH_ID = 21
+      AND TEAM_ID = 72
+      AND OVERS_BOWLED > 0
+    ORDER BY 
+     ECONOMY_RATE ASC,
+     WICKET_TAKEN DESC
+	LIMIT 1
+  ) AS TEAM1
+UNION
+SELECT 
+  PLAYER_ID,
+  PLAYER_NAME,
+  RUN_GIVEN,
+  WICKET_TAKEN,
+  OVERS_BOWLED,
+  ECONOMY_RATE
+FROM
+  (
+	SELECT
+        PLAYER_ID,
+	    p.first_name||' '|| p.last_name as player_name,
+        RUN_GIVEN,
+        WICKET_TAKEN,
+        OVERS_BOWLED,
+        ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
+    FROM 
+      SCORECARD s
+	  join person p on s.player_id=p.personid
+    WHERE 
+      MATCH_ID = 21
+      AND TEAM_ID = 80
+      AND OVERS_BOWLED > 0
+    ORDER BY 
+     ECONOMY_RATE ASC,
+     WICKET_TAKEN DESC
+	LIMIT 1
+  ) AS TEAM2
 
 
 
