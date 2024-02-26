@@ -219,7 +219,7 @@ function AddSeries() {
             </Form>
             {/* Footer */}
             <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-                Add Series Form  | &copy;Bootstrap 2024
+                {/* Add Series Form  | &copy;Bootstrap 2024 */}
             </div>
         </div>
     );

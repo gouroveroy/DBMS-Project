@@ -1,4 +1,4 @@
-.match-basic-container {
+/* .match-basic-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,33 +9,282 @@
   margin: 0;
   background-color: #f5f5f5;
   border: 2px solid #000000;
+  background-image: url('../images/icc-logo2.jpg');
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+/* background-size: cover;Ensure the background image covers the entire container */
+/* background-position: center;Center the background image; */
+/* } */
+
+.match-basic-container {
+  position: relative;
+  /* Ensure relative positioning for the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 650px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #000000;
 }
 
-.sc-team1-name, .sc-team2-name
-{
+.match-basic-container::before {
+  content: "";
+  /* Necessary for the pseudo-element */
+  position: absolute;
+  /* Position the pseudo-element */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0 18 72 / 50%);
+  /* Adjust the RGBA values for the overlay color */
+  z-index: 1;
+  /* Ensure the overlay sits above the background image */
+}
+
+.match-basic-container {
+  background-image: url('../images/icc-logo2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  /* Ensure the background image sits behind the overlay */
+}
+
+
+.match-basic-container span {
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+}
+
+.sc-team1-name,
+.sc-team2-name {
   font-size: 60px;
   font-weight: bold;
   color: #000000;
   margin-bottom: 10px;
 }
 
-.vs{
-    font-size: 40px;
-    font-weight: bold;
-    color: #000000;
-    margin-bottom: 10px;
+.vs {
+  font-size: 40px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10px;
 }
 
-.sc-match-date
-{
+.sc-match-date {
   font-size: 25px;
   font-weight: bold;
   color: #000000;
 }
 
-.sc-venue
-{
+.sc-venue {
   font-size: 25px;
   font-weight: bold;
   color: #000000;
+}
+
+.winner-name span {
+  font-size: 25px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.match-details-contanier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  /* background-color: #f5f5f5;
+  border: 2px solid #000000; */
+}
+
+.option-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  height: auto;
+  padding: 0;
+  margin: 12px;
+  background-color: #f5f5f5;
+  /* border: 2px solid #e80707; */
+  box-shadow: rgb(147 147 147) 0px 0px 10px
+}
+
+.options {
+  overflow: auto;
+}
+
+.option-button li {
+  display: inline-block;
+}
+
+.option-button ul{
+  margin-bottom: 0px;
+}
+
+.scoreButton {
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: none;
+  animation: none;
+  background-color: transparent;
+
+}
+
+button.scoreButton:hover {
+  border-bottom: 7px solid #00175F;
+  animation: none;
+  background-color: transparent;
+  transition: none;
+}
+
+
+.whichTeamScore {
+  overflow: auto;
+}
+
+.team1-innings,
+.team2-innings {
+  display: inline-block;
+}
+
+.whichTeamScore .scoreButton {
+  width: 530px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .whichTeamScore .scoreButton:active {
+  background-color: #00175F;
+  color: #ffffff;
+} */
+
+.scoreButton.active {
+  background-color: #00175F;
+  color: #ffffff;
+}
+
+
+.team1-innings-details{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  height: auto;
+  padding: 0;
+  margin: 0 auto;
+  /* background-color: #ffffff; */
+  /* border: 2px solid #000000;
+  border: 2px solid #00175F; */
+  position: relative;
+}
+
+.teamHeadline {
+  display: flex;
+  justify-content: space-between; 
+  position: relative;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 25px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+  height: auto;
+  background-color: #00175F;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.teamHeadline span {
+  color: #ffffff;
+}
+
+.batting-show, .bowling-show{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  /* border: 2px solid #000000; */
+  margin-bottom: 15px;
+  box-shadow: rgb(147 147 147) 0px 0px 10px
+}
+
+.table-batting-scorecard-show, .table-bowling-data-show{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  /* border: 2px solid #000000; */
+  margin-bottom: 15px;
+  /* box-shadow: rgb(147 147 147) 0px 0px 10px */
+}
+
+
+
+/* CSS code for designing the table */
+/* Table styles */
+.table-table-bordered {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-table-bordered th,
+.table-table-bordered td {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Borders between cells */
+.table-table-bordered td {
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.table-table-bordered th{
+  font-weight: bolder;
+  font-size: 21px;
+}
+
+/* Borders around table */
+.table-table-bordered {
+  /* border: 1px solid #ddd; */
+}
+
+/* Optional: Adjust table heading styles */
+.table-table-bordered th {
+  background-color: #f2f2f2;
+}
+
+/* Optional: Add margin between table and parent container */
+.table-container {
+  margin-top: 20px;
 }

@@ -542,6 +542,142 @@ async function run() {
             }
         });
 
+        // retreive the best batsman of both the team for a particular match
+        app.get("/matches/:match_id/bestBatsman/:team1_id/:team2_id", async (req, res) => {
+            try {
+                const sql = `
+                SELECT 
+                PLAYER_ID,
+                player_name,
+                RUN_SCORED,
+                BALL_PLAYED,
+                STRIKE_RATE
+            FROM (
+                SELECT 
+                    PLAYER_ID,
+                    P.FIRST_NAME||' '||P.LAST_NAME as player_name,
+                    RUN_SCORED,
+                    BALL_PLAYED,
+                    ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
+                FROM 
+                    SCORECARD s
+                    JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                WHERE 
+                    MATCH_ID = $1
+                    AND TEAM_ID = $2
+                    AND RUN_SCORED IS NOT NULL
+                ORDER BY 
+                    RUN_SCORED DESC,
+                    STRIKE_RATE DESC
+                LIMIT 1
+            ) AS TEAM1 
+            UNION
+            SELECT 
+                PLAYER_ID,
+                player_name,
+                RUN_SCORED,
+                BALL_PLAYED,
+                STRIKE_RATE
+            FROM (
+                SELECT 
+                    PLAYER_ID,
+                    P.FIRST_NAME||' '||P.LAST_NAME as player_name,
+                    RUN_SCORED,
+                    BALL_PLAYED,
+                    ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
+                FROM 
+                    SCORECARD s
+                    JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                WHERE 
+                    MATCH_ID = $1
+                    AND TEAM_ID = $3
+                    AND RUN_SCORED IS NOT NULL
+                ORDER BY 
+                    RUN_SCORED DESC,
+                    STRIKE_RATE DESC
+                LIMIT 1
+            ) AS TEAM2;
+                `;
+                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id,req.params.team2_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        // retreive the best bowler of both the team for a particular match
+        app.get("/matches/:match_id/bestBowler/:team1_id/:team2_id", async (req, res) => {
+            try {
+                const sql = `
+                SELECT 
+                PLAYER_ID,
+                PLAYER_NAME,
+                RUN_GIVEN,
+                WICKET_TAKEN,
+                OVERS_BOWLED,
+                ECONOMY_RATE
+              FROM
+                (
+                  SELECT
+                      PLAYER_ID,
+                      P.FIRST_NAME||' '||P.LAST_NAME AS player_name,
+                      RUN_GIVEN,
+                      WICKET_TAKEN,
+                      OVERS_BOWLED,
+                      ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
+                  FROM 
+                    SCORECARD s
+                    JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                  WHERE 
+                    MATCH_ID = $1
+                    AND TEAM_ID = $2
+                    AND OVERS_BOWLED > 0
+                  ORDER BY 
+                  WICKET_TAKEN DESC,
+                  ECONOMY_RATE ASC
+                  LIMIT 1
+                ) AS TEAM1
+              UNION
+              SELECT 
+                PLAYER_ID,
+                PLAYER_NAME,
+                RUN_GIVEN,
+                WICKET_TAKEN,
+                OVERS_BOWLED,
+                ECONOMY_RATE
+              FROM
+                (
+                  SELECT
+                      PLAYER_ID,
+                      P.FIRST_NAME||' '||P.LAST_NAME AS player_name,
+                      RUN_GIVEN,
+                      WICKET_TAKEN,
+                      OVERS_BOWLED,
+                      ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
+                  FROM 
+                    SCORECARD s
+                    JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                  WHERE 
+                    MATCH_ID = $1
+                    AND TEAM_ID = $3
+                    AND OVERS_BOWLED > 0
+                  ORDER BY 
+                  WICKET_TAKEN DESC,
+                  ECONOMY_RATE ASC
+                  LIMIT 1
+                ) AS TEAM2;
+                `;
+                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id,req.params.team2_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();

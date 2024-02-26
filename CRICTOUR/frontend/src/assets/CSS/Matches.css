@@ -72,8 +72,8 @@
     font-weight: bold; /* Make text bold */
     text-transform: uppercase; /* Convert text to uppercase */
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add smooth transition effects */
-    width: 40%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /*Add smooth transition effects*/
+    width: 40%; 
     margin-left: 145px;
     height: 45px;
     color: #000;
