@@ -48,7 +48,7 @@ function Matches() {
         }
       })
       .catch(error => console.error(error));
-  }, []);
+  }, [tournament_id]);
 
   return (
     <div>
