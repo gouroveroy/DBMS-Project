@@ -143,13 +143,13 @@ SELECT
 FROM (
     SELECT 
         PLAYER_ID,
-	    p.first_name||' '||p.last_name as player_name,
+	    P.FIRST_NAME||' '||P.LAST_NAME as player_name,
         RUN_SCORED,
         BALL_PLAYED,
         ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
     FROM 
         SCORECARD s
-        JOIN person p ON s.player_id = p.personid
+        JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
     WHERE 
         MATCH_ID = 21
         AND TEAM_ID = 72
@@ -158,7 +158,7 @@ FROM (
         RUN_SCORED DESC,
         STRIKE_RATE DESC
     LIMIT 1
-) AS team_72 
+) AS TEAM1 
 UNION
 SELECT 
     PLAYER_ID,
@@ -169,13 +169,13 @@ SELECT
 FROM (
     SELECT 
         PLAYER_ID,
-	    p.first_name||' '||p.last_name as player_name,
+	    P.FIRST_NAME||' '||P.LAST_NAME as player_name,
         RUN_SCORED,
         BALL_PLAYED,
         ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
     FROM 
         SCORECARD s
-        JOIN person p ON s.player_id = p.personid
+        JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
     WHERE 
         MATCH_ID = 21
         AND TEAM_ID = 80
@@ -184,7 +184,7 @@ FROM (
         RUN_SCORED DESC,
         STRIKE_RATE DESC
     LIMIT 1
-) AS team_80;
+) AS TEAM2;
 
 
 
@@ -201,14 +201,14 @@ FROM
   (
 	SELECT
         PLAYER_ID,
-	    p.first_name||' '|| p.last_name as player_name,
+	    P.FIRST_NAME||' '||P.LAST_NAME AS player_name,
         RUN_GIVEN,
         WICKET_TAKEN,
         OVERS_BOWLED,
         ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
     FROM 
       SCORECARD s
-	  join person p on s.player_id=p.personid
+	  JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
     WHERE 
       MATCH_ID = 21
       AND TEAM_ID = 72
@@ -230,14 +230,14 @@ FROM
   (
 	SELECT
         PLAYER_ID,
-	    p.first_name||' '|| p.last_name as player_name,
+	    P.FIRST_NAME||' '||P.LAST_NAME AS player_name,
         RUN_GIVEN,
         WICKET_TAKEN,
         OVERS_BOWLED,
         ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
     FROM 
       SCORECARD s
-	  join person p on s.player_id=p.personid
+	  JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
     WHERE 
       MATCH_ID = 21
       AND TEAM_ID = 80

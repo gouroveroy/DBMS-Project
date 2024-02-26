@@ -88,6 +88,8 @@ function Scorecard() {
     const [venue, setVenue] = useState('');
     const [venueID, setVenueID] = useState('');
     const [motmName, setMotmName] = useState('');
+    const [bestBatsman, setBestBatsman] = useState([]);
+    const [bestBowler, setBestBowler] = useState([]);
 
 
     useEffect(() => {
@@ -162,7 +164,7 @@ function Scorecard() {
             .catch(error => console.error(error));
     }, [team2Id]);
 
-    console.log(bowlingData2);
+    // console.log(bowlingData2);
 
     // console.log(matchData.length);
     useEffect(() => {
@@ -181,8 +183,28 @@ function Scorecard() {
             setMotmName(match.motm_name);
         });
     }, [matchData]);
+    // console.log(winner_team);
 
-    console.log(winner_team);
+    useEffect(() => {
+        // Fetch the best batsman from the backend
+        fetch(`http://localhost:8000/matches/${match_id}/bestBatsman/${team1Id}/${team2Id}`)
+            .then(response => response.json())
+            .then(data => setBestBatsman(data))
+            .catch(error => console.error(error));
+    }, [team1Id, team2Id]);
+
+    // console.log(bestBatsman);
+
+    useEffect(() => {
+        // Fetch the best batsman from the backend
+        fetch(`http://localhost:8000/matches/${match_id}/bestBowler/${team1Id}/${team2Id}`)
+            .then(response => response.json())
+            .then(data => setBestBowler(data))
+            .catch(error => console.error(error));
+    }, [team1Id, team2Id]);
+
+    console.log(bestBowler);
+
 
     const [scoreboardVisible, setScoreboardVisible] = useState(true);
     const [statsVisible, setStatsVisible] = useState(false);
