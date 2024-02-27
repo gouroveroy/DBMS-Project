@@ -38,18 +38,18 @@ where match_id=27;
 
 
 -- scorecard(batting data) for a tournament
-select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+select s.*,round((s.run_scored*1.0/s.ball_played)*100,2) as strikerate,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id
-where s.match_id=27 and s.run_scored is not null and s.team_id=72;
+where s.match_id=21 and s.run_scored is not null and s.team_id=72;
 
 
 select* 
 from PERSON;
 
 -- Bowling data for match
-select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+select s.*,round(s.run_given*1.0/s.overs_bowled,2)as economy,p.first_name ||' '||p.last_name as player_name,t.team_name
 from scorecard s
 join person p on s.player_id = p.personid
 join team t on s.team_id=t.team_id

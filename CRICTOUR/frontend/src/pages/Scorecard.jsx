@@ -340,7 +340,8 @@ function Scorecard() {
                                                 <td>{batsman.ball_played}</td>
                                                 <td>{batsman.total_fours_hit}</td>
                                                 <td>{batsman.total_sixes_hit}</td>
-                                                <td>{calculateStrikeRate(batsman)}</td>
+                                                {/* <td>{calculateStrikeRate(batsman)}</td> */}
+                                                <td>{batsman.strikerate}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -380,7 +381,8 @@ function Scorecard() {
                                                 <td>{bowler.run_given}</td>
                                                 <td>{bowler.maiden_overs}</td>
                                                 <td>{bowler.wicket_taken}</td>
-                                                <td>{calculateEconomy(bowler)}</td>
+                                                {/* <td>{calculateEconomy(bowler)}</td> */}
+                                                <td>{bowler.economy}</td>
                                             </tr>
                                         )}
                                     </tbody>

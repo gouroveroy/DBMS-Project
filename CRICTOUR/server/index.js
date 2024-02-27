@@ -473,7 +473,7 @@ async function run() {
             try {
                 console.log(req.params.team_id);
                 const sql = `
-                select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+                select s.*,round((s.run_scored*1.0/s.ball_played)*100,2) as strikerate,p.first_name ||' '||p.last_name as player_name,t.team_name
                 from scorecard s
                 join person p on s.player_id = p.personid
                 join team t on s.team_id=t.team_id
@@ -510,7 +510,7 @@ async function run() {
         app.get("/matches/:match_id/scorecard/bowling/:team_id", async (req, res) => {
             try {
                 const sql = `
-                select s.*,p.first_name ||' '||p.last_name as player_name,t.team_name
+                select s.*,round(s.run_given*1.0/s.overs_bowled,2)as economy,p.first_name ||' '||p.last_name as player_name,t.team_name
                 from scorecard s
                 join person p on s.player_id = p.personid
                 join team t on s.team_id=t.team_id
