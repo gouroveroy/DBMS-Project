@@ -483,13 +483,14 @@ async function run() {
                 const battingData = result.rows;
 
                 const sql2 = `
-                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,v.location,p.first_name||' '||p.last_name as motm_name
+                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,tc.total_sold,v.location,p.first_name||' '||p.last_name as motm_name
                 from match m
                 join venue v on m.venue_id=v.venue_id
                 join person p on m.man_of_the_match=p.personid
                 join team t on m.winner=t.team_id
                 join tournament tr on m.tournament_id=tr.tournament_id
-                where match_id=$1;
+                join ticket tc on m.match_id=tc.match_id
+                where m.match_id=$1;
                 `;
                 const matchResult = await pool.query(sql2, [req.params.match_id]);
                 const matchData = matchResult.rows;
@@ -519,13 +520,14 @@ async function run() {
                 const result = await pool.query(sql, [req.params.match_id, req.params.team_id]);
                 const bowlingData = result.rows;
                 const sql2 = `
-                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,v.location,p.first_name||' '||p.last_name as motm_name
+                select m.team1_run,m.team2_run,m.team1_wicket, m.team2_wicket,m.match_date,t.team_name as winner_name,tr.tournament_name,v.venue_name, v.venue_id,tc.total_sold,v.location,p.first_name||' '||p.last_name as motm_name
                 from match m
                 join venue v on m.venue_id=v.venue_id
                 join person p on m.man_of_the_match=p.personid
                 join team t on m.winner=t.team_id
                 join tournament tr on m.tournament_id=tr.tournament_id
-                where match_id=$1;
+                join ticket tc on m.match_id=tc.match_id
+                where m.match_id=$1;
                 `;
                 const matchResult = await pool.query(sql2, [req.params.match_id]);
                 const matchData = matchResult.rows;
@@ -551,6 +553,9 @@ async function run() {
                 player_name,
                 RUN_SCORED,
                 BALL_PLAYED,
+                TOTAL_SIXES_HIT,
+	            TOTAL_FOURS_HIT,
+                TEAM_NAME,
                 STRIKE_RATE
             FROM (
                 SELECT 
@@ -558,13 +563,18 @@ async function run() {
                     P.FIRST_NAME||' '||P.LAST_NAME as player_name,
                     RUN_SCORED,
                     BALL_PLAYED,
+                    TOTAL_SIXES_HIT,
+	                TOTAL_FOURS_HIT,
+                    T.TEAM_NAME AS TEAM_NAME,
                     ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
                 FROM 
                     SCORECARD s
                     JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                    JOIN PLAYER PL ON S.PLAYER_ID=PL.PLAYERID
+	                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
                 WHERE 
                     MATCH_ID = $1
-                    AND TEAM_ID = $2
+                    AND S.TEAM_ID = $2
                     AND RUN_SCORED IS NOT NULL
                 ORDER BY 
                     RUN_SCORED DESC,
@@ -577,6 +587,9 @@ async function run() {
                 player_name,
                 RUN_SCORED,
                 BALL_PLAYED,
+                TOTAL_SIXES_HIT,
+	            TOTAL_FOURS_HIT,
+                TEAM_NAME,
                 STRIKE_RATE
             FROM (
                 SELECT 
@@ -584,13 +597,18 @@ async function run() {
                     P.FIRST_NAME||' '||P.LAST_NAME as player_name,
                     RUN_SCORED,
                     BALL_PLAYED,
+                    TOTAL_SIXES_HIT,
+	                TOTAL_FOURS_HIT,
+                    T.TEAM_NAME AS TEAM_NAME,
                     ROUND((RUN_SCORED * 1.0 / BALL_PLAYED) * 100, 2) AS STRIKE_RATE
                 FROM 
                     SCORECARD s
                     JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                    JOIN PLAYER PL ON S.PLAYER_ID=PL.PLAYERID
+	                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
                 WHERE 
                     MATCH_ID = $1
-                    AND TEAM_ID = $3
+                    AND S.TEAM_ID = $3
                     AND RUN_SCORED IS NOT NULL
                 ORDER BY 
                     RUN_SCORED DESC,
@@ -598,7 +616,7 @@ async function run() {
                 LIMIT 1
             ) AS TEAM2;
                 `;
-                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id,req.params.team2_id]);
+                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
                 console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
@@ -617,7 +635,8 @@ async function run() {
                 RUN_GIVEN,
                 WICKET_TAKEN,
                 OVERS_BOWLED,
-                ECONOMY_RATE
+                ECONOMY_RATE,
+                TEAM_NAME
               FROM
                 (
                   SELECT
@@ -626,13 +645,16 @@ async function run() {
                       RUN_GIVEN,
                       WICKET_TAKEN,
                       OVERS_BOWLED,
+                      T.TEAM_NAME AS TEAM_NAME,
                       ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
                   FROM 
                     SCORECARD s
                     JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                    JOIN PLAYER PL ON S.PLAYER_ID=PL.PLAYERID
+	                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
                   WHERE 
                     MATCH_ID = $1
-                    AND TEAM_ID = $2
+                    AND S.TEAM_ID = $2
                     AND OVERS_BOWLED > 0
                   ORDER BY 
                   WICKET_TAKEN DESC,
@@ -646,7 +668,8 @@ async function run() {
                 RUN_GIVEN,
                 WICKET_TAKEN,
                 OVERS_BOWLED,
-                ECONOMY_RATE
+                ECONOMY_RATE,
+                TEAM_NAME
               FROM
                 (
                   SELECT
@@ -655,13 +678,16 @@ async function run() {
                       RUN_GIVEN,
                       WICKET_TAKEN,
                       OVERS_BOWLED,
+                      T.TEAM_NAME AS TEAM_NAME,
                       ROUND((RUN_GIVEN*1.0 / OVERS_BOWLED),2) AS ECONOMY_RATE
                   FROM 
                     SCORECARD s
                     JOIN PERSON P ON P.PERSONID=S.PLAYER_ID
+                    JOIN PLAYER PL ON S.PLAYER_ID=PL.PLAYERID
+	                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
                   WHERE 
                     MATCH_ID = $1
-                    AND TEAM_ID = $3
+                    AND S.TEAM_ID = $3
                     AND OVERS_BOWLED > 0
                   ORDER BY 
                   WICKET_TAKEN DESC,
@@ -669,7 +695,25 @@ async function run() {
                   LIMIT 1
                 ) AS TEAM2;
                 `;
-                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id,req.params.team2_id]);
+                const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //retreive match umpire 
+        app.get("/matches/:match_id/umpire", async (req, res) => {
+            try {
+                const sql = `
+                SELECT MU.*,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS UMPIRE_NAME
+                FROM MATCH_UMPIRE MU
+                JOIN PERSON P ON MU.UMPIRE_ID=P.PERSONID
+                WHERE MU.MATCH_ID=$1;               
+                `;
+                const result = await pool.query(sql, [req.params.match_id]);
                 console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {

@@ -67,7 +67,8 @@ function Teamdetails() {
             <h1>{team_name}</h1>
             <div className="team-basic-info">
                 <div className="td-team-box">
-                    <p>{team_name}</p>
+                    {/* <p>{team_name}</p> */}
+                    <span>{team_name}</span>
                 </div>
                 <div className="spacer-text">
                     <p>ODI Ranking: </p>
@@ -76,45 +77,54 @@ function Teamdetails() {
                     <p>World Champion: </p>
                 </div>
                 <div className="captain-name">
-                    <p>{captain_name}</p>
+                    {/* <p>{captain_name}</p> */}
+                    <span>{captain_name}</span>
                 </div>
                 <div className="coach-name">
-                    <p>{coach_name}</p>
+                    {/* <p>{coach_name}</p> */}
+                    <span>{coach_name}</span>
                 </div>
             </div>
-            <h1>BATSMAN</h1>
+            <div className="type-name">
+                <span>BATSMAN</span>
+            </div>
             <div className="player-info">
             {teamDetailS.map(team => (
                     <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BATSMAN' &&
-                            <div className="player-infto-team-box">
-                                <p>{team.player_name}</p>
+                            <div className="player-infto-team-box"> {/* there is a different box named player-info-team-box of which css is added to the corresponding css page  */}
+                                <span>{team.player_name}</span>
                                 <img src={decodeBase64ToUrl(team.player_image)} alt="Player" />
                             </div>
                         }
                     </div>
                 ))}
             </div>
-            <h1>ALL-ROUNDER</h1>
+            <div className="type-name">
+                <span>ALL-ROUNDER</span>
+            </div>
             <div className="player-info">
             {teamDetailS.map(team => (
                     <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'ALL-ROUNDER' &&
-                            <div className="team-box">
-                                <p>{team.player_name}</p>
+                            <div className="player-infto-team-box">
+                                <span>{team.player_name}</span>
                                 <img src={base64ToUrl(team.player_image)} alt="Player" />
                             </div>
                         }
                     </div>
                 ))}
             </div>
-            <h1>BOWLER</h1>
+            <div className="type-name">
+                <span>BOWLER</span>
+            </div>
             <div className="player-info">
             {teamDetailS.map(team => (
                     <div  key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BOWLER' &&
-                            <div className="team-box">
-                                <p>{team.player_name}</p>
+                            <div className="player-infto-team-box">
+
+                                <span>{team.player_name}</span>
                             </div>
                         }
                     </div>
