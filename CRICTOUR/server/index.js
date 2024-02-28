@@ -61,7 +61,10 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM USERS WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ message: "user" });
+                        res.json({ 
+                            success: true,
+                            user: 'user',
+                        });
                     } else {
                         res.json({ message: "error" });
                     }
@@ -71,7 +74,10 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM ADMIN WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ message: "admin" });
+                        res.json({ 
+                            success: true,
+                            user: 'admin',
+                        });
                     } else {
                         res.json({ message: "error" });
                     }

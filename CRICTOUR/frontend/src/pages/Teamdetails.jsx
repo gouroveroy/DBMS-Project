@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../assets/CSS/TeamDetails.css';
 
 
-function Teamdetails() {
+function TeamDetails() {
     const { team_id } = useParams();
     const [teamDetailS, setTeamDetailS] = useState([]);
     const [captain_name, setCaptaninName] = useState('');
@@ -145,4 +145,4 @@ function Teamdetails() {
     );
 }
 
-export default Teamdetails;
+export default TeamDetails;
