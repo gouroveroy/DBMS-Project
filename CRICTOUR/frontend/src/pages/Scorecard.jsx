@@ -88,8 +88,11 @@ function Scorecard() {
     const [venue, setVenue] = useState('');
     const [venueID, setVenueID] = useState('');
     const [motmName, setMotmName] = useState('');
+    const [totalSpectators, setTotalSpectators] = useState('');
     const [bestBatsman, setBestBatsman] = useState([]);
     const [bestBowler, setBestBowler] = useState([]);
+    const [matchUmpire, setMatchUmpire] = useState([]);
+    const [teamHeadToHead, setTeamHeadToHead] = useState([]);
 
 
     useEffect(() => {
@@ -181,6 +184,7 @@ function Scorecard() {
             setVenue(match.venue_name);
             setVenueID(match.venue_id);
             setMotmName(match.motm_name);
+            setTotalSpectators(match.total_sold);
         });
     }, [matchData]);
     // console.log(winner_team);
@@ -196,14 +200,38 @@ function Scorecard() {
     // console.log(bestBatsman);
 
     useEffect(() => {
-        // Fetch the best batsman from the backend
+        // Fetch the best oowler from the backend
         fetch(`http://localhost:8000/matches/${match_id}/bestBowler/${team1Id}/${team2Id}`)
             .then(response => response.json())
             .then(data => setBestBowler(data))
             .catch(error => console.error(error));
     }, [team1Id, team2Id]);
 
-    console.log(bestBowler);
+    useEffect(() => {
+        // Fetch team head to head data  from the backend
+        fetch(`http://localhost:8000/teams/${team1Id}/${team2Id}/headToHead`)
+            .then(response => response.json())
+            .then(data => setTeamHeadToHead(data))
+            .catch(error => console.error(error));
+    }, [team1Id, team2Id]);
+
+    console.log(teamHeadToHead);
+
+
+    useEffect(() => {
+        // Fetch the match  umpire from the backend
+        fetch(`http://localhost:8000/matches/${match_id}/umpire`)
+            .then(response => response.json())
+            .then(data => setMatchUmpire(data))
+            .catch(error => console.error(error));
+    }, [match_id]);
+
+
+
+    // console.log(matchUmpire);
+
+
+    // console.log(bestBowler);
 
 
     const [scoreboardVisible, setScoreboardVisible] = useState(true);
@@ -340,7 +368,7 @@ function Scorecard() {
                                                 <td>{batsman.ball_played}</td>
                                                 <td>{batsman.total_fours_hit}</td>
                                                 <td>{batsman.total_sixes_hit}</td>
-                                                <td>{calculateStrikeRate(batsman)}</td>
+                                                <td>{batsman.strikerate}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -380,7 +408,7 @@ function Scorecard() {
                                                 <td>{bowler.run_given}</td>
                                                 <td>{bowler.maiden_overs}</td>
                                                 <td>{bowler.wicket_taken}</td>
-                                                <td>{calculateEconomy(bowler)}</td>
+                                                <td>{bowler.economy}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -426,7 +454,7 @@ function Scorecard() {
                                                 <td>{batsman.ball_played}</td>
                                                 <td>{batsman.total_fours_hit}</td>
                                                 <td>{batsman.total_sixes_hit}</td>
-                                                <td>{calculateStrikeRate(batsman)}</td>
+                                                <td>{batsman.strikerate}</td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -466,11 +494,191 @@ function Scorecard() {
                                                 <td>{bowler.run_given}</td>
                                                 <td>{bowler.maiden_overs}</td>
                                                 <td>{bowler.wicket_taken}</td>
-                                                <td>{calculateEconomy(bowler)}</td>
+                                                <td>{bowler.economy}</td>
                                             </tr>
                                         )}
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <div>
+                {statsVisible && (
+                    <div className="stats-container">
+                        <div className="head-to-head-container">
+                            <h2>HEAD TO HEAD</h2>
+                            <div className="head-to-head-table">
+                                <div className="hudai">
+                                    <div className="team1-name-of-head-to-head">
+                                        <span>{team1Name}</span>
+                                    </div>
+                                    <div className="team2-name-of-head-to-head">
+                                        <span>{team2Name}</span>
+                                    </div>
+                                </div>
+                                <div className="head-to-head-table-row">
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].total_match_played}</span>
+                                        <span>Total Match Played</span>
+                                        <span>{teamHeadToHead[0].total_match_played}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].win}</span>
+                                        <span>Wins</span>
+                                        <span>{teamHeadToHead[0].lose}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].team1_win_pct}</span>
+                                        <span>Winning Percentage</span>
+                                        <span>{teamHeadToHead[0].team2_win_pct}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].draw}</span>
+                                        <span>Draws</span>
+                                        <span>{teamHeadToHead[0].draw}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].abandoned}</span>
+                                        <span>No Result</span>
+                                        <span>{teamHeadToHead[0].abandoned}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="best-batsman-box">
+                            <h2>TOP BATTER</h2>
+                            <div className="top-batter-container">
+                                <div className="hudai">
+                                    <div className="top-batter-team1">
+                                        <div className="top-batter-name">
+                                            <span>{bestBatsman[0].player_name}</span>
+                                        </div>
+                                        <div className="top-batter-team1Name">
+                                            <span> vs {bestBatsman[1].team_name}</span>
+                                        </div>
+                                    </div>
+                                    <div className="top-batter-team2">
+                                        <div className="top-batter-name">
+                                            <span>{bestBatsman[1].player_name}</span>
+                                        </div>
+                                        <div className="top-batter-team2Name">
+                                            <span> vs {bestBatsman[0].team_name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="top-batter-performance">
+                                    <div className="top-batter-perf-row">
+                                        <span>{bestBatsman[0].run_scored}</span>
+                                        <span>Runs scored</span>
+                                        <span>{bestBatsman[1].run_scored}</span>
+                                    </div>
+                                    <div className="top-batter-perf-row">
+                                        <span>{bestBatsman[0].ball_played}</span>
+                                        <span>Balls played</span>
+                                        <span>{bestBatsman[1].ball_played}</span>
+                                    </div>
+                                    <div className="top-batter-perf-row">
+                                        <span>{bestBatsman[0].total_fours_hit}</span>
+                                        <span>4s</span>
+                                        <span>{bestBatsman[1].total_fours_hit}</span>
+                                    </div>
+                                    <div className="top-batter-perf-row">
+                                        <span>{bestBatsman[0].total_sixes_hit}</span>
+                                        <span>6s</span>
+                                        <span>{bestBatsman[1].total_sixes_hit}</span>
+                                    </div>
+                                    <div className="top-batter-perf-row">
+                                        <span>{bestBatsman[0].strike_rate}</span>
+                                        <span>Strike rate</span>
+                                        <span>{bestBatsman[1].strike_rate}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="best-bowler-box">
+                            <h2>BEST BOWLER</h2>
+                            <div className="top-bowler-container">
+                                <div className="hudai">
+                                    <div className="top-bowler-team1">
+                                        <div className="top-bowler-name">
+                                            <span>{bestBowler[0].player_name}</span>
+                                        </div>
+                                        <div className="top-bowler-team1Name">
+                                            <span> vs {bestBowler[1].team_name}</span>
+                                        </div>
+                                    </div>
+                                    <div className="top-bowler-team2">
+                                        <div className="top-bowler-name">
+                                            <span>{bestBowler[1].player_name}</span>
+                                        </div>
+                                        <div className="top-bowler-team2Name">
+                                            <span> vs {bestBowler[0].team_name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="top-bowler-performance">
+                                    <div className="top-bowler-perf-row">
+                                        <span>{bestBowler[0].overs_bowled}</span>
+                                        <span>Overs bowled</span>
+                                        <span>{bestBowler[1].overs_bowled}</span>
+                                    </div>
+                                    <div className="top-bowler-perf-row">
+                                        <span>{bestBowler[0].run_given}</span>
+                                        <span>Runs given</span>
+                                        <span>{bestBowler[1].run_given}</span>
+                                    </div>
+                                    <div className="top-bowler-perf-row">
+                                        <span>{bestBowler[0].maiden_overs}</span>
+                                        <span>Maiden overs</span>
+                                        <span>{bestBowler[1].maiden_overs}</span>
+                                    </div>
+                                    <div className="top-bowler-perf-row">
+                                        <span>{bestBowler[0].wicket_taken}</span>
+                                        <span>Wickets taken</span>
+                                        <span>{bestBowler[1].wicket_taken}</span>
+                                    </div>
+                                    <div className="top-bowler-perf-row">
+                                        <span>{bestBowler[0].economy_rate}</span>
+                                        <span>Economy rate</span>
+                                        <span>{bestBowler[1].economy_rate}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="match-info-details">
+                            <h2>MOTM, UMPIRE AND VENUE</h2>
+                            <div className="motm-umpire-venue-container">
+                                <div className="motm-umpire-venue-row">
+                                    <span>Man of the match</span>
+                                    <span>{motmName}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Match Umpire</span>
+                                    <span>{matchUmpire[0].umpire_name}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Match Umpire</span>
+                                    <span>{matchUmpire[1].umpire_name}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Venue</span>
+                                    <span>{venue}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Venue Location</span>
+                                    <span>{venueLocation}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Total Spectators</span>
+                                    <span>{totalSpectators}</span>
+                                </div>
+                                <div className="motm-umpire-venue-row">
+                                    <span>Tournament</span>
+                                    <span>{tournamentName}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

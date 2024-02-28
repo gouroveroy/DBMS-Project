@@ -27,12 +27,12 @@ function Player() {
                 <div className="player-container">
                     {players.map(player => (
                         <div key={player.player_id} className="player-box">
-                            <img src={vite} alt={player.full_name} style={{height: '30vh', width: '25vh'}}/>
+                            <img src={vite} alt={player.full_name} style={{height: '30vh', width: '28vh'}}/>
                             <p>{player.full_name}</p>
                             <div className="playerProfile">
-                                <Link to={`/players/${player.player_id}`} className='profileButton'>
+                                {/* <Link to={`/players/${player.player_id}`} className='profileButton'>
                                     <button className='profileButton'>Player Profile</button>
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                     ))}

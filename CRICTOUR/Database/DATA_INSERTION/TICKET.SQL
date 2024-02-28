@@ -1,0 +1,8 @@
+INSERT INTO TICKET (MATCH_ID, VENUE_ID, TOTAL_SOLD) 
+VALUES 
+    (21, 11, 30000),
+    (22, 12, 25000),
+    (25, 12, 26547),
+    (26, 13, 29498),
+    (27, 11, 35000);
+    

@@ -45,7 +45,7 @@ function TournamentDetails() {
                             <Link to={`/tournaments/${tournament_id}/matches`}>Matches</Link>
                         </li>
                         <li style={liStyle}>
-                            <Link style={linkStyle} to="/tournament/awards">Awards</Link>
+                            <Link to={`/tournaments/${tournament_id}/awards`}>Stats</Link>
                         </li>
                     </ul>
                 </div>
