@@ -772,6 +772,189 @@ async function run() {
             }
         });
 
+
+        // Retreive data for top five bowler of the tournament
+        app.get("/tournaments/:tournament_id/topBowler", async (req, res) => {
+            try {
+                const sql = `
+                SELECT PLAYER_ID,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM( COALESCE(WICKET_TAKEN,0)) AS TOTAL_WICKET,
+                 (SELECT COUNT(*)
+                   FROM SCORECARD 
+                   WHERE PLAYER_ID=S.PLAYER_ID AND (OVERS_BOWLED IS NOT NULL OR RUN_SCORED IS NOT NULL)
+                 ) AS PLAYED_MATCH
+                 FROM SCORECARD s
+                 JOIN PERSON P ON S.PLAYER_ID=P.PERSONID
+                 JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+                 JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+                 WHERE TOURNAMENT_ID=$1
+                 GROUP BY PLAYER_ID,P.FIRST_NAME,P.LAST_NAME,T.TEAM_NAME
+                 ORDER BY TOTAL_WICKET DESC
+                 LIMIT 5
+                 ;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //Retreiving data for top five all-rounder of the tournament
+
+        app.get("/tournaments/:tournament_id/topAllRounder", async (req, res) => {
+            try {
+                const sql = `
+                WITH PlayerPerformance AS (
+                    SELECT
+                        p.PLAYERID,
+                        CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,
+                        T.TEAM_NAME,
+                        SUM(COALESCE(sc.RUN_SCORED,0)) AS total_runs_scored,
+                        SUM(COALESCE(sc.RUN_GIVEN,0)) AS total_runs_given,
+                        SUM(COALESCE(sc.WICKET_TAKEN,0)) AS total_wickets_taken,
+                        SUM(COALESCE(sc.OVERS_BOWLED,0)) AS total_overs_bowled
+                    FROM
+                        PLAYER p
+                    LEFT JOIN
+                        SCORECARD sc ON p.PLAYERID = sc.PLAYER_ID
+                    JOIN 
+                        PERSON PR ON PR.PERSONID=P.PLAYERID
+                    JOIN 
+                        TEAM T ON T.TEAM_ID = P.TEAM_ID
+                    WHERE TOURNAMENT_ID=$1
+                    GROUP BY
+                        p.PLAYERID,PR.FIRST_NAME,PR.LAST_NAME,T.TEAM_NAME
+                ),
+                AllRounders AS (
+                    SELECT
+                        pp.PLAYERID,
+                        PP.PLAYER_NAME,
+                        PP.TEAM_NAME,
+                        pp.total_runs_scored,
+                        pp.total_runs_given,
+                        pp.total_wickets_taken,
+                        pp.total_overs_bowled
+                    FROM
+                        PlayerPerformance pp
+                    WHERE
+                        EXISTS (
+                            SELECT 1
+                            FROM SCORECARD sc
+                            WHERE sc.PLAYER_ID = pp.PLAYERID
+                            AND sc.RUN_SCORED IS NOT NULL
+                            AND sc.OVERS_BOWLED IS NOT NULL
+                        )
+                )
+                SELECT
+                    a.PLAYERID,
+                    A.PLAYER_NAME,
+                    A.TEAM_NAME,
+                    (a.total_runs_scored + a.total_wickets_taken) AS allrounder_score,
+                    a.total_runs_scored AS total_runs_scored,
+                    a.total_wickets_taken AS total_wickets_taken
+                FROM
+                    AllRounders a
+                ORDER BY
+                    allrounder_score DESC
+                LIMIT 5;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        // Retreive data for top 10 batsman with the highest strike rate
+        app.get("/tournaments/:tournament_id/topStrikeRate", async (req, res) => {
+            try {
+                const sql = `
+                WITH T AS
+                 (
+                 SELECT 
+                 	S.PLAYER_ID,
+                 	CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,
+                 	T.TEAM_NAME,
+                 	SUM(S.RUN_SCORED) AS  TOTAL_RUN,
+                 	SUM(S.BALL_PLAYED) AS TOTAL_BALL_PLAYED
+                 FROM 
+                 	SCORECARD S
+                 	JOIN PERSON PR ON PR.PERSONID = S.PLAYER_ID
+                 	JOIN PLAYER P ON PR.PERSONID=P.PLAYERID
+                 	JOIN TEAM T ON T.TEAM_ID=P.TEAM_ID
+                     WHERE RUN_SCORED IS NOT NULL AND S.TOURNAMENT_ID=$1
+                 	GROUP BY PLAYER_ID,PR.FIRST_NAME,PR.LAST_NAME,T.TEAM_NAME
+                     ORDER BY S.PLAYER_ID
+                 )
+                 SELECT 
+                    T.PLAYER_ID,
+                    T.PLAYER_NAME,
+                    T.TEAM_NAME,
+                    ROUND((T.TOTAL_RUN*1.0/T.TOTAL_BALL_PLAYED)*100,2) AS STRIKE_RATE
+                 FROM T 
+                    ORDER BY STRIKE_RATE DESC
+                 LIMIT 5
+                 ;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //Retreive player  for most boundary in a tournament
+        app.get("/tournaments/:tournament_id/mostBoundary", async (req, res) => {
+            try {
+                const mostSix = `
+                SELECT S.PLAYER_ID,CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(TOTAL_SIXES_HIT) AS TOTAL_SIX
+                FROM SCORECARD S
+                JOIN PERSON PR ON S.PLAYER_ID=PR.PERSONID
+                JOIN PLAYER P ON S.PLAYER_ID = P.PLAYERID
+                JOIN TEAM T ON T.TEAM_ID=P.TEAM_ID
+                WHERE S.TOTAL_SIXES_HIT IS NOT NULL AND S.TOURNAMENT_ID=$1
+                GROUP BY S.PLAYER_ID,PR.FIRST_NAME,PR.LAST_NAME,T.TEAM_NAME
+                ORDER BY TOTAL_SIX DESC
+                LIMIT 10
+                ;
+                `;
+                const mostSixResult = await pool.query(mostSix, [req.params.tournament_id]);
+                const sixData=mostSixResult.rows;
+                const mostFour = `
+                SELECT S.PLAYER_ID,CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(TOTAL_FOURS_HIT) AS TOTAL_FOUR
+                FROM SCORECARD S
+                JOIN PERSON PR ON S.PLAYER_ID=PR.PERSONID
+                JOIN PLAYER P ON S.PLAYER_ID = P.PLAYERID
+                JOIN TEAM T ON T.TEAM_ID=P.TEAM_ID
+                WHERE S.TOTAL_SIXES_HIT IS NOT NULL AND S.TOURNAMENT_ID=$1
+                GROUP BY S.PLAYER_ID,PR.FIRST_NAME,PR.LAST_NAME,T.TEAM_NAME
+                ORDER BY TOTAL_FOUR DESC
+                LIMIT 10
+                ;
+                `;
+                const mostFourResult= await pool.query(mostFour, [req.params.tournament_id]);
+                const fourData=mostFourResult.rows;
+                const combinedData = {
+                    sixData,
+                    fourData
+                };
+                console.log(combinedData);
+                res.json(combinedData);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();
