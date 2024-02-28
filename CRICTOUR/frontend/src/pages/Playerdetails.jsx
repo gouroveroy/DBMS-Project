@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function Playerdetails() {
+function PlayerDetails() {
     const { player_id } = useParams();
     const [playerDetail, setPlayerDetail] = useState([]);
 
@@ -44,4 +44,4 @@ function Playerdetails() {
     );
 }
 
-export default Playerdetails;
+export default PlayerDetails;

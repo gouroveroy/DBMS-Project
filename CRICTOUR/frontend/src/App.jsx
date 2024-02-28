@@ -3,11 +3,13 @@
 // import viteLogo from "/vite.svg";
 // import "./App.css";
 
+import { useContext } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { Route, createBrowserRouter, createRoutesFromElements, Outlet } from 'react-router-dom';
 
+
 import Home from './pages/Home';
-import Main from './pages/Main';
+// import Main from './pages/Main';
 import SignUp from './pages/SignUp';
 import Admin from './pages/Admin';
 import Umpire from './pages/Umpire';
@@ -15,9 +17,9 @@ import Coach from './pages/Coach';
 import Player from './pages/Player';
 import Teams from './pages/Teams';
 import Combo from './pages/Combo';
-import Teamdetails from './pages/Teamdetails';
+import TeamDetails from './pages/TeamDetails';
 import Tournaments from './pages/Tournaments';
-import Playerdetails from './pages/Playerdetails';
+import PlayerDetails from './pages/PlayerDetails';
 import TournamentDetails from './pages/TournamentDetails';
 import Matches from './pages/Matches';
 import Scorecard from './pages/Scorecard';
@@ -26,24 +28,31 @@ import Rank from './components/Rank';
 import Header from './components/Nav/Header';
 import Footer from './components/Nav/Footer';
 
+import { StateContext } from './../context/ContextProvider';
+
 
 export default function App() {
+  const { user, setUser } = useContext(StateContext);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root></Root>}>
         <Route index element={<Home></Home>} />
-        <Route path='/main' element={<Main></Main>} />
+        {/* <Route path='/main' element={<Main></Main>} /> */}
         <Route path='/home' element={<Home></Home>} />
         <Route path="/login" element={<Combo></Combo>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
-        <Route path="/admin" element={<Admin></Admin>} />
+        {user === 'admin' ? (
+          <Route path="/admin" element={<Admin></Admin>} />
+        ) : (
+          <Route path='/home' element={<Home></Home>} />
+        )}
         <Route path="/umpire" element={<Umpire></Umpire>} />
         <Route path="/rank" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
         <Route path="/player" element={<Player></Player>} />
-        <Route path='/player/:player_id' element={<Playerdetails></Playerdetails>} />
+        <Route path='/player/:player_id' element={<PlayerDetails></PlayerDetails>} />
         <Route path="/teams" element={<Teams></Teams>} />
-        <Route path="/teams/:team_id" element={<Teamdetails></Teamdetails>} />
+        <Route path="/teams/:team_id" element={<TeamDetails></TeamDetails>} />
         <Route path='/combo' element={<Combo></Combo>} />
         <Route path='/tournaments' element={<Tournaments></Tournaments>} />
         <Route path='/tournaments/:tournament_id' element={<TournamentDetails></TournamentDetails>} />
@@ -71,7 +80,6 @@ function Root() {
     </>
   );
 }
-
 
 // (
 //   <>

@@ -84,11 +84,12 @@
 
 // export default Login;
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import necessary icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { StateContext } from '../../context/ContextProvider';
 
 import '../assets/CSS/login.css';
 
@@ -96,8 +97,8 @@ import vite from "./../assets/vite.svg";
 import react from "./../assets/react.svg";
 
 function Login(props) {
-    const [inputUsername, setInputUsername] = useState('');
-    const [inputPassword, setInputPassword] = useState('');
+    const { user, setUser } = useContext(StateContext);
+    console.log('user: ', user);
 
     const selection = props.selection;
     const [email, setEmail] = useState('');
@@ -110,25 +111,28 @@ function Login(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-        await delay(500);
+        await delay(100);
         try {
-            setEmail(inputUsername);
-            setPassword(inputPassword);
             const response = await axios.post('http://localhost:8000/login', { email, password, selection });
-
-            if (response.data.message === 'admin') {
-                window.location.href = '/admin';
-            } else if (response.data.message === 'user') {
+    
+            setUser(response.data.user);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+    
+            if (response.data.user === 'admin') {
+                window.location.href = '/home';
+            } else if (response.data.user === 'user') {
                 window.location.href = '/home';
             } else {
-                setShow(true);
+                setShow(true); // Reset the error message state
             }
+            setEmail('');
+            setPassword('');
         } catch (error) {
             console.error('Error during login:', error.message);
-            alert('Internal Server Error. Please try again later.');
+            setShow(true);
         }
         setLoading(false);
-    };
+    };    
 
     const handlePassword = () => { };
 
@@ -173,9 +177,9 @@ function Login(props) {
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                         type="text"
-                        value={inputUsername}
+                        value={email}
                         placeholder="Username"
-                        onChange={(e) => setInputUsername(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </Form.Group>
@@ -183,9 +187,9 @@ function Login(props) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type={passwordVisible ? 'text' : "password"}
-                        value={inputPassword}
+                        value={password}
                         placeholder="Password"
-                        onChange={(e) => setInputPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </Form.Group>
