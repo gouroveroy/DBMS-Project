@@ -136,6 +136,7 @@ async function run() {
             try {
                 const sql = `
                 SELECT
+                  C.PERSONID AS UMPIRE_ID,
                   (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
                   P.NATIONALITY,
                   EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE,
@@ -177,6 +178,7 @@ async function run() {
                 // SQL query to retrieve information about all coaches
                 const sql = `
                     SELECT
+                        C.PERSONID AS COACH_ID,
                         (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
                         P.NATIONALITY,
                         EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM C.START_DATE_OF_CAREER) AS COACHING_DURATION,
@@ -277,7 +279,7 @@ async function run() {
             try {
                 const sql = `
                 SELECT
-                    P.PERSONID AS PERSON_ID,
+                    P.PERSONID AS PLAYER_ID,
                     P.IMAGE,
                     (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
                     T.TEAM_NAME AS TEAM,

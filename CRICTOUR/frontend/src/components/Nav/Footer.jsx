@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 
 import './../../assets/CSS/footer.css'
 
-import fb from './../../assets/images/icons/fb.jpeg';
-import tw from './../../assets/images/icons/tw.png';
-import ig from './../../assets/images/icons/ig.png';
-
 function Footer() {
     return (
         <footer>
@@ -17,13 +13,13 @@ function Footer() {
                             <h4>Contact Us</h4>
                             <div className="socialmedia" style={leftRightShift}>
                                 <a href="https://www.facebook.com/icc/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                                    <p style={paragraph}><img src={fb} alt="" />Facebook</p>
+                                    <p style={paragraph}><img src='/images/icons/fb.jpeg' alt="" />Facebook</p>
                                 </a>
                                 <a href="https://twitter.com/ICC" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                                    <p style={paragraph}><img src={tw} alt="" />Twitter</p>
+                                    <p style={paragraph}><img src='/images/icons/tw.png' alt="" />Twitter</p>
                                 </a>
                                 <a href="https://www.instagram.com/ICC/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                                    <p style={paragraph}><img src={ig} alt="" />Instagram</p>
+                                    <p style={paragraph}><img src='/images/icons/ig.png' alt="" />Instagram</p>
                                 </a>
                             </div>
                         </div>
