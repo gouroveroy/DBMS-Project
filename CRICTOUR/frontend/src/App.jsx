@@ -21,6 +21,7 @@ import Playerdetails from './pages/Playerdetails';
 import TournamentDetails from './pages/TournamentDetails';
 import Matches from './pages/Matches';
 import Scorecard from './pages/Scorecard';
+import Stats from './pages/Stats';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -49,6 +50,7 @@ export default function App() {
         <Route path='/tournaments/:tournament_id' element={<TournamentDetails></TournamentDetails>} />
         <Route path='/tournaments/:tournament_id/matches' element={<Matches></Matches>} />
         <Route path='/tournaments/:tournament_id/matches/:match_id' element={<Scorecard></Scorecard>} />
+        <Route path='/tournaments/:tournament_id/awards' element={<Stats></Stats>} />
       </Route>
     )
   );

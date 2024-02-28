@@ -295,13 +295,157 @@ set run_scored=null
 where scorecard_id=95
 ;
 
+SELECT th.*, round((th.win*1.0/th.total_match_played)*100,0) as team1_win_pct,100-round((th.win*1.0/th.total_match_played)*100,0) as team2_win_pct
+FROM TEAM_HEAD_TO_HEAD th
+where (team1_id=71 and team2_id=72) or(team1_id=72 and team2_id=71)
+;
+
+-- Query to retreive the awards candidate
+SELECT PLAYER_ID, (SUM(RUN_SCORED)) AS TOTAL_RUN
+FROM SCORECARD
+GROUP BY PLAYER_ID
+ORDER BY PLAYER_ID
+;
+
+WITH T AS(
+SELECT PLAYER_ID, (SUM(RUN_SCORED)) AS TOTAL_RUN
+FROM SCORECARD
+GROUP BY PLAYER_ID
+ORDER BY PLAYER_ID
+)
+SELECT MAX(T.TOTAL_RUN)
+FROM T;
+
+-- Most run scorer
+WITH PlayerTotalRuns AS (
+    SELECT PLAYER_ID, SUM(COALESCE(RUN_SCORED, 0)) AS TOTAL_RUN,SUM( COALESCE(BALL_PLAYED,0)) AS TOTAL_BALL_PLAYED,SUM( COALESCE(TOTAL_SIXES_HIT,0)) AS TOTAL_SIX,SUM( COALESCE(TOTAL_FOURS_HIT,0)) AS TOTAL_FOUR
+    FROM SCORECARD
+    GROUP BY PLAYER_ID
+)
+SELECT PLAYER_ID, TOTAL_RUN,TOTAL_BALL_PLAYED,TOTAL_SIX,TOTAL_FOUR
+FROM PlayerTotalRuns
+WHERE TOTAL_RUN = (SELECT MAX(TOTAL_RUN) FROM PlayerTotalRuns)
+;
+
+-- TOP FIVE MOST RUN SCORER
+SELECT S.PLAYER_ID,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(COALESCE(S.RUN_SCORED, 0)) AS TOTAL_RUN,
+  (SELECT COUNT(*) 
+     FROM SCORECARD 
+     WHERE PLAYER_ID=S.PLAYER_ID AND RUN_SCORED  IS NOT NULL
+  ) AS PLAYED_MATCH
+FROM SCORECARD S
+JOIN PERSON P ON  S.PLAYER_ID=P.PERSONID
+JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+WHERE TOURNAMENT_ID=4
+GROUP BY S.PLAYER_ID,P.FIRST_NAME,P.LAST_NAME,T.TEAM_NAME
+ORDER BY TOTAL_RUN DESC
+LIMIT 5;
+
+-- TOP WICKET TAKER
+WITH PlyerTotalWicket AS(
+SELECT PLAYER_ID, SUM( COALESCE(WICKET_TAKEN,0)) AS TOTAL_WICKET
+FROM SCORECARD
+GROUP BY PLAYER_ID
+)
+SELECT PLAYER_ID, TOTAL_WICKET
+FROM PlyerTotalWicket
+WHERE TOTAL_WICKET=(SELECT MAX(TOTAL_WICKET) FROM PlyerTotalWicket )
+
+-- TOP FIVE WICKET TAKER
+SELECT PLAYER_ID, SUM( COALESCE(WICKET_TAKEN,0)) AS TOTAL_WICKET
+FROM SCORECARD
+GROUP BY PLAYER_ID
+ORDER BY TOTAL_WICKET DESC
+LIMIT 5
+;
+
+SELECT *
+FROM SCORECARD
+WHERE TEAM_ID=80 AND PLAYER_ID=80107
+
+UPDATE SCORECARD
+SET OVERS_BOWLED=4
+WHERE SCORECARD_ID=51
+;
+
+UPDATE SCORECARD
+SET WICKET_TAKEN=3
+WHERE SCORECARD_ID=51
+;
+
+UPDATE SCORECARD
+SET MAIDEN_OVERS=0
+WHERE SCORECARD_ID=51
+;
+
+-- Retreiving data for top five all-rounder
+WITH PlayerPerformance AS (
+    SELECT
+        p.PLAYERID,
+        SUM(sc.RUN_SCORED) AS total_runs_scored,
+        SUM(sc.RUN_GIVEN) AS total_runs_given,
+        SUM(sc.WICKET_TAKEN) AS total_wickets_taken,
+        SUM(sc.OVERS_BOWLED) AS total_overs_bowled
+    FROM
+        PLAYER p
+    LEFT JOIN
+        SCORECARD sc ON p.PLAYERID = sc.PLAYER_ID
+    GROUP BY
+        p.PLAYERID
+),
+AllRounders AS (
+    SELECT
+        pp.PLAYERID,
+        pp.total_runs_scored,
+        pp.total_runs_given,
+        pp.total_wickets_taken,
+        pp.total_overs_bowled
+    FROM
+        PlayerPerformance pp
+    WHERE
+        EXISTS (
+            SELECT 1
+            FROM SCORECARD sc
+            WHERE sc.PLAYER_ID = pp.PLAYERID
+            AND sc.RUN_SCORED IS NOT NULL
+            AND sc.OVERS_BOWLED IS NOT NULL
+        )
+)
+
+SELECT
+    a.PLAYERID,
+    (a.total_runs_scored + a.total_wickets_taken) AS allrounder_score,
+    a.total_runs_scored AS total_runs_scored,
+    a.total_wickets_taken AS total_wickets_taken
+FROM
+    AllRounders a
+ORDER BY
+    allrounder_score DESC
+LIMIT 5;
 
 
 
 
+-- Retreiving data for both top wicket taker and top scorer
+WITH TopRuns AS (
+    SELECT PLAYER_ID, SUM(COALESCE(RUN_SCORED, 0)) AS TOTAL_RUN,
+           ROW_NUMBER() OVER (ORDER BY SUM(COALESCE(RUN_SCORED, 0)) DESC) AS rn_run
+    FROM SCORECARD
+    GROUP BY PLAYER_ID
+	ORDER BY TOTAL_RUN ASC
+), TopWickets AS (
+    SELECT PLAYER_ID, SUM(COALESCE(WICKET_TAKEN, 0)) AS TOTAL_WICKET,
+           ROW_NUMBER() OVER (ORDER BY SUM(COALESCE(WICKET_TAKEN, 0)) DESC) AS rn_wicket
+    FROM SCORECARD
+    GROUP BY PLAYER_ID
+    ORDER BY TOTAL_WICKET DESC
+)
+SELECT TR.PLAYER_ID, TR.TOTAL_RUN, TW.TOTAL_WICKET
+FROM TopRuns TR
+FULL JOIN TopWickets TW ON TR.PLAYER_ID = TW.PLAYER_ID
+WHERE TR.rn_run <= 5 OR TW.rn_wicket <= 5;
 
 
 
-
-
-
+ 

@@ -722,6 +722,50 @@ async function run() {
             }
         });
 
+        //retreive data from team_head_to_head table for two team
+        app.get("/teams/:team1_id/:team2_id/headToHead", async (req, res) => {
+            try {
+                const sql = `
+                SELECT th.*, round((th.win*1.0/th.total_match_played)*100,0) as team1_win_pct,100-round((th.win*1.0/th.total_match_played)*100,0) as team2_win_pct
+                FROM TEAM_HEAD_TO_HEAD th
+                WHERE (TEAM1_ID=$1 AND TEAM2_ID=$2) OR (TEAM1_ID=$2 AND TEAM2_ID=$1);
+                `;
+                const result = await pool.query(sql, [req.params.team1_id, req.params.team2_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //retreive data for the top five batsman of the tournament
+        app.get("/tournaments/:tournament_id/topBatsman", async (req, res) => {
+            try {
+                const sql = `
+                SELECT S.PLAYER_ID,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(COALESCE(S.RUN_SCORED, 0)) AS TOTAL_RUN,
+                (SELECT COUNT(*) 
+                   FROM SCORECARD 
+                   WHERE PLAYER_ID=S.PLAYER_ID AND RUN_SCORED  IS NOT NULL
+                ) AS PLAYED_MATCH
+                FROM SCORECARD S
+                JOIN PERSON P ON  S.PLAYER_ID=P.PERSONID
+                JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+                WHERE TOURNAMENT_ID=$1
+                GROUP BY S.PLAYER_ID,P.FIRST_NAME,P.LAST_NAME,T.TEAM_NAME
+                ORDER BY TOTAL_RUN DESC
+                LIMIT 5;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();

@@ -289,7 +289,7 @@ button.scoreButton:hover {
   margin-top: 20px;
 }
 
-.best-batsman-box, .best-bowler-box,.match-info-details {
+.best-batsman-box, .best-bowler-box,.match-info-details,.head-to-head-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -330,7 +330,7 @@ button.scoreButton:hover {
   width: 100%;
 } */
 
-.top-batter-perf-row,.top-bowler-perf-row{
+.top-batter-perf-row,.top-bowler-perf-row,.team-head-to-head-row{
   border-top: 1px solid rgb(228, 227, 227);
   display: grid;
   grid-template-columns: 1fr 365px 1fr;
@@ -340,14 +340,14 @@ button.scoreButton:hover {
   padding-bottom: 40px;
 }
 
-.top-batter-team1,.top-batter-team2,.top-bowler-team1,.top-bowler-team2{
+.top-batter-team1,.top-batter-team2,.top-bowler-team1,.top-bowler-team2,.team1-name-of-head-to-head,.team2-name-of-head-to-head{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 
-.best-batsman-box h2,.best-bowler-box h2,.match-info-details h2{
+.best-batsman-box h2,.best-bowler-box h2,.match-info-details h2 ,.head-to-head-container h2{
   display: flex;
   justify-content: center;
   align-items: center;

@@ -92,6 +92,7 @@ function Scorecard() {
     const [bestBatsman, setBestBatsman] = useState([]);
     const [bestBowler, setBestBowler] = useState([]);
     const [matchUmpire, setMatchUmpire] = useState([]);
+    const [teamHeadToHead, setTeamHeadToHead] = useState([]);
 
 
     useEffect(() => {
@@ -196,26 +197,38 @@ function Scorecard() {
             .catch(error => console.error(error));
     }, [team1Id, team2Id]);
 
-    console.log(bestBatsman);
+    // console.log(bestBatsman);
 
     useEffect(() => {
-        // Fetch the best batsman from the backend
+        // Fetch the best oowler from the backend
         fetch(`http://localhost:8000/matches/${match_id}/bestBowler/${team1Id}/${team2Id}`)
             .then(response => response.json())
             .then(data => setBestBowler(data))
             .catch(error => console.error(error));
     }, [team1Id, team2Id]);
 
+    useEffect(() => {
+        // Fetch team head to head data  from the backend
+        fetch(`http://localhost:8000/teams/${team1Id}/${team2Id}/headToHead`)
+            .then(response => response.json())
+            .then(data => setTeamHeadToHead(data))
+            .catch(error => console.error(error));
+    }, [team1Id, team2Id]);
+
+    console.log(teamHeadToHead);
+
 
     useEffect(() => {
-        // Fetch the best batsman from the backend
+        // Fetch the match  umpire from the backend
         fetch(`http://localhost:8000/matches/${match_id}/umpire`)
             .then(response => response.json())
             .then(data => setMatchUmpire(data))
             .catch(error => console.error(error));
     }, [match_id]);
 
-    console.log(matchUmpire);
+
+
+    // console.log(matchUmpire);
 
 
     // console.log(bestBowler);
@@ -495,6 +508,46 @@ function Scorecard() {
             <div>
                 {statsVisible && (
                     <div className="stats-container">
+                        <div className="head-to-head-container">
+                            <h2>HEAD TO HEAD</h2>
+                            <div className="head-to-head-table">
+                                <div className="hudai">
+                                    <div className="team1-name-of-head-to-head">
+                                        <span>{team1Name}</span>
+                                    </div>
+                                    <div className="team2-name-of-head-to-head">
+                                        <span>{team2Name}</span>
+                                    </div>
+                                </div>
+                                <div className="head-to-head-table-row">
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].total_match_played}</span>
+                                        <span>Total Match Played</span>
+                                        <span>{teamHeadToHead[0].total_match_played}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].win}</span>
+                                        <span>Wins</span>
+                                        <span>{teamHeadToHead[0].lose}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].team1_win_pct}</span>
+                                        <span>Winning Percentage</span>
+                                        <span>{teamHeadToHead[0].team2_win_pct}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].draw}</span>
+                                        <span>Draws</span>
+                                        <span>{teamHeadToHead[0].draw}</span>
+                                    </div>
+                                    <div className="team-head-to-head-row">
+                                        <span>{teamHeadToHead[0].abandoned}</span>
+                                        <span>No Result</span>
+                                        <span>{teamHeadToHead[0].abandoned}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="best-batsman-box">
                             <h2>TOP BATTER</h2>
                             <div className="top-batter-container">
@@ -624,7 +677,7 @@ function Scorecard() {
                                 </div>
                                 <div className="motm-umpire-venue-row">
                                     <span>Tournament</span>
-                                    <span>{totalSpectators}</span>
+                                    <span>{tournamentName}</span>
                                 </div>
                             </div>
                         </div>

@@ -283,4 +283,19 @@ CREATE TABLE USERS (
 	PASSWORD VARCHAR(255)
 );
 
+-- TEAM_HEAD_TO_HEAD TABLE
+CREATE TABLE Team_head_to_head (
+    team1_id INTEGER,
+    team2_id INTEGER,
+    win INTEGER DEFAULT 0,
+    lose INTEGER DEFAULT 0,
+    draw INTEGER DEFAULT 0,
+    abandoned INTEGER DEFAULT 0,
+    total_match_played INTEGER DEFAULT 0,
+    PRIMARY KEY (team1_id, team2_id),
+    FOREIGN KEY (team1_id) REFERENCES TEAM(team_id),
+    FOREIGN KEY (team2_id) REFERENCES TEAM(team_id)
+);
+
+
 
