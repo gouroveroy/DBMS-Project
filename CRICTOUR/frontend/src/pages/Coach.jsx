@@ -1,45 +1,40 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 function Coach() {
-    const [coachs, setcoachs] = useState([]);
+    const [coaches, setCoaches] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:8000/coach')
             .then(response => response.json())
-            .then(data => setcoachs(data))
+            .then(data => setCoaches(data))
             .catch(error => console.error(error));
     }, []);
 
-    console.log(coachs);
+    function handleImage(coach_id) {
+        return `/images/${coach_id}.jpg`;
+    }
 
     return (
-        <div>
+        <div className="container">
             <center>
-                <h2>coach Information</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Nationality</th>
-                            <th>Coaching Duration</th>
-                            <th>Image</th>
-                            <th>Person ID</th>
-                            <th>Team</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {coachs.map(coach => (
-                            <tr key={coach.personid}>
-                                <td>{coach.full_name}</td>
-                                <td>{coach.nationality}</td>
-                                <td>{coach.coaching_duration}</td>
-                                <td><img src={coach.image} alt="coach" style={{ maxWidth: "100px" }} /></td>
-                                <td>{coach.personid}</td>
-                                <td>{coach.team_name}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <h2>Coaches</h2>
+                <div className="coach-container">
+                    {coaches.map(coach => (
+                        <div key={coach.coach_id} className="coach-box">
+                            <p>{coach.full_name}</p>
+                            <p>{coach.nationality}</p>
+                            <p>{coach.coaching_duration}</p>
+                            <img src={handleImage(coach.coach_id)} alt="coach" style={{ height: '25vh', width: '20vh', marginTop: '50px' }} />
+                            <p>{coach.team_name}</p>
+                            <div className="playerProfile">
+                                <Link to={`/coach/${coach.coach_id}`} className='profileButton'>
+                                    <button className='profileButton'>Coach Profile</button>
+                                </Link>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </center>
         </div>
     );

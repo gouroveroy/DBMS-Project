@@ -4,6 +4,7 @@
 
 p {
     width: 10vh;
+    white-space: nowrap;
 }
 
 .footer {

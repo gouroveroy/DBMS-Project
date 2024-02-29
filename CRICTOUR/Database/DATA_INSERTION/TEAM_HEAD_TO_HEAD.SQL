@@ -1,22 +1,21 @@
--- Create a temporary table to hold combinations of teams
-CREATE TEMP TABLE Team_Combinations AS
-SELECT t1.team_id AS team1_id, t2.team_id AS team2_id
-FROM Team t1
-CROSS JOIN Team t2
-WHERE t1.team_id < t2.team_id;
+-- CREATE A TEMPORARY TABLE TO HOLD COMBINATIONS OF TEAMS
+CREATE TEMP TABLE TEAM_COMBINATIONS AS
+SELECT T1.TEAM_ID AS TEAM1_ID, T2.TEAM_ID AS TEAM2_ID
+FROM TEAM T1
+CROSS JOIN TEAM T2
+WHERE T1.TEAM_ID < T2.TEAM_ID;
 
--- Insert data for all combinations
-INSERT INTO Team_Head_To_Head (team1_id, team2_id, win, lose, draw, abandoned, total_match_played)
+-- INSERT DATA FOR ALL COMBINATIONS
+INSERT INTO TEAM_HEAD_TO_HEAD (TEAM1_ID, TEAM2_ID, WIN, LOSE, DRAW, ABANDONED, TOTAL_MATCH_PLAYED)
 SELECT 
-    tc.team1_id,
-    tc.team2_id,
-    FLOOR(RANDOM() * 30+6)::int, -- Random wins between 0 to 10
-    FLOOR(RANDOM() * 30+4)::int, -- Random losses between 0 to 10
-    FLOOR(RANDOM() * 10)::int, -- Random draws between 0 to 10
-    0, -- No abandoned matches initially
-    0 -- Total matches as default value 0
-FROM Team_Combinations tc;
+    TC.TEAM1_ID,
+    TC.TEAM2_ID,
+    FLOOR(RANDOM() * 30+6)::INT, -- RANDOM WINS BETWEEN 0 TO 10
+    FLOOR(RANDOM() * 30+4)::INT, -- RANDOM LOSSES BETWEEN 0 TO 10
+    FLOOR(RANDOM() * 10)::INT, -- RANDOM DRAWS BETWEEN 0 TO 10
+    0, -- NO ABANDONED MATCHES INITIALLY
+    0 -- TOTAL MATCHES AS DEFAULT VALUE 0
+FROM TEAM_COMBINATIONS TC;
 
-UPDATE Team_Head_To_Head
-SET total_match_played = win + lose + draw + abandoned;
-
+UPDATE TEAM_HEAD_TO_HEAD
+SET TOTAL_MATCH_PLAYED = WIN + LOSE + DRAW + ABANDONED;

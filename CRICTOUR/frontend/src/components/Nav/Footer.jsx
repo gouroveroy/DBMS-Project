@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 
 import './../../assets/CSS/footer.css'
 
-import fb from './../../assets/images/icons/fb.jpeg';
-import tw from './../../assets/images/icons/tw.png';
-import ig from './../../assets/images/icons/ig.png';
-
 function Footer() {
     return (
         <footer>
@@ -15,28 +11,25 @@ function Footer() {
                     <div className="sb_footer-links" style={linkStyle}>
                         <div className="sb_footer-links_div">
                             <h4>Contact Us</h4>
-                            <div className="socialmedia" style={{textAlign: 'center'}}>
-                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                                    <p><img src={fb} alt="" />Facebook</p>
+                            <div className="socialmedia" style={leftRightShift}>
+                                <a href="https://www.facebook.com/icc/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
+                                    <p style={paragraph}><img src='/images/icons/fb.jpeg' alt="" />Facebook</p>
                                 </a>
-                                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                                    <p><img src={tw} alt="" />Twitter</p>
+                                <a href="https://twitter.com/ICC" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
+                                    <p style={paragraph}><img src='/images/icons/tw.png' alt="" />Twitter</p>
                                 </a>
-                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                                    <p><img src={ig} alt="" />Instagram</p>
+                                <a href="https://www.instagram.com/ICC/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
+                                    <p style={paragraph}><img src='/images/icons/ig.png' alt="" />Instagram</p>
                                 </a>
                             </div>
                         </div>
                         <div className="sb_footer-links_div">
-                            <h4>Company</h4>
-                            <Link to="/about">
-                                <p>About</p>
+                            <h4>Other</h4>
+                            <Link to="/umpire" style={{textDecoration: 'none'}}>
+                                <p>Umpires</p>
                             </Link>
-                            <Link to="/careers">
-                                <p>Careers</p>
-                            </Link>
-                            <Link to="/contact">
-                                <p>Contact</p>
+                            <Link to="/coach" style={{textDecoration: 'none'}}>
+                                <p>Coaches</p>
                             </Link>
                         </div>
                         <div className="sb_footer-links_div">
@@ -63,29 +56,15 @@ function Footer() {
                                 <p>Security</p>
                             </Link>
                         </div>
-                        {/* <div className="sb_footer-links_div">
-                            <h4>Follow Us</h4>
-                            <div className="socialmedia">
-                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                                    <p><img src={fb} alt="" />Facebook</p>
-                                </a>
-                                <Link to="/twitter">
-                                    <p><img src={tw} alt="" />Twitter</p>
-                                </Link>
-                                <Link to="/instagram">
-                                    <p><img src={ig} alt="" />Instagram</p>
-                                </Link>
-                            </div>
-                        </div> */}
                     </div>
                     <hr />
                     <div className="sb_footer-below">
-                        <div className="sb_footer_copyright">
+                        <div className="sb_footer_copyright" style={leftRightShift}>
                             <p>
                                 @{new Date().getFullYear()} Simple Benefits, Inc. All rights reserved.
                             </p>
                         </div>
-                        <div className="sb_footer-below-links">
+                        <div className="sb_footer-below-links" style={leftRightShift}>
                             <Link to='/terms'>
                                 <div>
                                     <p>Terms of Service</p>
@@ -113,5 +92,15 @@ const linkStyle = {
     color: 'rgb(175, 175, 179)',
     textDecoration: 'none',
 };
+
+const paragraph = {
+    whiteSpace: 'normal',
+};
+
+const leftRightShift = {
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+}
 
 export default Footer;

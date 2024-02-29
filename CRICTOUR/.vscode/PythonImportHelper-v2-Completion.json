@@ -59,11 +59,43 @@
         "documentation": {}
     },
     {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
         "label": "DDGS",
         "importPath": "duckduckgo_search",
         "description": "duckduckgo_search",
         "isExtraImport": true,
         "detail": "duckduckgo_search",
+        "documentation": {}
+    },
+    {
+        "label": "DDGS",
+        "importPath": "duckduckgo_search",
+        "description": "duckduckgo_search",
+        "isExtraImport": true,
+        "detail": "duckduckgo_search",
+        "documentation": {}
+    },
+    {
+        "label": "quote",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
         "documentation": {}
     },
     {
@@ -243,6 +275,42 @@
         "description": "frontend.node_modules.flatted.python.test",
         "peekOfCode": "oo = parse('[{\"a\":\"1\",\"b\":\"0\",\"c\":\"2\"},{\"aa\":\"3\"},{\"ca\":\"4\",\"cb\":\"5\",\"cc\":\"6\",\"cd\":\"7\",\"ce\":\"8\",\"cf\":\"9\"},{\"aaa\":\"10\"},{\"caa\":\"4\"},{\"cba\":\"5\"},{\"cca\":\"2\"},{\"cda\":\"4\"},\"value2\",\"value3\",\"value1\"]');\nassert oo['a']['aa']['aaa'] == 'value1' and oo == oo['b'] and oo['c']['ca']['caa'] == oo['c']['ca']\nprint('OK')",
         "detail": "frontend.node_modules.flatted.python.test",
+        "documentation": {}
+    },
+    {
+        "label": "website_url",
+        "kind": 5,
+        "importPath": "frontend.public.images.downloader",
+        "description": "frontend.public.images.downloader",
+        "peekOfCode": "website_url = \"https://www.examplecricketwebsite.com\"\n# Send a request to the cricket website URL\nresponse = requests.get(website_url)\nif response.status_code == 200:\n    soup = BeautifulSoup(response.text, 'html.parser')\n    # Find the HTML elements containing the cricket images (modify based on website structure)\n    image_elements = soup.find_all('img', class_='cricket-image-class')\n    # Create a folder to save the images\n    os.makedirs(\"cricket_images\", exist_ok=True)\n    # Download and save each cricket image",
+        "detail": "frontend.public.images.downloader",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 5,
+        "importPath": "frontend.public.images.downloader",
+        "description": "frontend.public.images.downloader",
+        "peekOfCode": "response = requests.get(website_url)\nif response.status_code == 200:\n    soup = BeautifulSoup(response.text, 'html.parser')\n    # Find the HTML elements containing the cricket images (modify based on website structure)\n    image_elements = soup.find_all('img', class_='cricket-image-class')\n    # Create a folder to save the images\n    os.makedirs(\"cricket_images\", exist_ok=True)\n    # Download and save each cricket image\n    for idx, img_element in enumerate(image_elements, start=1):\n        img_url = img_element['src']",
+        "detail": "frontend.public.images.downloader",
+        "documentation": {}
+    },
+    {
+        "label": "download_image",
+        "kind": 2,
+        "importPath": "frontend.public.images.downloader2",
+        "description": "frontend.public.images.downloader2",
+        "peekOfCode": "def download_image(query, index):\n    filename = os.path.join(\"static/cricitup/images/\", f\"{index}.jpg\")\n    # Check if the image already exists\n    if os.path.exists(filename):\n        print(f\"Image already exists for {query}\")\n        return\n    try:\n        # Use the DDGS().images() generator\n        results = list(DDGS().images(query))\n        if results:",
+        "detail": "frontend.public.images.downloader2",
+        "documentation": {}
+    },
+    {
+        "label": "download_images",
+        "kind": 2,
+        "importPath": "frontend.public.images.downloader3",
+        "description": "frontend.public.images.downloader3",
+        "peekOfCode": "def download_images(query, filename):\n    if os.path.exists(filename):\n        print(f\"Image already exists for {query}\")\n        return\n    try:\n        # Create a Google Images search URL for the query\n        query_url = f\"https://www.google.com/search?q={quote(query)}&tbm=isch\"\n        # Set headers to mimic a real browser request\n        headers = {\n            \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36\"",
+        "detail": "frontend.public.images.downloader3",
         "documentation": {}
     },
     {
