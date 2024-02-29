@@ -20,20 +20,20 @@ body {
 }
 
 .coach-box {
-    /* display         : flex; */
-    /* flex-direction  : column; Change to column layout */
-    /* align-items     : center; Center align items horizontally */
-    /* justify-content : center; Center align items vertically */
-    width           : 300px;
-    height          : 400px;
-    margin          : 25px;
-    /* Adjust the margin */
-    padding         : 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 400px;
+    margin: 25px;
+    padding: 20px;
     background-color: #f2f2f2;
-    border-radius   : 10px;
-    text-align      : center;
+    border-radius: 10px;
+    text-align: center;
     background-color: rgb(5 4 98);
 }
+
 
 /* Add a media query to change the margin when the screen size is smaller */
 @media screen and (max-width: 992px) {
@@ -71,7 +71,7 @@ body {
 
 }
 
-/* .profileButton {
+.profileButton {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -81,4 +81,4 @@ body {
 
 .profileButton:hover {
     background-color: #0056b3;
-} */
+}

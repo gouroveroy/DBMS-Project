@@ -61,7 +61,7 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM USERS WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ 
+                        res.json({
                             success: true,
                             user: 'user',
                         });
@@ -74,7 +74,7 @@ async function run() {
                     const result = await pool.query(`SELECT * FROM ADMIN WHERE EMAIL = $1 AND PASSWORD = $2`, [email, password]);
                     console.log(result);
                     if (result.rows.length !== 0) {
-                        res.json({ 
+                        res.json({
                             success: true,
                             user: 'admin',
                         });
@@ -929,7 +929,7 @@ async function run() {
                 ;
                 `;
                 const mostSixResult = await pool.query(mostSix, [req.params.tournament_id]);
-                const sixData=mostSixResult.rows;
+                const sixData = mostSixResult.rows;
                 const mostFour = `
                 SELECT S.PLAYER_ID,CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(TOTAL_FOURS_HIT) AS TOTAL_FOUR
                 FROM SCORECARD S
@@ -942,8 +942,8 @@ async function run() {
                 LIMIT 10
                 ;
                 `;
-                const mostFourResult= await pool.query(mostFour, [req.params.tournament_id]);
-                const fourData=mostFourResult.rows;
+                const mostFourResult = await pool.query(mostFour, [req.params.tournament_id]);
+                const fourData = mostFourResult.rows;
                 const combinedData = {
                     sixData,
                     fourData
