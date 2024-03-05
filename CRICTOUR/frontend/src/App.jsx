@@ -24,6 +24,7 @@ import TournamentDetails from './pages/TournamentDetails';
 import Matches from './pages/Matches';
 import Scorecard from './pages/Scorecard';
 import Stats from './pages/Stats';
+import Dream11 from './pages/Dream11';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -42,11 +43,13 @@ export default function App() {
         <Route path='/home' element={<Home></Home>} />
         <Route path="/login" element={<Combo></Combo>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
-        {user === 'admin' ? (
-          <Route path="/admin" element={<Admin></Admin>} />
-        ) : (
-          <Route path='/home' element={<Home></Home>} />
-        )}
+        {user === 'admin' ?
+          (
+            <Route path="/admin" element={<Admin></Admin>} />
+          ) : (
+            <Route path='/home' element={<Home></Home>} />
+          )
+        }
         <Route path="/umpire" element={<Umpire></Umpire>} />
         <Route path="/rank" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
@@ -56,6 +59,7 @@ export default function App() {
         <Route path="/teams/:team_id" element={<TeamDetails></TeamDetails>} />
         <Route path='/combo' element={<Combo></Combo>} />
         <Route path='/tournaments' element={<Tournaments></Tournaments>} />
+        <Route path='/dream11' element={<Dream11></Dream11>} />
         <Route path='/tournaments/:tournament_id' element={<TournamentDetails></TournamentDetails>} />
         <Route path='/tournaments/:tournament_id/matches' element={<Matches></Matches>} />
         <Route path='/tournaments/:tournament_id/matches/:match_id' element={<Scorecard></Scorecard>} />

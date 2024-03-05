@@ -63,8 +63,7 @@ body {
 }
 
 .profileButton {
-
-    margin-top   : 130px;
+    margin-top   : 0px;
     border-radius: 5px;
     width        : fit-content;
     height       : 38px;

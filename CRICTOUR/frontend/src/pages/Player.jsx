@@ -29,7 +29,7 @@ function Player() {
                             <p>{player.full_name}</p>
                             <div className="playerProfile">
                                 <Link to={`/players/${player.player_id}`} className='profileButton'>
-                                    <button className='profileButton'>Player Profile</button>
+                                    <button className='profileButton' style={{marginTop: '0px'}}>Player Profile</button>
                                 </Link>
                             </div>
                         </div>

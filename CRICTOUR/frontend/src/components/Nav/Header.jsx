@@ -31,23 +31,27 @@ function Header() {
                         <Link style={linkStyle} to="/match">Rankings</Link>
                     </li>
                     {user ? (
-                        user === 'admin' ? (
-                            <>
-                                <li style={liStyle}>
-                                    <Link style={linkStyle} to="/admin">Admin</Link>
-                                </li>
-                                <li style={liStyle}>
-                                    <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li style={liStyle}>
-                                    <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
-                                </li>
-                            </>
-                        )
-                    ) :
+                        user === 'admin' ?
+                            (
+                                <>
+                                    <li style={liStyle}>
+                                        <Link style={linkStyle} to="/admin">Admin</Link>
+                                    </li>
+                                    <li style={liStyle}>
+                                        <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li style={liStyle}>
+                                        <Link style={linkStyle} to='/dream11'>Dream11</Link>
+                                    </li>
+                                    <li style={liStyle}>
+                                        <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
+                                    </li>
+                                </>
+                            )
+                    ) : (
                         <>
                             <li style={liStyle}>
                                 <Link style={linkStyle} to="/login">Login</Link>
@@ -56,7 +60,7 @@ function Header() {
                                 <Link style={linkStyle} to="/signup">Signup</Link>
                             </li>
                         </>
-                    }
+                    )}
                 </ul>
             </nav>
         </header>
