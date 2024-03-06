@@ -30,6 +30,7 @@ async function readEJSFile(filePath) {
 
 async function run() {
     try {
+
         app.get("/", async (req, res) => {
             try {
                 const sightContent = await readEJSFile("./templates/sight.ejs");
@@ -408,7 +409,7 @@ async function run() {
                 SELECT * FROM TOURNAMENT;
                 `;
                 const result = await pool.query(sql);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -451,7 +452,7 @@ async function run() {
                  order by m.match_date;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -466,7 +467,7 @@ async function run() {
                 select team1_id,team2_id from match where match_id=$1;
                 `;
                 const result = await pool.query(sql, [req.params.match_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -505,7 +506,7 @@ async function run() {
                     battingData,
                     matchData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -542,7 +543,7 @@ async function run() {
                     bowlingData,
                     matchData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -623,7 +624,7 @@ async function run() {
             ) AS TEAM2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -702,7 +703,7 @@ async function run() {
                 ) AS TEAM2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -720,7 +721,7 @@ async function run() {
                 WHERE MU.MATCH_ID=$1;               
                 `;
                 const result = await pool.query(sql, [req.params.match_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -737,7 +738,7 @@ async function run() {
                 WHERE (TEAM1_ID=$1 AND TEAM2_ID=$2) OR (TEAM1_ID=$2 AND TEAM2_ID=$1);
                 `;
                 const result = await pool.query(sql, [req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -764,7 +765,7 @@ async function run() {
                 LIMIT 5;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -793,7 +794,7 @@ async function run() {
                  ;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -861,7 +862,7 @@ async function run() {
                 LIMIT 5;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             }
             catch (error) {
@@ -902,7 +903,7 @@ async function run() {
                  ;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             }
             catch (error) {
@@ -946,7 +947,7 @@ async function run() {
                     sixData,
                     fourData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             }
             catch (error) {
@@ -1056,17 +1057,62 @@ async function run() {
                 };
                 console.log(bestElevenData);
                 res.json(bestElevenData);
+        app.post("/playerByTournament", async (req, res) => {
+            try {
+                const { tournamentId } = req.body;
+                // console.log(tournamentId);
+                const sql = `
+                    SELECT
+                        P.PERSONID AS PLAYER_ID,
+                        P.IMAGE,
+                        (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                        T.TEAM_NAME AS TEAM,
+                        PL.TYPE,
+                        EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
+                    FROM PLAYER PL
+                    JOIN PERSON P ON PL.PLAYERID = P.PERSONID
+                    LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID
+                    JOIN TEAM_PARTICIPATION TP ON T.TEAM_ID = TP.TEAM_ID AND TP.TOURNAMENT_ID = $1;
+                `;
+                const players = await pool.query(sql, [tournamentId]);
+                // console.log(players.rows);
+                res.json(players.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
             }
         });
 
+        app.post('/dream11', async (req, res) => {
+            try {
+                const { selectedPlayers, tournamentIdd } = req.body;
+                console.log(selectedPlayers);
+                await pool.query('CALL INSERT_SELECTED_PLAYERS_TO_DREAM11($1)', [selectedPlayers]);
+        
+                // Call the procedure to calculate total points for DREAM11
+                const result = await pool.query('SELECT CALCULATE_TOTAL_DREAM11_POINTS();');
+                const totalPoints = result.rows[0].calculate_total_dream11_points;
+        
+                // Call the function to compare teams in the tournament
+                const teamsByTournament = await pool.query(`SELECT * FROM COMPARE_TEAMS_IN_TOURNAMENT($1);`, [tournamentIdd]);
+        
+                // Send response with total points and teams data
+                await pool.query('DELETE FROM DREAM11;');
+                res.status(200).json({ 
+                    totalPoints: totalPoints,
+                    teamsByTournament: teamsByTournament.rows
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });        
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();
     }
-}
+}, 1000);
 
 // running the function
 run().catch((err) => console.error(err));
@@ -1074,4 +1120,8 @@ run().catch((err) => console.error(err));
 // listening to the port
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
-});
+})}
+finally {
+    // console.log("Shutting down server");
+    // pool.end();
+}};
