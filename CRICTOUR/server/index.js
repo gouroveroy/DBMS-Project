@@ -1057,6 +1057,12 @@ async function run() {
                 };
                 console.log(bestElevenData);
                 res.json(bestElevenData);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        }
+        );
         app.post("/playerByTournament", async (req, res) => {
             try {
                 const { tournamentId } = req.body;
@@ -1112,16 +1118,12 @@ async function run() {
         // console.log("Shutting down server");
         // pool.end();
     }
-}, 1000);
+}
 
 // running the function
+// run().catch((err) => console.error(err));
 run().catch((err) => console.error(err));
-
 // listening to the port
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
-})}
-finally {
-    // console.log("Shutting down server");
-    // pool.end();
-}};
+});
