@@ -49,3 +49,6 @@ BEGIN
     RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
+
+
+-- NORMAL FUNCTION

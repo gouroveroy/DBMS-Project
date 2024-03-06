@@ -410,7 +410,7 @@ async function run() {
                 SELECT * FROM TOURNAMENT;
                 `;
                 const result = await pool.query(sql);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -453,7 +453,7 @@ async function run() {
                  order by m.match_date;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -468,7 +468,7 @@ async function run() {
                 select team1_id,team2_id from match where match_id=$1;
                 `;
                 const result = await pool.query(sql, [req.params.match_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -507,7 +507,7 @@ async function run() {
                     battingData,
                     matchData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -544,7 +544,7 @@ async function run() {
                     bowlingData,
                     matchData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -625,7 +625,7 @@ async function run() {
             ) AS TEAM2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -704,7 +704,7 @@ async function run() {
                 ) AS TEAM2;
                 `;
                 const result = await pool.query(sql, [req.params.match_id, req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -722,7 +722,7 @@ async function run() {
                 WHERE MU.MATCH_ID=$1;               
                 `;
                 const result = await pool.query(sql, [req.params.match_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -739,7 +739,7 @@ async function run() {
                 WHERE (TEAM1_ID=$1 AND TEAM2_ID=$2) OR (TEAM1_ID=$2 AND TEAM2_ID=$1);
                 `;
                 const result = await pool.query(sql, [req.params.team1_id, req.params.team2_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -766,7 +766,7 @@ async function run() {
                 LIMIT 5;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -795,7 +795,7 @@ async function run() {
                  ;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -863,7 +863,7 @@ async function run() {
                 LIMIT 5;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             }
             catch (error) {
@@ -904,7 +904,7 @@ async function run() {
                  ;
                 `;
                 const result = await pool.query(sql, [req.params.tournament_id]);
-                console.log(result.rows);
+                // console.log(result.rows);
                 res.json(result.rows);
             }
             catch (error) {
@@ -948,13 +948,44 @@ async function run() {
                     sixData,
                     fourData
                 };
-                console.log(combinedData);
+                // console.log(combinedData);
                 res.json(combinedData);
             }
             catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
             }
+        });
+
+        app.post("/playerByTournament", async (req, res) => {
+            try {
+                const { tournamentId } = req.body;
+                // console.log(tournamentId);
+                const sql = `
+                    SELECT
+                        P.PERSONID AS PLAYER_ID,
+                        P.IMAGE,
+                        (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                        T.TEAM_NAME AS TEAM,
+                        PL.TYPE,
+                        EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
+                    FROM PLAYER PL
+                    JOIN PERSON P ON PL.PLAYERID = P.PERSONID
+                    LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID
+                    JOIN TEAM_PARTICIPATION TP ON T.TEAM_ID = TP.TEAM_ID AND TP.TOURNAMENT_ID = $1;
+                `;
+                const players = await pool.query(sql, [tournamentId]);
+                // console.log(players.rows);
+                res.json(players.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+        
+        app.post('/dream11', async (req, res) => {
+            const { selectedPlayers } = req.body;
+            console.log(selectedPlayers);
         });
 
     } finally {
