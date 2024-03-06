@@ -12,27 +12,22 @@ body {
 }
 
 .player-container {
-    display        : flex;
-    flex-wrap      : wrap;
-    flex-direction : row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     /* Align items along the x-axis */
     justify-content: center;
 }
 
 .player-box {
-    /* display         : flex; */
-    /* flex-direction  : column; Change to column layout */
-    /* align-items     : center; Center align items horizontally */
-    /* justify-content : center; Center align items vertically */
-    width           : 300px;
-    height          : 400px;
-    margin          : 25px;
-    /* Adjust the margin */
-    padding         : 20px;
+    width: 300px;
+    height: 400px;
+    margin: 25px;
     background-color: #f2f2f2;
-    border-radius   : 10px;
-    text-align      : center;
+    border-radius: 10px;
+    text-align: center;
     background-color: rgb(5 4 98);
+    box-shadow: black 5px 10px 10px;
 }
 
 /* Add a media query to change the margin when the screen size is smaller */
@@ -45,28 +40,28 @@ body {
 
 .player-box>p {
     font-weight: bold;
-    color      : rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .player-name {
-    font-size    : 18px;
-    font-weight  : bold;
+    font-size: 18px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
 .player-flag {
-    width        : 100px;
-    height       : 100px;
-    margin       : 0 auto;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
     border-radius: 50%;
-    object-fit   : cover;
+    object-fit: cover;
 }
 
 .profileButton {
-    margin-top   : 0px;
+    margin-top: 0px;
     border-radius: 5px;
-    width        : fit-content;
-    height       : 38px;
+    width: fit-content;
+    height: 38px;
 
 }
 

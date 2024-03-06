@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "d:/DBMS_Project/DBMS-Project/CRICTOUR/frontend/public",
+      "program": "d:/DBMS_Project/DBMS-Project/CRICTOUR/frontend/public/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

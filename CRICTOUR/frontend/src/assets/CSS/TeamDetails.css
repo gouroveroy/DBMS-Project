@@ -12,13 +12,13 @@
   flex-direction: column;
   width: 227px;
   height: 300px;
-  margin: 25px 0; /* Adjust the margin */
-  padding: 20px;
+  margin: 25px; /* Adjust the margin */
   background-color: #f2f2f2;
   border-radius: 10px;
   text-align: center;
-  background-color:#00175F;
-  box-shadow: black 0px 0px 10px;
+  background-color:#ffffff;
+  box-shadow: black 5px 10px 10px;
+  margin-bottom: 0px;
 }
 
 .coach-name
@@ -28,12 +28,12 @@
   width: 227px;
   height: 300px;
   margin: 25px 0; /* Adjust the margin */
-  padding: 20px;
   background-color: #f2f2f2;
   border-radius: 10px;
   text-align: center;
-  background-color: #00175F;
-  box-shadow: black 0px 0px 10px;
+  background-color: #ffffff;
+  box-shadow: black 5px 10px 10px;
+  margin-bottom: 0px;
 }
 
 p{
@@ -49,11 +49,11 @@ p{
     width: 290px;
     height: 350px;
     margin: 25px 0; /* Adjust the margin */
-    padding: 20px;
     border-radius: 10px;
     text-align: center;
-    background-color: #00175F;
-    box-shadow: black 0px 0px 10px;
+    background-color: #ffffff;
+    box-shadow: black 5px 10px 10px;
+    margin-bottom: 0px;
 }
 
 .td-team-box span, .captain-name span, .coach-name span{
@@ -99,26 +99,36 @@ h1{
     width: 227px;
     height: 300px;
     margin: 25px; /* Adjust the margin */
-    padding: 20px;
     background-color: #f2f2f2;
     border-radius: 10px;
     text-align: center;
     background-color: #ffffff;
-    box-shadow: black 0px 0px 10px;
+    box-shadow: black 5px 10px 10px;
+    margin-bottom: 0px;
 }
 
 .player-infto-team-box span{
     color: rgb(0, 0, 0);
 }
 
+.playerName{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
 .player-infto-team-box img
 {
-    width: 121%;
+    /* width: 121%;
     height: 100%;
     display: block;
     margin-top: -18px;
     border-radius: 10px;
-    margin-left: -20px;
+    margin-left: -20px; */
 }
 
 .type-name{

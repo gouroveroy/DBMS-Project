@@ -40,30 +40,6 @@ function toggleActive(button) {
     button.classList.add('active');
 }
 
-function calculateEconomy(bowler) {
-    const overs = parseFloat(bowler.overs_bowled);
-    const runs = parseFloat(bowler.run_given);
-
-    if (!isNaN(overs) && !isNaN(runs) && overs !== 0) {
-        const economyRate = (runs / overs);
-        return economyRate.toFixed(2); // Return the economy rate rounded to 2 decimal places
-    } else {
-        return 'N/A'; // Return 'N/A' if overs or runs are not valid numbers or if overs is 0
-    }
-}
-
-function calculateStrikeRate(batsman) {
-    const runs = parseFloat(batsman.run_scored);
-    const balls = parseFloat(batsman.ball_played);
-
-    if (!isNaN(runs) && !isNaN(balls) && balls !== 0) {
-        const strikeRate = (runs / balls) * 100;
-        return strikeRate.toFixed(2); // Return the strike rate rounded to 2 decimal places
-    } else {
-        return 'N/A'; // Return 'N/A' if runs or balls are not valid numbers or if balls is 0
-    }
-}
-
 
 function Scorecard() {
     const { match_id } = useParams();

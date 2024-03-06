@@ -10,6 +10,7 @@ const Awards = () => {
     const [topStrikeRate, setTopStrikeRate] = useState([]);
     const [mostSix, setMostSix] = useState([]);
     const [mostFour, setMostFour] = useState([]);
+    const [bestBowlerByEconomy, setBestBowlerByEconomy] = useState([]);
     const [awards, setAwards] = useState([]);
 
     useEffect(() => {
@@ -56,6 +57,16 @@ const Awards = () => {
             })
             .catch(error => console.error(error));
     }, [tournament_id]);
+
+    useEffect(() => {
+        //feth data from backend for best bowler by economy
+        fetch(`http://localhost:8000/tournaments/${tournament_id}/bestEconomyRate`)
+            .then(response => response.json())
+            .then(data => setBestBowlerByEconomy(data))
+            .catch(error => console.error(error));
+    }, [tournament_id]);
+
+    console.log(bestBowlerByEconomy);
 
     return (
         <div>
@@ -150,7 +161,7 @@ const Awards = () => {
                         <thead>
                             <tr>
                                 <div className='headline'>
-                                    <h2>Top Five Strike Rate</h2>
+                                    <h2>Best Strike Rate</h2>
                                 </div>
                             </tr>
                             <tr>
@@ -217,6 +228,37 @@ const Awards = () => {
                                     <td>{player.player_name}</td>
                                     <td>{player.team_name}</td>
                                     <td>{player.total_four}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div className="top-stats-show">
+                <div className="economy-rate">
+                    <table className="table-table-bordered">
+                        <thead>
+                            <tr>
+                                <div className='headline'>
+                                    <h2>Best Economy</h2>
+                                </div>
+                            </tr>
+                            <tr>
+                                <th>Player</th>
+                                <th>Team</th>
+                                <th>Total Wicket</th>
+                                <th>Economy rate</th>
+                                <th>Match played</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {bestBowlerByEconomy.map((player) => (
+                                <tr key={player.player_id}>
+                                    <td>{player.player_name}</td>
+                                    <td>{player.team_name}</td>
+                                    <td>{player.total_wicket}</td>
+                                    <td>{player.economy_rate}</td>
+                                    <td>{player.played_match}</td>
                                 </tr>
                             ))}
                         </tbody>

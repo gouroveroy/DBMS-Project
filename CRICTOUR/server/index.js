@@ -297,19 +297,17 @@ async function run() {
             }
         });
 
+        // RETREIVE player profile for a player
         app.get("/player/:player_id", async (req, res) => {
             try {
                 const sql = `
-                SELECT
-                    P.IMAGE,
-                    (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
-                    T.TEAM_NAME AS TEAM,
-                    PL.TYPE,
-                    EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE
-                FROM PLAYER PL
-                JOIN PERSON P ON PL.PLAYERID = P.PERSONID
-                LEFT JOIN TEAM T ON PL.TEAM_ID = T.TEAM_ID
-                WHERE PL.PLAYERID = $1;
+                SELECT PP.*,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,PL.TYPE, T.TEAM_NAME,P.DATE_OF_BIRTH,(CURRENT_DATE-P.DATE_OF_BIRTH)/365 AS AGE
+                FROM PLAYER_PROFILE PP
+                JOIN PERSON P ON PP.PLAYERID=P.PERSONID
+                JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+                where PP.playerid=$1
+                ;
                 `;
                 const result = await pool.query(sql, [req.params.player_id]);
                 console.log(result.rows);
@@ -952,6 +950,113 @@ async function run() {
                 res.json(combinedData);
             }
             catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //Retreive data for the best bowler by their economy rate
+        app.get("/tournaments/:tournament_id/bestEconomyRate", async (req, res) => {
+            try {
+                const sql = `
+                SELECT PLAYER_ID,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME,SUM(COALESCE(WICKET_TAKEN,0)) AS TOTAL_WICKET, ROUND(SUM( COALESCE(RUN_GIVEN*1.0,0))/SUM(COALESCE(OVERS_BOWLED,0)),2) AS ECONOMY_RATE,
+                 (SELECT COUNT(*)
+                   FROM SCORECARD 
+                   WHERE PLAYER_ID=S.PLAYER_ID AND (OVERS_BOWLED IS NOT NULL OR RUN_SCORED IS NOT NULL)
+                 ) as PLAYED_MATCH
+                FROM SCORECARD s
+                JOIN PERSON P ON S.PLAYER_ID=P.PERSONID
+                JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+                JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+                WHERE TOURNAMENT_ID=$1 AND OVERS_BOWLED IS NOT NULL
+                GROUP BY PLAYER_ID,P.FIRST_NAME,P.LAST_NAME,T.TEAM_NAME
+                ORDER BY ECONOMY_RATE ASC,TOTAL_WICKET DESC
+                LIMIT 5
+                ;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
+                console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        //retreiving the best eleven of a tournament
+        app.get("/tournaments/:tournament_id/bestEleven", async (req, res) => {
+            try {
+                const bestBatsman = `
+                SELECT S.PLAYER_ID,CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME, SUM(COALESCE(S.RUN_SCORED, 0)) AS TOTAL_RUN,
+                   (SELECT COUNT(*) 
+                      FROM SCORECARD 
+                      WHERE PLAYER_ID=S.PLAYER_ID AND (RUN_SCORED  IS NOT NULL OR OVERS_BOWLED IS NOT NULL)
+                   ) AS PLAYED_MATCH
+                 FROM SCORECARD S
+                 JOIN PERSON P ON  S.PLAYER_ID=P.PERSONID
+                 JOIN PLAYER PL ON PL.PLAYERID=P.PERSONID
+                 JOIN TEAM T ON T.TEAM_ID=PL.TEAM_ID
+                 WHERE TOURNAMENT_ID=$1
+                 GROUP BY S.PLAYER_ID,P.FIRST_NAME,P.LAST_NAME,T.TEAM_NAME
+                 ORDER BY TOTAL_RUN DESC
+                 LIMIT 7;
+                `;
+                const result1 = await pool.query(bestBatsman, [req.params.tournament_id]);
+                const bestBatsmanData = result1.rows;
+                const bestBowler = `
+                SELECT PLAYER_ID, PLAYER_NAME, TEAM_NAME, TOTAL_WICKET,ECONOMY_RATE, PLAYED_MATCH
+                 FROM (
+                     SELECT PLAYER_ID, CONCAT(P.FIRST_NAME, ' ', P.LAST_NAME) AS PLAYER_NAME, T.TEAM_NAME, 
+                            SUM(COALESCE(WICKET_TAKEN, 0)) AS TOTAL_WICKET,
+                 	       ROUND(SUM(COALESCE(RUN_GIVEN * 1.0, 0)) / SUM(COALESCE(OVERS_BOWLED, 0)), 2) AS ECONOMY_RATE,
+                            (
+                                SELECT COUNT(*)
+                                FROM SCORECARD 
+                                WHERE PLAYER_ID = S.PLAYER_ID AND (OVERS_BOWLED IS NOT NULL OR RUN_SCORED IS NOT NULL)
+                            ) AS PLAYED_MATCH
+                     FROM SCORECARD s
+                     JOIN PERSON P ON S.PLAYER_ID = P.PERSONID
+                     JOIN PLAYER PL ON PL.PLAYERID = P.PERSONID
+                     JOIN TEAM T ON T.TEAM_ID = PL.TEAM_ID
+                     WHERE TOURNAMENT_ID = $1 AND OVERS_BOWLED IS NOT NULL
+                     GROUP BY PLAYER_ID, P.FIRST_NAME, P.LAST_NAME, T.TEAM_NAME
+                     ORDER BY TOTAL_WICKET DESC
+                     LIMIT 3
+                 ) AS TopPlayersByWickets
+                 
+                 UNION
+                 
+                 SELECT PLAYER_ID, PLAYER_NAME, TEAM_NAME, TOTAL_WICKET, ECONOMY_RATE, PLAYED_MATCH
+                 FROM (
+                     SELECT PLAYER_ID, CONCAT(P.FIRST_NAME, ' ', P.LAST_NAME) AS PLAYER_NAME, T.TEAM_NAME, 
+                            SUM(COALESCE(WICKET_TAKEN, 0)) AS TOTAL_WICKET, 
+                            ROUND(SUM(COALESCE(RUN_GIVEN * 1.0, 0)) / SUM(COALESCE(OVERS_BOWLED, 0)), 2) AS ECONOMY_RATE,
+                            (
+                                SELECT COUNT(*)
+                                FROM SCORECARD 
+                                WHERE PLAYER_ID = S.PLAYER_ID AND (OVERS_BOWLED IS NOT NULL OR RUN_SCORED IS NOT NULL)
+                            ) AS PLAYED_MATCH
+                     FROM SCORECARD s
+                     JOIN PERSON P ON S.PLAYER_ID = P.PERSONID
+                     JOIN PLAYER PL ON PL.PLAYERID = P.PERSONID
+                     JOIN TEAM T ON T.TEAM_ID = PL.TEAM_ID
+                     WHERE TOURNAMENT_ID = $1 AND OVERS_BOWLED IS NOT NULL
+                     GROUP BY PLAYER_ID, P.FIRST_NAME, P.LAST_NAME, T.TEAM_NAME
+                     ORDER BY ECONOMY_RATE ASC, TOTAL_WICKET DESC
+                     LIMIT 1
+                 ) AS TopPlayersByEconomyRate;
+
+                `;
+                const result2 = await pool.query(bestBowler, [req.params.tournament_id]);
+                const bestBowlerData = result2.rows;
+                const bestElevenData = {
+                    bestBatsmanData,
+                    bestBowlerData
+                };
+                console.log(bestElevenData);
+                res.json(bestElevenData);
+            } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
                 res.status(500).json({ error: "Internal Server Error" });
             }
