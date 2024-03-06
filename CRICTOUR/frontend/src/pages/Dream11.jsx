@@ -10,7 +10,11 @@ function Dream11() {
     const [selectedPlayers, setSelectedPlayers] = useState([]); // Selected players
     const [playerSelectionVisible, setPlayerSelectionVisible] = useState(false);
     const [tournamentSelectionVisible, setTournamentSelectionVisible] = useState(true); // Set initially to true to display tournament selection
+    const [comparisonVisible, setComparisonVisible] = useState(false); // Set initially to true
     const [tournaments, setTournaments] = useState([]);
+    const [comparedTeam, setComparedTeam] = useState([]);
+    const [totalPoints, setTotalPoints] = useState();
+    const [tournamentIdd, setTournamentIdd] = useState();
 
     useEffect(() => {
         // Fetch the tournament data from the backend
@@ -45,6 +49,7 @@ function Dream11() {
     }
 
     const handleTournamentSelectionVisible = async (tournamentId) => {
+        setTournamentIdd(tournamentId);
         try {
             const response = await axios.post('http://localhost:8000/playerByTournament', { tournamentId });
             setPlayerList(response.data);
@@ -54,16 +59,22 @@ function Dream11() {
         }
         setTournamentSelectionVisible(false);
         setPlayerSelectionVisible(true);
+        setComparisonVisible(false);
     }
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('http://localhost:8000/dream11', { selectedPlayers });
-            console.log(response.data);
+            console.log(selectedPlayers);
+            const response = await axios.post('http://localhost:8000/dream11', { selectedPlayers, tournamentIdd });
+            setComparedTeam(response.data.teamsByTournament);
+            setTotalPoints(response.data.totalPoints);
         } catch (error) {
             console.error('Error:', error);
             alert('Internal Server Error. Please try again later.');
         }
+        setTournamentSelectionVisible(false);
+        setPlayerSelectionVisible(false);
+        setComparisonVisible(true);
     }
 
     return (
@@ -110,6 +121,30 @@ function Dream11() {
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            <div className={`interface ${comparisonVisible ? 'visible' : 'hidden'}`}>
+                <div className="comparison">
+                    <h2>Comparison</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Total Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {comparedTeam.map((team) => (
+                                <tr key={team.TEAM_ID}>
+                                    <td>{team.TEAM_NAME}</td>
+                                    <td>{team.TOTAL_POINTS}</td>
+                                </tr>
+                            ))}
+                            <td>Dream 11</td>
+                            <td>{totalPoints}</td>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

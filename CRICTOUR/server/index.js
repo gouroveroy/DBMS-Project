@@ -982,11 +982,31 @@ async function run() {
                 res.status(500).json({ error: "Internal Server Error" });
             }
         });
-        
+
         app.post('/dream11', async (req, res) => {
-            const { selectedPlayers } = req.body;
-            console.log(selectedPlayers);
-        });
+            try {
+                const { selectedPlayers, tournamentIdd } = req.body;
+                console.log(selectedPlayers);
+                await pool.query('CALL INSERT_SELECTED_PLAYERS_TO_DREAM11($1)', [selectedPlayers]);
+        
+                // Call the procedure to calculate total points for DREAM11
+                const result = await pool.query('SELECT CALCULATE_TOTAL_DREAM11_POINTS();');
+                const totalPoints = result.rows[0].calculate_total_dream11_points;
+        
+                // Call the function to compare teams in the tournament
+                const teamsByTournament = await pool.query(`SELECT * FROM COMPARE_TEAMS_IN_TOURNAMENT($1);`, [tournamentIdd]);
+        
+                // Send response with total points and teams data
+                await pool.query('DELETE FROM DREAM11;');
+                res.status(200).json({ 
+                    totalPoints: totalPoints,
+                    teamsByTournament: teamsByTournament.rows
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });        
 
     } finally {
         // console.log("Shutting down server");
