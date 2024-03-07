@@ -29,7 +29,7 @@ function Teams() {
                 {teams.map(team => (
                     <div key={team.team_id}>
                         <div className="team-box">
-                            <img src={`images/${team.team_id}.jpg`} alt={team.team_name} style={{ height: '100%', width: '100%' }} />
+                            <img src={`images/team/${team.team_id}.jpg`} alt={team.team_name} style={{ height: '100%', width: '100%' }} />
                         </div>
                         <div className="teamProfile">
                             <div>
