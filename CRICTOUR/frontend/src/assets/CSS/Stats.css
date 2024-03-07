@@ -14,7 +14,7 @@
     border-radius: 40px;
 }
 
-.top-five-batsman,.top-five-allrounder,.top-strike-rate,.most-six,.most-four{
+.top-five-batsman,.top-five-allrounder,.top-strike-rate,.most-six,.most-four,.economy-rate{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,7 +97,7 @@ tr{
 }
 
 .top-strike-rate .headline{
-    width: 202%;
+    width: 227.5%;
 }
 
 .most-four .headline{
@@ -106,4 +106,8 @@ tr{
 
 .most-six .headline{
     width: 225%;
+}
+
+.economy-rate .headline{
+    width: 455%;
 }

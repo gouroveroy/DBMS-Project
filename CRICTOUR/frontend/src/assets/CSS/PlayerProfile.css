@@ -1,0 +1,78 @@
+.playerImage {
+    width: 300px;
+    height: 400px;
+    margin: 25px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(5 4 98);
+    box-shadow: black 5px 10px 10px;
+}
+
+
+
+.playerDetails {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerInfo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.options {
+    overflow: auto;
+}
+
+
+
+.playerCareer li {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.playerCareer ul {
+    margin-bottom: 10px;
+}
+
+.op-bowl-bat{
+    background-color: #f2f2f2;
+    box-shadow: rgb(151, 151, 151) 0px 0px 10px;
+    margin-left: 10px;
+}
+
+.selectOption{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.player-careear-table-show{
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: rgb(151, 151, 151) 0px 0px 10px;
+}
+
+/* CSS */
+.table-table-bordered tbody tr:nth-child(odd) {
+    background-color: #e8e3e3; /* Gray background for odd rows */
+}
+
+.table-table-bordered tbody tr:nth-child(even) {
+    background-color: #9c9b9b; /* White background for even rows */
+}
+
+.op-bowl-bat.active{
+    background-color: #00175F;
+    font-weight: bold;
+    color: #ffffff;
+}
+

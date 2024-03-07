@@ -22,8 +22,7 @@ function TeamDetails() {
             .then(data => {
                 setTeamDetailS(data);
                 console.log(data);
-                if(data.length>0)
-                {
+                if (data.length > 0) {
                     setCaptaninName(data[0].captain_name);
                     setCoachName(data[0].coach_name);
                     setTeamName(data[0].team_name);
@@ -36,38 +35,20 @@ function TeamDetails() {
             .catch(error => console.error(error));
     }, []);
 
+    function handleImage(player_id) {
+        return `/images/${player_id}.jpg`;
+    }
+
     if (!teamDetailS) {
         return <div>Loading...</div>;
     }
-
-    const decodeBase64ToUrl = (base64String) => {
-        const binaryString = atob(base64String);
-        const byteArray = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-            byteArray[i] = binaryString.charCodeAt(i);
-        }
-        const blob = new Blob([byteArray], { type: 'image/jpg' });
-        return URL.createObjectURL(blob);
-    };
-
-    const base64ToUrl = (base64String) => {
-        return `data:image/jpeg;base64,${base64String}`;
-    };
-
-    const base64String = "ZnJvbnRlbmQvc3JjL2Fzc2V0cy9pbWFnZXMvMTExLkpQRw==";
-    const url = decodeBase64ToUrl(base64String);
-
-    console.log(url);
-
-    const url2 = base64ToUrl(base64String);
-    console.log(url2);
 
     return (
         <div className='TeamDetails-Container'>
             <h1>{team_name}</h1>
             <div className="team-basic-info">
                 <div className="td-team-box">
-                    {/* <p>{team_name}</p> */}
+                <img src={handleImage(team_id)} alt={team_name} style={{ height: '100%', width: '100%' }} />
                     <span>{team_name}</span>
                 </div>
                 <div className="spacer-text">
@@ -77,24 +58,28 @@ function TeamDetails() {
                     <p>World Champion: </p>
                 </div>
                 <div className="captain-name">
-                    {/* <p>{captain_name}</p> */}
-                    <span>{captain_name}</span>
+                <img src={handleImage(captain_id)} alt={captain_name} style={{ height: '100%', width: '100%' }} />
+                    {/* <span>{captain_name}</span> */}
                 </div>
                 <div className="coach-name">
-                    {/* <p>{coach_name}</p> */}
-                    <span>{coach_name}</span>
+                <img src={handleImage(coach_id)} alt={coach_name} style={{ height: '100%', width: '100%' }} />
+                    {/* <span>{coach_name}</span> */}
                 </div>
             </div>
             <div className="type-name">
                 <span>BATSMAN</span>
             </div>
             <div className="player-info">
-            {teamDetailS.map(team => (
-                    <div  key={team.team_id + "-" + team.playerid}>
+                {teamDetailS.map(team => (
+                    <div key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BATSMAN' &&
-                            <div className="player-infto-team-box"> {/* there is a different box named player-info-team-box of which css is added to the corresponding css page  */}
-                                <span>{team.player_name}</span>
-                                <img src={decodeBase64ToUrl(team.player_image)} alt="Player" />
+                            <div>
+                                <div className="player-infto-team-box"> {/* there is a different box named player-info-team-box of which css is added to the corresponding css page  */}
+                                    <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
+                                </div>
+                                <div className='playerName'>
+                                    <span>{team.player_name}</span>
+                                </div>
                             </div>
                         }
                     </div>
@@ -104,12 +89,16 @@ function TeamDetails() {
                 <span>ALL-ROUNDER</span>
             </div>
             <div className="player-info">
-            {teamDetailS.map(team => (
-                    <div  key={team.team_id + "-" + team.playerid}>
+                {teamDetailS.map(team => (
+                    <div key={team.team_id + "-" + team.playerid}>
                         {team.type === 'ALL-ROUNDER' &&
-                            <div className="player-infto-team-box">
-                                <span>{team.player_name}</span>
-                                <img src={base64ToUrl(team.player_image)} alt="Player" />
+                            <div>
+                                <div className="player-infto-team-box"> {/* there is a different box named player-info-team-box of which css is added to the corresponding css page  */}
+                                    <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
+                                </div>
+                                <div className='playerName'>
+                                    <span>{team.player_name}</span>
+                                </div>
                             </div>
                         }
                     </div>
@@ -119,12 +108,16 @@ function TeamDetails() {
                 <span>BOWLER</span>
             </div>
             <div className="player-info">
-            {teamDetailS.map(team => (
-                    <div  key={team.team_id + "-" + team.playerid}>
+                {teamDetailS.map(team => (
+                    <div key={team.team_id + "-" + team.playerid}>
                         {team.type === 'BOWLER' &&
-                            <div className="player-infto-team-box">
-
-                                <span>{team.player_name}</span>
+                            <div>
+                                <div className="player-infto-team-box"> {/* there is a different box named player-info-team-box of which css is added to the corresponding css page  */}
+                                    <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
+                                </div>
+                                <div className='playerName'>
+                                    <span>{team.player_name}</span>
+                                </div>
                             </div>
                         }
                     </div>

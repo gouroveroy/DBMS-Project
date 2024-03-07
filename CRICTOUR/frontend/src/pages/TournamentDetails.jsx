@@ -47,6 +47,9 @@ function TournamentDetails() {
                         <li style={liStyle}>
                             <Link to={`/tournaments/${tournament_id}/awards`}>Stats</Link>
                         </li>
+                        <li style={liStyle}>
+                            <Link to={`/tournaments/${tournament_id}/TOTM`}>Team of the tournament</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
