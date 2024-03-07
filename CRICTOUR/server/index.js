@@ -1193,7 +1193,7 @@ async function run() {
 
         app.get('/highlights', async (req, res) => {
             try {
-                const highlights = await pool.query('SELECT * FROM HIGHLIGHTS;');
+                const highlights = await pool.query('SELECT * FROM HIGHLIGHT;');
                 res.status(200).json(highlights.rows);
             } catch (error) {
                 console.error('Error:', error);
