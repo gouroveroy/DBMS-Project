@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 import '../assets/CSS/TournamentDetails.css';
 
 function formatDate(dateString) {
@@ -13,12 +14,8 @@ function formatDate(dateString) {
 
 function TournamentDetails() {
     const { tournament_id } = useParams();
-    const [tournamentId, setTournament_id] = useState('');
+    const [tournamentId, setTournamentId] = useState('');
     const [tournamentData, setTournamentData] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
 
     useEffect(() => {
         // Fetch data from the backend
@@ -27,32 +24,27 @@ function TournamentDetails() {
             .then(data => {
                 setTournamentData(data);
                 if (data.length > 0) {
-                    setTournament_id(data[0].tournament_id);
+                    setTournamentId(data[0].tournament_id);
                 }
             })
             .catch(error => console.log(error));
-    }, []);
+    }, [tournament_id]);
 
     console.log(tournamentData);
 
     return (
         <div>
-            <div>
-                <button onClick={toggleSidebar}>≡</button>
-                <div style={{ ...sidebarStyle, display: isOpen ? 'block' : 'none' }}>
-                    <ul style={ulStyle}>
-                        <li style={liStyle}>
-                            <Link to={`/tournaments/${tournament_id}/matches`}>Matches</Link>
-                        </li>
-                        <li style={liStyle}>
-                            <Link to={`/tournaments/${tournament_id}/awards`}>Stats</Link>
-                        </li>
-                        <li style={liStyle}>
-                            <Link to={`/tournaments/${tournament_id}/TOTM`}>Team of the tournament</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Details
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href={`/tournaments/${tournament_id}/matches`}>Matches</Dropdown.Item>
+                    <Dropdown.Item href={`/tournaments/${tournament_id}/awards`}>Stats</Dropdown.Item>
+                    <Dropdown.Item href={`/tournaments/${tournament_id}/TOTM`}>Team of the tournament</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
             {/* Tournament details */}
             {tournamentData ? (
                 <div className='tournamentContainer'>
@@ -102,27 +94,4 @@ function TournamentDetails() {
     );
 }
 
-const sidebarStyle = {
-    width: '250px',
-    height: '100%',
-    backgroundColor: '#333',
-    color: '#fff',
-    padding: '20px',
-};
-
-const ulStyle = {
-    listStyleType: 'none',
-    padding: '0',
-};
-
-const liStyle = {
-    marginBottom: '10px',
-};
-
-const linkStyle = {
-    color: '#fff',
-    textDecoration: 'none',
-};
-
 export default TournamentDetails;
-
