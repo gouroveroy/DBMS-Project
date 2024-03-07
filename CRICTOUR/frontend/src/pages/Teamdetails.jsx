@@ -37,7 +37,7 @@ function TeamDetails() {
     }, []);
 
     function handleImage(player_id) {
-        return `/images/${player_id}.jpg`;
+        return `/images/player/${player_id}.jpg`;
     }
 
     if (!teamDetailS) {
@@ -50,6 +50,7 @@ function TeamDetails() {
             <div className="team-basic-info">
                 <div className="td-team-box">
                     <img src={handleImage(team_id)} alt={team_name} style={{ height: '100%', width: '100%' }} />
+                <img src={`images/team/${team_id}.jpg`} alt={team_name} style={{ height: '100%', width: '100%' }} />
                     <span>{team_name}</span>
                 </div>
                 <div className="spacer-text">
@@ -64,6 +65,7 @@ function TeamDetails() {
                 </div>
                 <div className="coach-name">
                     <img src={handleImage(coach_id)} alt={coach_name} style={{ height: '100%', width: '100%' }} />
+                <img src={`/images/coach/${coach_id}.jpg`} alt={coach_name} style={{ height: '100%', width: '100%' }} />
                     {/* <span>{coach_name}</span> */}
                 </div>
             </div>

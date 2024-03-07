@@ -1,19 +1,20 @@
-
-
 .tournamentBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    justify-content : center;
+    text-align      : center;
     background-color: #f0f0f0;
     padding: 20px;
     height: 640px;
     box-shadow: black 20px 10px 30px;
+    padding         : 20px;
+    height          : 627px;
+    border-radius   : 20px;
 }
 
 .tournamentBox .tournament-name {
-    font-size: 65px;
+    font-size  : 65px;
     font-weight: bold;
     color: #f2f2f2;
 }
@@ -25,85 +26,91 @@
 }
 
 .tournamentBox .tournament-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    width        : 100px;
+    height       : 100px;
+    object-fit   : cover;
     margin-bottom: 10px;
 }
 
-.tournament-info-box{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row; /* Align items along the x-axis */
-    justify-content: center;
-    margin-top: 30px;
+.tournament-info-box {
+    display         : flex;
+    flex-wrap       : wrap;
+    flex-direction  : row;
+    /* Align items along the x-axis */
+    justify-content : center;
+    margin-top      : 30px;
     background-color: #f0f0f0;
-    border-radius: 10px;
-    box-shadow: rgb(214, 210, 210) 0px 0px 10px
+    border-radius   : 10px;
+    box-shadow      : rgb(214, 210, 210) 0px 0px 10px
 }
 
-.winner{
-    width: 227px;
-    height: 250px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
+.winner {
+    width           : 227px;
+    height          : 250px;
+    margin          : 25px;
+    /* Adjust the margin */
+    padding         : 20px;
     background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
+    border-radius   : 10px;
+    text-align      : center;
     background-color: rgb(198, 198, 219);
-    box-shadow: black 0px 0px 10px;
+    box-shadow      : black 0px 0px 10px;
 }
 
-.duration{
-    width: 227px;
-    height: 250px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
+.duration {
+    width           : 227px;
+    height          : 250px;
+    margin          : 25px;
+    /* Adjust the margin */
+    padding         : 20px;
     background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
+    border-radius   : 10px;
+    text-align      : center;
     background-color: rgb(198, 198, 219);
-    box-shadow: black 0px 0px 10px;
+    box-shadow      : black 0px 0px 10px;
 }
 
-.host{
-    width: 227px;
-    height: 250px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
+.host {
+    width           : 227px;
+    height          : 250px;
+    margin          : 25px;
+    /* Adjust the margin */
+    padding         : 20px;
     background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
+    border-radius   : 10px;
+    text-align      : center;
     background-color: rgb(198, 198, 219);
-    box-shadow: black 0px 0px 10px;
+    box-shadow      : black 0px 0px 10px;
 }
 
-.total-match{
-    width: 227px;
-    height: 250px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
+.total-match {
+    width           : 227px;
+    height          : 250px;
+    margin          : 25px;
+    /* Adjust the margin */
+    padding         : 20px;
     background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
+    border-radius   : 10px;
+    text-align      : center;
     background-color: rgb(198, 198, 219);
-    box-shadow: black 0px 0px 10px;
+    box-shadow      : black 0px 0px 10px;
 }
 
-.some-info{
-    width: 227px;
-    height: 250px;
-    margin: 25px; /* Adjust the margin */
-    padding: 20px;
+.some-info {
+    width           : 227px;
+    height          : 250px;
+    margin          : 25px;
+    /* Adjust the margin */
+    padding         : 20px;
     background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
+    border-radius   : 10px;
+    text-align      : center;
     background-color: rgb(198, 198, 219);
-    box-shadow: black 0px 0px 10px;
+    box-shadow      : black 0px 0px 10px;
 }
 
-.tournamentContainer>p{
+.tournamentContainer>p {
     font-weight: bold;
-    color: #00175F;
-    font-size: 20px;
+    color      : #00175F;
+    font-size  : 20px;
 }

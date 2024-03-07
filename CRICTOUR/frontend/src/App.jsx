@@ -25,12 +25,16 @@ import Matches from './pages/Matches';
 import Scorecard from './pages/Scorecard';
 import Stats from './pages/Stats';
 import Dream11 from './pages/Dream11';
+import UmpireDetails from './pages/UmpireDetails';
+import CoachDetails from './pages/CoachDetails';
+import Venue from './pages/Venue';
+import VenueDetails from './pages/VenueDetails';
+import TOTM from './pages/TOTM';
 import PlayerPerformance from './pages/PlayerPerformance';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
 import Footer from './components/Nav/Footer';
-import TOTM from './pages/TOTM';
 
 import { StateContext } from './../context/ContextProvider';
 
@@ -52,16 +56,20 @@ export default function App() {
             <Route path='/home' element={<Home></Home>} />
           )
         }
+        <Route path='/combo' element={<Combo></Combo>} />
         <Route path="/umpire" element={<Umpire></Umpire>} />
+        <Route path='umpire/:umpire_id' element={<UmpireDetails></UmpireDetails>} />
         <Route path="/rank" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
+        <Route path='coach/:coach_id' element={<CoachDetails></CoachDetails>} />
         <Route path="/player" element={<Player></Player>} />
         <Route path='/player/:player_id' element={<PlayerProfile></PlayerProfile>} />
         <Route path="/teams" element={<Teams></Teams>} />
         <Route path="/teams/:team_id" element={<TeamDetails></TeamDetails>} />
-        <Route path='/combo' element={<Combo></Combo>} />
-        <Route path='/tournaments' element={<Tournaments></Tournaments>} />
+        <Route path='/venue' element={<Venue></Venue>} />
+        <Route path='/venue/:venue_id' element={<VenueDetails></VenueDetails>} />
         <Route path='/dream11' element={<Dream11></Dream11>} />
+        <Route path='/tournaments' element={<Tournaments></Tournaments>} />
         <Route path='/tournaments/:tournament_id' element={<TournamentDetails></TournamentDetails>} />
         <Route path='/tournaments/:tournament_id/matches' element={<Matches></Matches>} />
         <Route path='/tournaments/:tournament_id/matches/:match_id' element={<Scorecard></Scorecard>} />

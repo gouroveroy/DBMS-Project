@@ -47,7 +47,7 @@ function Dream11() {
     };
 
     function handleImage(player_id) {
-        return `/images/${player_id}.jpg`;
+        return `/images/player/${player_id}.jpg`;
     }
 
     const handleTournamentSelectionVisible = async (tournamentId) => {

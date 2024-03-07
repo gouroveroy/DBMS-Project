@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
+import '../assets/CSS/coach.css';
+
 function Coach() {
     const [coaches, setCoaches] = useState([]);
 
@@ -12,7 +14,7 @@ function Coach() {
     }, []);
 
     function handleImage(coach_id) {
-        return `/images/${coach_id}.jpg`;
+        return `/images/coach/${coach_id}.jpg`;
     }
 
     return (
@@ -22,14 +24,11 @@ function Coach() {
                 <div className="coach-container">
                     {coaches.map(coach => (
                         <div key={coach.coach_id} className="coach-box">
-                            <p>{coach.full_name}</p>
-                            <p>{coach.nationality}</p>
-                            <p>{coach.coaching_duration}</p>
-                            <img src={handleImage(coach.coach_id)} alt="coach" style={{ height: '25vh', width: '20vh', marginTop: '50px' }} />
-                            <p>{coach.team_name}</p>
+                            <img src={handleImage(coach.coach_id)} alt="coach" style={{ height: '32vh', width: '35vh', marginTop: '50px' }} />
+                            <span>{coach.full_name}</span>
                             <div className="playerProfile">
                                 <Link to={`/coach/${coach.coach_id}`} className='profileButton'>
-                                    <button className='profileButton'>Coach Profile</button>
+                                    <button className='profileButton' style={{ marginTop: '0px' }}>Coach Profile</button>
                                 </Link>
                             </div>
                         </div>

@@ -157,6 +157,29 @@ async function run() {
             }
         });
 
+        app.get("/umpire/:umpire_id", async (req, res) => {
+            try {
+                const sql = `
+                SELECT
+                  C.PERSONID AS UMPIRE_ID,
+                  (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                  P.NATIONALITY AS NATIONALITY,
+                  EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE,
+                  P.IMAGE,
+                  C.NO_OF_MATCH_CONDUCTED AS NO_OF_MATCHES_CONDUCTED
+                FROM UMPIRE C
+                JOIN PERSON P ON C.PERSONID = P.PERSONID
+                WHERE C.PERSONID = $1;
+                `
+                const result = await pool.query(sql, [req.params.umpire_id]);
+                // console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
         app.get("/pointTable", async (req, res) => {
             try {
                 const sql = `
@@ -193,7 +216,33 @@ async function run() {
 
                 // Execute the SQL query
                 const result = await pool.query(sql);
-                console.log(result.rows);
+                // console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        app.get('/coach/:coach_id', async (req, res) => {
+            try {
+                // SQL query to retrieve information about all coaches
+                const sql = `
+                    SELECT
+                        C.PERSONID AS COACH_ID,
+                        (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
+                        P.NATIONALITY,
+                        EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM P.DATE_OF_BIRTH) AS AGE,
+                        EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM C.START_DATE_OF_CAREER) AS COACHING_DURATION,
+                        P.IMAGE,
+                        T.TEAM_NAME AS TEAM
+                    FROM COACH C
+                    JOIN PERSON P ON C.PERSONID = P.PERSONID
+                    LEFT JOIN TEAM T ON C.TEAM_ID = T.TEAM_ID
+                    WHERE C.PERSONID = $1;
+                `;
+                const result = await pool.query(sql, [req.params.coach_id]);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
@@ -312,6 +361,34 @@ async function run() {
                 `;
                 const result = await pool.query(sql, [req.params.player_id]);
                 console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        app.get("/venue", async (req, res) => {
+            try {
+                const sql = `
+                SELECT * FROM VENUE;
+                `;
+                const result = await pool.query(sql);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        app.get("/venue/:venue_id", async (req, res) => {
+            console.log(req.params.venue_id);
+            try {
+                const sql = `
+                SELECT * FROM VENUE WHERE VENUE_ID = $1;
+                `;
+                const result = await pool.query(sql, [req.params.venue_id]);
+                // console.log(result.rows);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
