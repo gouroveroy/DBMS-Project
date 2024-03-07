@@ -143,8 +143,8 @@ function Dream11() {
                 <div className="player-container" style={{ marginTop: '100px' }}>
                     {playerList.map(player => (
                         <div key={player.player_id} className="player-box">
-                            <img src={handleImage(player.player_id)} alt={player.full_name} style={{ height: '25vh', width: '20vh', marginTop: '50px' }} />
-                            <p style={{ textAlign: 'center' }}>{player.full_name}</p>
+                            <img src={handleImage(player.player_id)} alt={player.full_name} style={{ height: '32vh', width: '35vh', marginTop: '50px' }} />
+                            <span>{player.full_name}</span>
                             <div className="playerProfile">
                                 <button onClick={() => handleAddPlayerSelection(player.player_id)} className='profileButton' style={buttonStyle}>Add</button>
                                 <div style={{ margin: '5px' }}></div>
