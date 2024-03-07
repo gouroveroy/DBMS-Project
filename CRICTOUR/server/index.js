@@ -1191,6 +1191,17 @@ async function run() {
             }
         });
 
+        app.get('/highlights', async (req, res) => {
+            try {
+                const result = await pool.query('SELECT * FROM HIGHLIGHT;');
+                console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();
