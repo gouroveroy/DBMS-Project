@@ -31,6 +31,9 @@ function Footer() {
                             <Link to="/coach" style={{textDecoration: 'none'}}>
                                 <p>Coaches</p>
                             </Link>
+                            <Link to="/venue" style={{textDecoration: 'none'}}>
+                                <p>Venues</p>
+                            </Link>
                         </div>
                         <div className="sb_footer-links_div">
                             <h4>Resources</h4>

@@ -17,12 +17,12 @@ th {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #595957;
+    background-color: #bdbd6d;
     /* Light gray background for odd rows */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #121110;
+    background-color: #e187da;
     /* Lighter gray background for even rows */
 }
 

@@ -15,6 +15,7 @@ function Dream11() {
     const [tournaments, setTournaments] = useState([]);
     const [comparedTeam, setComparedTeam] = useState([]);
     const [tournamentIdd, setTournamentIdd] = useState();
+    const [totalPoints, setTotalPoints] = useState(0);
     const [showSelectedPlayers, setShowSelectedPlayers] = useState(false);
 
     useEffect(() => {
@@ -73,6 +74,7 @@ function Dream11() {
                 team_name: 'Dream11',
                 total_points: response.data.totalPoints,
             };
+            setTotalPoints(response.data.totalPoints);
             console.log('New Team:', newTeam);
             setComparedTeam(prevComparedTeam => [...prevComparedTeam, newTeam]);
         } catch (error) {
@@ -164,7 +166,7 @@ function Dream11() {
                                 <tr>
                                     <th>Rank</th>
                                     <th>Team Name</th>
-                                    <th>Total Points</th>
+                                    {/* <th>Total Points</th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,8 +174,27 @@ function Dream11() {
                                     <tr key={team.team_id}> {/* Ensure unique key */}
                                         <td>{index + 1}</td>
                                         <td>{team.team_name}</td>
-                                        <td>{team.total_points}</td>
+                                        {/* <td>{team.total_points}</td> */}
                                     </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <h2 style={{marginTop: '50px'}}>Winning Percentage With Other Team</h2>
+                        <table style={{marginTop: '50px', marginBottom: '50px'}}>
+                            <thead>
+                                <tr>
+                                    <th>Team Name</th>
+                                    <th>Winning Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {comparedTeam.map((team) => (
+                                    team.team_id === 11 ? null : (
+                                        <tr key={team.team_id}>
+                                            <td>{team.team_name}</td>
+                                            <td>{((totalPoints / team.total_points) * 100).toFixed(2)}%</td>
+                                        </tr>
+                                    )
                                 ))}
                             </tbody>
                         </table>
