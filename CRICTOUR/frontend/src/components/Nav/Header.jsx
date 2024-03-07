@@ -15,6 +15,9 @@ function Header() {
         <header style={headerStyle}>
             <nav style={navStyle}>
                 <ul style={ulStyle}>
+                    <li style={logoStyle}>
+                        <img src={`images/icons/logo.jpg`} alt="logo" style={{height: '8vh', width: '8vh', marginRight: '50px'}}/>
+                    </li>
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/home">Home</Link>
                     </li>
@@ -74,6 +77,8 @@ const headerStyle = {
     padding: '20px',
     textAlign: 'center',
     height: '85px',
+    alignItems: 'center',
+    justifyContent: 'center',
 };
 
 const navStyle = {
@@ -88,13 +93,19 @@ const ulStyle = {
 };
 
 const liStyle = {
-    margin: '0 20px',
+    margin: '10px 20px',
 };
 
 const linkStyle = {
     color: '#fff',
     textDecoration: 'none',
     fontSize: '1.2rem',
+};
+
+const logoStyle = {
+    height: '8vh',
+    width: '8vh',
+    marginRight: '50px',
 };
 
 document.body.style.height = '0vh';
