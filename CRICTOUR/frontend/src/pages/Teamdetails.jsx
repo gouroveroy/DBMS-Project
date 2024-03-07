@@ -36,7 +36,7 @@ function TeamDetails() {
     }, []);
 
     function handleImage(player_id) {
-        return `/images/${player_id}.jpg`;
+        return `/images/player/${player_id}.jpg`;
     }
 
     if (!teamDetailS) {
@@ -62,7 +62,7 @@ function TeamDetails() {
                     {/* <span>{captain_name}</span> */}
                 </div>
                 <div className="coach-name">
-                <img src={handleImage(coach_id)} alt={coach_name} style={{ height: '100%', width: '100%' }} />
+                <img src={`/images/coach/${coach_id}.jpg`} alt={coach_name} style={{ height: '100%', width: '100%' }} />
                     {/* <span>{coach_name}</span> */}
                 </div>
             </div>
