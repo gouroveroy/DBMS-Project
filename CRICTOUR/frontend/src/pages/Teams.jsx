@@ -29,21 +29,14 @@ function Teams() {
                 {teams.map(team => (
                     <div key={team.team_id}>
                         <div className="team-box">
-                            <img src={`images/${team.team_id}.jpg`} alt={team.team_name} style={{ height: '100%', width: '100%' }} />
+                            <img src={`images/team/${team.team_id}.jpg`} alt={team.team_name} style={{ height: '100%', width: '100%' }} />
                         </div>
                         <div className="teamProfile">
                             <div>
-                             <span>{team.team_name}</span>
+                                <span>{team.team_name}</span>
                             </div>
                             <Link to={`/teams/${team.team_id}`}>
                                 <button className='profileButtons'>Team Profile</button>
-                    <div key={team.team_id} className="team-box">
-                        <img src={`images/team/${team.team_id}.jpg`} alt={team.team_name} style={{height: '32vh', width: '35vh'}}/>
-                        {/* <p>{team.team_name}</p> */}
-                        <span>{team.team_name}</span>
-                        <div className="teamProfile">
-                            <Link to={`/teams/${team.team_id}`} className='profileButton'>
-                                <button className='profileButton' style={{marginTop: '10px'}}>Team Profile</button>
                             </Link>
                         </div>
                     </div>
@@ -54,3 +47,4 @@ function Teams() {
 }
 
 export default Teams;
+

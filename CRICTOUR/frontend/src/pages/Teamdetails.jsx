@@ -11,8 +11,6 @@ function TeamDetails() {
     const [captain_name, setCaptaninName] = useState('');
     const [coach_name, setCoachName] = useState('');
     const [team_name, setTeamName] = useState('');
-    const [captain_image, setCaptaninImage] = useState('');
-    const [coach_image, setCoachImage] = useState('');
     const [captain_id, setCaptaninId] = useState('');
     const [coach_id, setCoachId] = useState('');
 
@@ -27,8 +25,6 @@ function TeamDetails() {
                     setCaptaninName(data[0].captain_name);
                     setCoachName(data[0].coach_name);
                     setTeamName(data[0].team_name);
-                    setCaptaninImage(data[0].captain_image);
-                    setCoachImage(data[0].coach_image);
                     setCaptaninId(data[0].captain_id);
                     setCoachId(data[0].coach_id);
                 }
@@ -49,8 +45,7 @@ function TeamDetails() {
             <h1>{team_name}</h1>
             <div className="team-basic-info">
                 <div className="td-team-box">
-                    <img src={handleImage(team_id)} alt={team_name} style={{ height: '100%', width: '100%' }} />
-                <img src={`images/team/${team_id}.jpg`} alt={team_name} style={{ height: '100%', width: '100%' }} />
+                    <img src={`/images/team/${team_id}.jpg`} alt={team_name} style={{ height: '100%', width: '100%' }} />
                     <span>{team_name}</span>
                 </div>
                 <div className="spacer-text">
@@ -64,8 +59,7 @@ function TeamDetails() {
                     {/* <span>{captain_name}</span> */}
                 </div>
                 <div className="coach-name">
-                    <img src={handleImage(coach_id)} alt={coach_name} style={{ height: '100%', width: '100%' }} />
-                <img src={`/images/coach/${coach_id}.jpg`} alt={coach_name} style={{ height: '100%', width: '100%' }} />
+                    <img src={`/images/coach/${coach_id}.jpg`} alt={coach_name} style={{ height: '100%', width: '100%' }} />
                     {/* <span>{coach_name}</span> */}
                 </div>
             </div>

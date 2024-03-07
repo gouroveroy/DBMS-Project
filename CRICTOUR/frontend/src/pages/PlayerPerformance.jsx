@@ -37,7 +37,7 @@ function PlayerPerformance() {
                     </span>
                 </div>
                 <div className="playerImage-info">
-                    <img src={`/images/${player_id}.jpg`} alt={playerName} style={{ height: '100%', width: '100%', borderRadius: '50px' }} />
+                    <img src={`/images/player/${player_id}.jpg`} alt={playerName} style={{ height: '100%', width: '100%', borderRadius: '50px' }} />
                 </div>
             </div>
             <div>
