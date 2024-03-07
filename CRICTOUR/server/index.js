@@ -368,6 +368,34 @@ async function run() {
             }
         });
 
+        app.get("/venue", async (req, res) => {
+            try {
+                const sql = `
+                SELECT * FROM VENUE;
+                `;
+                const result = await pool.query(sql);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+        app.get("/venue/:venue_id", async (req, res) => {
+            console.log(req.params.venue_id);
+            try {
+                const sql = `
+                SELECT * FROM VENUE WHERE VENUE_ID = $1;
+                `;
+                const result = await pool.query(sql, [req.params.venue_id]);
+                // console.log(result.rows);
+                res.json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
         //get team details along with it's all players, it's coaches
         // app.get("/teams/:team_id/teamDetails",async(req,res)=>{
         //     try{
