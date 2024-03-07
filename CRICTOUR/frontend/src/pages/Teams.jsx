@@ -33,7 +33,7 @@ function Teams() {
                         </div>
                         <div className="teamProfile">
                             <div>
-                             <span>{team.team_name}</span>
+                                <span>{team.team_name}</span>
                             </div>
                             <Link to={`/teams/${team.team_id}`}>
                                 <button className='profileButtons'>Team Profile</button>
