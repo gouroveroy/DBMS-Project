@@ -48,7 +48,7 @@ function TeamDetails() {
             <h1>{team_name}</h1>
             <div className="team-basic-info">
                 <div className="td-team-box">
-                <img src={handleImage(team_id)} alt={team_name} style={{ height: '100%', width: '100%' }} />
+                <img src={`/images/team/${team_id}.jpg`} alt={team_name} style={{ height: '100%', width: '100%' }} />
                     <span>{team_name}</span>
                 </div>
                 <div className="spacer-text">
