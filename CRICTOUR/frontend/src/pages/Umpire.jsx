@@ -15,7 +15,7 @@ function Umpire() {
     }, []);
 
     function handleImage(umpire_id) {
-        return `/images/${umpire_id}.jpg`;
+        return `/images/umpire/${umpire_id}.jpg`;
     }
 
     return (
@@ -25,14 +25,11 @@ function Umpire() {
                 <div className="umpire-container">
                     {umpires.map(umpire => (
                         <div key={umpire.umpire_id} className="umpire-box">
-                            <p style={centerAlign}>{umpire.full_name}</p>
-                            <p style={centerAlign}>{umpire.nationality}</p>
-                            <p style={centerAlign}>{umpire.age}</p>
-                            <img src={handleImage(umpire.umpire_id)} alt="Umpire" style={{ height: '25vh', width: '20vh', marginTop: '50px' }} />
-                            <p style={centerAlign}>{umpire.no_of_match_conducted}</p>
+                            <img src={handleImage(umpire.umpire_id)} alt="Umpire" style={{ height: '32vh', width: '35vh', marginTop: '50px' }} />
+                            <span style={centerAlign}>{umpire.full_name}</span>
                             <div className="umpire-profile">
                                 <Link to={`/umpire/${umpire.umpire_id}`} className='profileButton'>
-                                    <button className='profileButton'>Umpire Profile</button>
+                                    <button className='profileButton' style={{ marginTop: '0px' }}>Umpire Profile</button>
                                 </Link>
                             </div>
                         </div>

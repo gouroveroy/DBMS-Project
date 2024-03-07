@@ -60,12 +60,11 @@ function PlayerDetails() {
         return data === null ? "--" : data;
     }
 
-
     return (
         <div className='container'>
             <div className="playerDetails">
                 <div className="playerImage">
-                    <img src={`/images/${player_id}.jpg`} alt={playerDetail.full_name} style={{ height: '100%', width: '100%' }} />
+                    <img src={`/images/player/${player_id}.jpg`} alt={playerDetail.full_name} style={{ height: '100%', width: '100%' }} />
                 </div>
                 <div className="playerInfo">
                     <div>
