@@ -1191,6 +1191,16 @@ async function run() {
             }
         });
 
+        app.get('/highlights', async (req, res) => {
+            try {
+                const highlights = await pool.query('SELECT * FROM HIGHLIGHTS;');
+                res.status(200).json(highlights.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
         //Retreive data for the performance of a player in a tournament
         app.get("/tournament/:tournament_id/playerPerformance/:player_id", async (req, res) => {
             try {

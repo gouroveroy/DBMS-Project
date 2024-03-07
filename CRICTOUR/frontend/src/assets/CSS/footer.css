@@ -3,7 +3,7 @@
 }
 
 p {
-    width: 10vh;
+    width      : 10vh;
     white-space: nowrap;
 }
 
@@ -12,40 +12,40 @@ p {
 }
 
 .sb_footer {
-    display: flex;
+    display       : flex;
     flex-direction: column;
 }
 
 .sb_footer-links {
-    display: flex;
+    display        : flex;
     justify-content: space-between;
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    text-align: left;
-    margin-bottom: 2rem;
+    align-items    : flex-start;
+    flex-direction : row;
+    flex-wrap      : wrap;
+    width          : 100%;
+    text-align     : left;
+    margin-bottom  : 2rem;
     text-decoration: none;
 }
 
 .sb_footer-links_div {
-    width: 150px;
-    margin: 1rem;
-    display: flex;
+    width          : 150px;
+    margin         : 1rem;
+    display        : flex;
     justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    color: white;
+    align-items    : center;
+    flex-direction : column;
+    color          : white;
     text-decoration: none;
 }
 
 .Link {
-    color: rgb(175, 175, 179);
+    color          : rgb(175, 175, 179);
     text-decoration: none;
 }
 
 .socialmedia {
-    display: flex;
+    display       : flex;
     flex-direction: row;
 }
 
@@ -54,32 +54,32 @@ p {
 }
 
 .sb_footer-links_div h4 {
-    font-size: 14px;
+    font-size  : 14px;
     line-height: 15px;
-    margin: 0.5rem 0;
-    cursor: pointer;
+    margin     : 0.5rem 0;
+    cursor     : pointer;
 }
 
 .sb_footer-below {
-    display: flex;
-    flex-direction: row;
+    display        : flex;
+    flex-direction : row;
     justify-content: space-between;
-    margin-top: 0.2rem;
-    align-items: center;
+    margin-top     : 0.2rem;
+    align-items    : center;
 }
 
 .sb_footer-below_links {
-    display: flex;
-    flex-direction: row;
+    display        : flex;
+    flex-direction : row;
     text-decoration: none;
 }
 
 .sb_footer-below-links p {
-    font-size: 13px;
-    line-height: 15px;
-    margin-left: 2rem;
-    color: white;
-    font-weight: 600;
+    font-size      : 13px;
+    line-height    : 15px;
+    margin-left    : 2rem;
+    color          : white;
+    font-weight    : 600;
     text-decoration: none;
 }
 
@@ -89,22 +89,22 @@ hr {
 }
 
 .sb_footer-copyright p {
-    font-size: 13px;
+    font-size  : 13px;
     line-height: 15px;
-    color: rgb(255, 255, 255);
+    color      : rgb(255, 255, 255);
     font-weight: 600;
 }
 
 @media screen and (max-width: 850px) {
     .sb_footer-heading h1 {
-        font-size: 44px;
+        font-size  : 44px;
         line-height: 50px;
     }
 }
 
 @media screen and (max-width: 550px) {
     .sb_footer-heading h1 {
-        font-size: 34px;
+        font-size  : 34px;
         line-weight: 42px;
     }
 
@@ -113,30 +113,96 @@ hr {
     }
 
     .sb_footer-btn p {
-        font-size: 14px;
+        font-size  : 14px;
         line-height: 20px;
     }
 
     .sb_footer-below {
-        flex-direction: column;
+        flex-direction : column;
         justify-content: left;
     }
 
     .sb_footer-below-links {
-        flex-direction: column;
+        flex-direction : column;
         text-decoration: none;
     }
-    
+
     .sb_footer-below-links p {
         text-decoration: none;
-        margin-left: 0rem;
-        margin-top: 1rem;
+        margin-left    : 0rem;
+        margin-top     : 1rem;
     }
 }
 
 @media screen and (max-width: 400px) {
     .sb_footer-heading h1 {
-        font-size: 27px;
+        font-size  : 27px;
         line-height: 38px;
     }
+}
+
+.highlight-container {
+    display      : flex;
+    overflow-x   : auto;
+    /* Enable horizontal scrolling */
+    margin-bottom: 20px;
+    /* Add margin to bottom */
+}
+
+/* .highlight-container {
+    display: flex;
+    overflow-x: hidden; /* Hide overflow */
+    margin-bottom: 20px;
+} */
+
+.highlight-item {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-right: 20px;
+}
+
+button {
+    /*position: fixed;
+    */top: 50%;
+    right: 20px;
+    color: white;
+    transform: translateY(-10%);
+    -webkit-transform: translateY(-10%);
+    -moz-transform: translateY(-10%);
+    -ms-transform: translateY(-10%);
+    -o-transform: translateY(-10%);
+}
+
+.highlight-container {
+    position: relative; /* Set the container position to relative */
+    width: 100%; /* Ensure the container takes up the full width */
+}
+
+.scroll-left-button,
+.scroll-right-button {
+    position: absolute; /* Position the buttons absolutely within the container */
+    top: 50%; /* Vertically center the buttons */
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.scroll-left-button {
+    left: 10px; /* Adjust the left position as needed */
+}
+
+.scroll-right-button {
+    right: 10px; /* Adjust the right position as needed */
+}
+
+/* On hover, keep the button in the same position */
+.scroll-left-button:hover,
+.scroll-right-button:hover {
+    transform: translateY(-50%);
 }
