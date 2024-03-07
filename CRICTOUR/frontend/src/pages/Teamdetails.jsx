@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../assets/CSS/TeamDetails.css';
 
 
@@ -48,6 +49,7 @@ function TeamDetails() {
             <h1>{team_name}</h1>
             <div className="team-basic-info">
                 <div className="td-team-box">
+                    <img src={handleImage(team_id)} alt={team_name} style={{ height: '100%', width: '100%' }} />
                 <img src={`images/team/${team_id}.jpg`} alt={team_name} style={{ height: '100%', width: '100%' }} />
                     <span>{team_name}</span>
                 </div>
@@ -58,10 +60,11 @@ function TeamDetails() {
                     <p>World Champion: </p>
                 </div>
                 <div className="captain-name">
-                <img src={handleImage(captain_id)} alt={captain_name} style={{ height: '100%', width: '100%' }} />
+                    <img src={handleImage(captain_id)} alt={captain_name} style={{ height: '100%', width: '100%' }} />
                     {/* <span>{captain_name}</span> */}
                 </div>
                 <div className="coach-name">
+                    <img src={handleImage(coach_id)} alt={coach_name} style={{ height: '100%', width: '100%' }} />
                 <img src={`/images/coach/${coach_id}.jpg`} alt={coach_name} style={{ height: '100%', width: '100%' }} />
                     {/* <span>{coach_name}</span> */}
                 </div>
@@ -78,7 +81,9 @@ function TeamDetails() {
                                     <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
                                 </div>
                                 <div className='playerName'>
-                                    <span>{team.player_name}</span>
+                                    <Link to={`/player/${team.playerid}`}>
+                                        <span>{team.player_name}</span>
+                                    </Link>
                                 </div>
                             </div>
                         }
@@ -97,7 +102,9 @@ function TeamDetails() {
                                     <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
                                 </div>
                                 <div className='playerName'>
-                                    <span>{team.player_name}</span>
+                                    <Link to={`/player/${team.playerid}`}>
+                                        <span>{team.player_name}</span>
+                                    </Link>
                                 </div>
                             </div>
                         }
@@ -116,7 +123,9 @@ function TeamDetails() {
                                     <img src={handleImage(team.playerid)} alt={team.player_name} style={{ height: '100%', width: '100%' }} />
                                 </div>
                                 <div className='playerName'>
-                                    <span>{team.player_name}</span>
+                                    <Link to={`/player/${team.playerid}`}>
+                                        <span>{team.player_name}</span>
+                                    </Link>
                                 </div>
                             </div>
                         }

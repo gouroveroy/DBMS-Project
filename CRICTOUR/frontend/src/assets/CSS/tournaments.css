@@ -24,12 +24,11 @@
     width           : 300px;
     height          : 400px;
     margin          : 25px;
-    /* Adjust the margin */
-    padding         : 20px;
     background-color: #f2f2f2;
     border-radius   : 10px;
     text-align      : center;
     background-color:#00175F;
+    box-shadow: black 5px 10px 10px;
   }
   
   /* Add a media query to change the margin when the screen size is smaller */
@@ -66,4 +65,14 @@
     width        : fit-content;
     height       : 38px;
   
+  }
+
+  .tournamentProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    font-size: 20px;
   }

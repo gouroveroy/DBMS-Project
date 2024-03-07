@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     flex-direction: row; /* Align items along the x-axis */
     justify-content: space-between;
+    margin-bottom: 25px;
 }
 
 .captain-name{
@@ -149,5 +150,9 @@ h1{
     color: white;
     font-size: 30px;
     padding-left: 25px;
+}
+
+Link{
+    text-decoration: none;
 }
 

@@ -13,18 +13,26 @@ function Tournaments() {
             .catch(error => console.error(error));
     }, []);
 
+    //<img src={`images/tournaments/${tournament.tournament_id}.jpg`} alt={tournament.tournament_name} style={{ height: '100%', width: '100%' }} />
+
     return (
         <div className='container'>
             <h2>Cricket Tournaments</h2>
             <div className='tournament-container'>
                 {tournaments.map(tournament => (
-                    <div key={tournament.tournament_id} className='tournament-box'>
-                        <img src={`images/tournament/${tournament.tournament_id}.jpg`} alt={tournament.tournament_name} style={{height: '32vh', width: '35vh'}}/>
-                        <span>{tournament.tournament_name}</span>
+                    <div key={tournament.tournament_id} >
+                        <div className="tournament-box">
+                            <img src={`images/tournaments/${tournament.tournament_id}.jpg`} alt={tournament.tournament_name} style={{ height: '100%', width: '100%' }} />
+                        </div>
                         <div className="tournamentProfile">
-                            <Link to={`/tournaments/${tournament.tournament_id}`} className='profileButton'>
-                                <button className='profileButton' style={{marginTop: '10px'}}>Tournament Profile</button>
+                            <div>
+                                <span>{tournament.tournament_name}</span>
+                            </div>
+                            <div>
+                            <Link to={`/tournaments/${tournament.tournament_id}`}>
+                                <button className='profileButtons'>Tournament Profile</button>
                             </Link>
+                            </div>
                         </div>
                     </div>
                 ))}

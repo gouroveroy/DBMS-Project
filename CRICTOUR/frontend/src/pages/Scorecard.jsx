@@ -69,6 +69,7 @@ function Scorecard() {
     const [bestBowler, setBestBowler] = useState([]);
     const [matchUmpire, setMatchUmpire] = useState([]);
     const [teamHeadToHead, setTeamHeadToHead] = useState([]);
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
 
 
     useEffect(() => {
@@ -214,6 +215,7 @@ function Scorecard() {
     const [statsVisible, setStatsVisible] = useState(false);
     const [team1InningsVisible, setTeam1Innings] = useState(true);
     const [team2InningsVisible, setTeam2Innings] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
 
     const showScoreboard = () => {
@@ -339,7 +341,21 @@ function Scorecard() {
                                     <tbody>
                                         {battingData1.map(batsman =>
                                             <tr key={batsman.player_id}>
-                                                <td>{batsman.player_name}</td>
+                                                <td onClick={() => setSelectedPlayer(batsman.player_id)}>
+                                                    <div onClick={() => setIsOpen(!isOpen)}>
+                                                        {batsman.player_name}
+                                                        {isOpen && selectedPlayer===batsman.player_id && (
+                                                            <ul>
+                                                                <Link to={`/player/${batsman.player_id}`}>
+                                                                    <li>Career</li>
+                                                                </Link>
+                                                                <Link to={`/tournaments/${tournament_id}/playerPerformance/${batsman.player_id}`}>
+                                                                    <li>Performance</li>
+                                                                </Link>
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                </td>
                                                 <td>{batsman.run_scored}</td>
                                                 <td>{batsman.ball_played}</td>
                                                 <td>{batsman.total_fours_hit}</td>
@@ -379,7 +395,21 @@ function Scorecard() {
                                     <tbody>
                                         {bowlingData2.map(bowler =>
                                             <tr key={bowler.player_id}>
-                                                <td>{bowler.player_name}</td>
+                                                <td onClick={() => setSelectedPlayer(bowler.player_id)}>
+                                                    <div onClick={() => setIsOpen(!isOpen)}>
+                                                        {bowler.player_name}
+                                                        {isOpen && selectedPlayer===bowler.player_id && (
+                                                            <ul>
+                                                                <Link to={`/player/${bowler.player_id}`}>
+                                                                    <li>Career</li>
+                                                                </Link >
+                                                                <Link to={`/tournaments/${tournament_id}/playerPerformance/${bowler.player_id}`}>
+                                                                    <li>Performance</li>
+                                                                </Link>
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                </td>
                                                 <td>{bowler.overs_bowled}</td>
                                                 <td>{bowler.run_given}</td>
                                                 <td>{bowler.maiden_overs}</td>
@@ -425,7 +455,21 @@ function Scorecard() {
                                     <tbody>
                                         {battingData2.map(batsman =>
                                             <tr key={batsman.player_id}>
-                                                <td>{batsman.player_name}</td>
+                                                <td onClick={() => setSelectedPlayer(batsman.player_id)}>
+                                                    <div onClick={() => setIsOpen(!isOpen)}>
+                                                        {batsman.player_name}
+                                                        {isOpen && selectedPlayer===batsman.player_id && (
+                                                            <ul>
+                                                                <Link to={`/player/${batsman.player_id}`}>
+                                                                    <li>Career</li>
+                                                                </Link>
+                                                                <Link to={`/tournaments/${tournament_id}/playerPerformance/${batsman.player_id}`}>
+                                                                    <li>Performance</li>
+                                                                </Link>
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                </td>
                                                 <td>{batsman.run_scored}</td>
                                                 <td>{batsman.ball_played}</td>
                                                 <td>{batsman.total_fours_hit}</td>
@@ -465,7 +509,21 @@ function Scorecard() {
                                     <tbody>
                                         {bowlingData1.map(bowler =>
                                             <tr key={bowler.player_id}>
-                                                <td>{bowler.player_name}</td>
+                                                <td onClick={() => setSelectedPlayer(bowler.player_id)}>
+                                                    <div onClick={() => setIsOpen(!isOpen)}>
+                                                        {bowler.player_name}
+                                                        {isOpen && selectedPlayer===bowler.player_id && (
+                                                            <ul>
+                                                                <Link to={`/player/${bowler.player_id}`}>
+                                                                    <li>Career</li>
+                                                                </Link>
+                                                                <Link to={`/tournaments/${tournament_id}/playerPerformance/${bowler.player_id}`}>
+                                                                    <li>Performance</li>
+                                                                </Link>
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                </td>
                                                 <td>{bowler.overs_bowled}</td>
                                                 <td>{bowler.run_given}</td>
                                                 <td>{bowler.maiden_overs}</td>

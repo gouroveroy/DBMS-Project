@@ -24,12 +24,11 @@ body {
   width: 300px;
   height: 400px;
   margin: 25px; /* Adjust the margin */
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #f2f2f2;
-  border-radius: 10px;
   text-align: center;
-  background-color: #00175F;
-  box-shadow: black 0px 0px 10px;
+  /* background-color: #00175F; */
+  box-shadow: black 5px 10px 10px;
    /* Use the pulse animation */
 }
 
@@ -56,11 +55,19 @@ body {
     object-fit: cover;
   }
 
-.profileButton {
-
-  margin-top   : 130px;
+.profileButtons {
   border-radius: 5px;
   width        : fit-content;
   height       : 38px;
 
+}
+
+.teamProfile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  font-size: 20px;
 }
