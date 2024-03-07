@@ -58,7 +58,7 @@ function TournamentDetails() {
                 <div className='tournamentContainer'>
                     {tournamentData.map((tournament) => (
                         <div key={tournament.tournament_id} >
-                            <div className='tournamentBox'>
+                            <div className='tournamentBox' style={{ backgroundImage: `url(/images/tournaments/${tournament.tournament_id}.jpg)`,backgroundRepeat: 'no-repeat',backgroundSize: 'cover' }}>
                                 <h1 className='tournament-name'>{tournament.tournament_name}</h1>
                                 <div className='host-name'>
                                     {tournament.host}

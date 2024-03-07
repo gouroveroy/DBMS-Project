@@ -27,13 +27,16 @@ function Teams() {
             <h1>Teams</h1>
             <div className="team-container">
                 {teams.map(team => (
-                    <div key={team.team_id} className="team-box">
-                        <img src={team.photoUrl} alt={team.team_name} />
-                        {/* <p>{team.team_name}</p> */}
-                        <span>{team.team_name}</span>
+                    <div key={team.team_id}>
+                        <div className="team-box">
+                            <img src={`images/${team.team_id}.jpg`} alt={team.team_name} style={{ height: '100%', width: '100%' }} />
+                        </div>
                         <div className="teamProfile">
-                            <Link to={`/teams/${team.team_id}`} className='profileButton'>
-                                <button className='profileButton'>Team Profile</button>
+                            <div>
+                             <span>{team.team_name}</span>
+                            </div>
+                            <Link to={`/teams/${team.team_id}`}>
+                                <button className='profileButtons'>Team Profile</button>
                             </Link>
                         </div>
                     </div>

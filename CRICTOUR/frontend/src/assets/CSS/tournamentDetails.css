@@ -8,19 +8,20 @@
     text-align: center;
     background-color: #f0f0f0;
     padding: 20px;
-    height: 627px;
-    border-radius: 20px;
+    height: 640px;
+    box-shadow: black 20px 10px 30px;
 }
 
 .tournamentBox .tournament-name {
     font-size: 65px;
     font-weight: bold;
+    color: #f2f2f2;
 }
 
 .tournamentBox .host-name {
     font-size: 50px;
-    color: solid black;
     font-weight: bold;
+    color: #f2f2f2;
 }
 
 .tournamentBox .tournament-image {

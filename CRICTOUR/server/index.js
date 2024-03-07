@@ -1114,6 +1114,61 @@ async function run() {
             }
         });
 
+        //Retreive data for the performance of a player in a tournament
+        app.get("/tournament/:tournament_id/playerPerformance/:player_id", async (req, res) => {
+            try {
+                const sql = `
+                SELECT S.PLAYER_ID,CONCAT(PR.FIRST_NAME,' ',PR.LAST_NAME) AS PLAYER_NAME,T.TEAM_NAME,TR.TOURNAMENT_NAME,SUM(RUN_SCORED) AS TOTAL_RUN,
+                  (
+                	  SELECT COUNT(*)
+                	  FROM SCORECARD
+                	  WHERE S.PLAYER_ID=PLAYER_ID
+                  ) AS MATCH_PLAYED,
+                  ROUND((
+                    SELECT SUM(RUN_SCORED*1.0)/COUNT(*)
+                    FROM SCORECARD
+                    WHERE S.PLAYER_ID =PLAYER_ID AND RUN_SCORED IS NOT NULL
+                  ),2) AS AVERAGE,
+                  SUM(TOTAL_FOURS_HIT) AS TOTAL_FOUR, SUM(TOTAL_SIXES_HIT) AS TOTAL_SIX,
+                  (
+                	  SELECT COUNT(*)
+                	  FROM SCORECARD 
+                	  WHERE S.PLAYER_ID=PLAYER_ID AND BALL_FOR_HALF_CENTURY IS NOT NULL
+                  ) AS HALF_CENTURY,
+                  (
+                	  SELECT COUNT(*)
+                	  FROM SCORECARD 
+                	  WHERE S.PLAYER_ID=PLAYER_ID AND BALL_FOR_CENTURY IS NOT NULL
+                  ) AS CENTURY,
+                  SUM(OVERS_BOWLED) AS TOTAL_OVER_BOWLED,SUM(RUN_GIVEN) AS TOTAL_RUN_GIVEN, SUM(WICKET_TAKEN) AS TOTAL_WICKET,
+                  SUM(GIVEN_EXTRAS) AS TOTAL_EXTRA,SUM(MAIDEN_OVERS) AS TOTAL_MAIDEN,
+                  (
+                    SELECT ROUND(SUM(RUN_GIVEN*1.0)/SUM(OVERS_BOWLED),2) 
+                    FROM SCORECARD 
+                    WHERE S.PLAYER_ID=PLAYER_ID AND OVERS_BOWLED IS NOT NULL
+                  ) AS ECONOMY
+                FROM SCORECARD S
+                JOIN PERSON PR ON S.PLAYER_ID=PR.PERSONID
+                JOIN PLAYER P ON P.PLAYERID=S.PLAYER_ID
+                JOIN TEAM T ON T.TEAM_ID=P.TEAM_ID
+                JOIN TOURNAMENT TR ON TR.TOURNAMENT_ID=S.TOURNAMENT_ID
+                JOIN MATCH M ON M.MATCH_ID=S.MATCH_ID
+                WHERE S.PLAYER_ID=$2 AND S.TOURNAMENT_ID=$1
+                GROUP BY S.PLAYER_ID,PR.FIRST_NAME, PR.LAST_NAME,T.TEAM_NAME,TR.TOURNAMENT_NAME
+                ORDER BY S.PLAYER_ID
+                ;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id, req.params.player_id]);
+                // console.log(result.rows);
+                res.json(result.rows);
+            }
+            catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
+
+
     } finally {
         // console.log("Shutting down server");
         // pool.end();

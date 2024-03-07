@@ -17,7 +17,7 @@ import Coach from './pages/Coach';
 import Player from './pages/Player';
 import Teams from './pages/Teams';
 import Combo from './pages/Combo';
-import TeamDetails from './pages/TeamDetails';
+import TeamDetails from './pages/Teamdetails';
 import Tournaments from './pages/Tournaments';
 import PlayerProfile from './pages/PlayerProfile';
 import TournamentDetails from './pages/TournamentDetails';
@@ -25,6 +25,7 @@ import Matches from './pages/Matches';
 import Scorecard from './pages/Scorecard';
 import Stats from './pages/Stats';
 import Dream11 from './pages/Dream11';
+import PlayerPerformance from './pages/PlayerPerformance';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -66,6 +67,7 @@ export default function App() {
         <Route path='/tournaments/:tournament_id/matches/:match_id' element={<Scorecard></Scorecard>} />
         <Route path='/tournaments/:tournament_id/awards' element={<Stats></Stats>} />
         <Route path='/tournaments/:tournament_id/TOTM' element={<TOTM></TOTM>} />
+        <Route path='/tournaments/:tournament_id/playerPerformance/:player_id' element={<PlayerPerformance></PlayerPerformance>} />
       </Route>
     )
   );
