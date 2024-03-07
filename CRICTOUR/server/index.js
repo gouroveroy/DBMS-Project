@@ -995,7 +995,7 @@ async function run() {
         
                 // Call the function to compare teams in the tournament
                 const teamsByTournament = await pool.query(`SELECT * FROM COMPARE_TEAMS_IN_TOURNAMENT($1);`, [tournamentIdd]);
-        
+                console.log(teamsByTournament.rows);
                 // Send response with total points and teams data
                 await pool.query('DELETE FROM DREAM11;');
                 res.status(200).json({ 
