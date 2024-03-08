@@ -64,7 +64,7 @@ async function run() {
                     if (result.rows.length !== 0) {
                         res.json({
                             success: true,
-                            user: 'user',
+                            user: email,
                         });
                     } else {
                         res.json({ message: "error" });
@@ -456,34 +456,45 @@ async function run() {
             try {
                 console.log("Received request to delete tournament:", { tournamentName });
 
-                // Capture PostgreSQL notices
-                let notices = [];
+                const id = await pool.query(`SELECT GET_TOURNAMENT_ID($1);`, [tournamentName]);
+                const tournamentId = id.rows[0].get_tournament_id;
+                console.log(tournamentId);
+
                 await pool.query(`
                     DELETE FROM TOURNAMENT
-                    WHERE TOURNAMENT_NAME = $1;
-                `, [tournamentName], (err, result) => {
-                    if (err) {
-                        console.error(`PostgreSQL Error: ${err.message}`);
-                        res.status(500).send("Internal Server Error");
-                        return;
-                    }
-                    notices = result.notices; // Capture PostgreSQL notices
-                });
+                    WHERE TOURNAMENT_ID = $1;
+                `, [tournamentId]);
 
-                if (notices.length > 0) {
-                    // If there are notices, send them along with the response
-                    res.status(200).json({ message: notices });
-                } else {
-                    // If no notices, send the success message only
-                    res.status(200).json({ message: "Tournament deleted successfully" });
-                }
+                res.status(200).json({ message: "Tournament deleted successfully" });
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
                 res.status(500).send("Internal Server Error");
             }
         });
 
-        app.post('/updateTournament', async (req, res) => { });
+        app.post('/restoreTournament', async (req, res) => {
+            const { tournamentName } = req.body;
+            try {
+                console.log("Received request to restore tournament:", { tournamentName });
+
+                const id = await pool.query(`SELECT GET_DELETED_TOURNAMENT_ID($1);`, [tournamentName]);
+                const tournamentId = id.rows[0].get_deleted_tournament_id;
+                console.log(tournamentId);
+
+                const check_restore = await pool.query(`SELECT RESTORE_TOURNAMENT($1);`, [tournamentId]);
+                const isRestored = check_restore.rows[0].restore_tournament;
+                console.log(isRestored);
+
+                if (isRestored == 1) {
+                    res.status(200).json({ message: "Tournament restored successfully" });
+                } else {
+                    res.status(200).json({ message: "Tournament permanently deleted" });
+                }
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
 
         app.post('/addTeam', async (req, res) => {
             const { teamName, teamCaptain, teamCoach } = req.body.dataToSend;

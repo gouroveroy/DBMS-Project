@@ -16,7 +16,7 @@ function Header() {
             <nav style={navStyle}>
                 <ul style={ulStyle}>
                     <li style={logoStyle}>
-                        <img src={`images/icons/logo.jpg`} alt="logo" style={{height: '8vh', width: '8vh', marginRight: '50px'}}/>
+                        <img src="images/icons/logo.jpg" alt="logo" style={{ height: '8vh', width: '8vh', marginRight: '50px' }} />
                     </li>
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/home">Home</Link>
@@ -43,6 +43,11 @@ function Header() {
                                     <li style={liStyle}>
                                         <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
                                     </li>
+                                    <li style={{ ...liStyle, position: 'absolute', right: '20px', top: '8px' }}>
+                                        <Link to='/adminProfile'>
+                                            <img src="images/icons/admin.jpg" alt="admin" style={{ width: '8vh', height: '8vh' }} />
+                                        </Link>
+                                    </li>
                                 </>
                             ) : (
                                 <>
@@ -51,6 +56,11 @@ function Header() {
                                     </li>
                                     <li style={liStyle}>
                                         <Link onClick={handleLogout} style={linkStyle} to="/login">Logout</Link>
+                                    </li>
+                                    <li style={{ ...liStyle, position: 'absolute', right: '20px', top: '8px' }}>
+                                        <Link to='/user'>
+                                            <img src="images/icons/user.png" alt="admin" style={{ width: '8vh', height: '8vh' }} />
+                                        </Link>
                                     </li>
                                 </>
                             )

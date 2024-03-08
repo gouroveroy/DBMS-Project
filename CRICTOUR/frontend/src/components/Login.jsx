@@ -120,7 +120,7 @@ function Login(props) {
     
             if (response.data.user === 'admin') {
                 window.location.href = '/home';
-            } else if (response.data.user === 'user') {
+            } else if (response.data.user === email) {
                 window.location.href = '/home';
             } else {
                 setShow(true); // Reset the error message state

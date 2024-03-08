@@ -31,6 +31,8 @@ import Venue from './pages/Venue';
 import VenueDetails from './pages/VenueDetails';
 import TOTM from './pages/TOTM';
 import PlayerPerformance from './pages/PlayerPerformance';
+import UserProfile from './pages/UserProfile';
+import AdminProfile from './pages/AdminProfile';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -56,6 +58,8 @@ export default function App() {
             <Route path='/home' element={<Home></Home>} />
           )
         }
+        <Route path='/adminProfile' element={<AdminProfile></AdminProfile>} />
+        <Route path='/user' element={<UserProfile></UserProfile>} />
         <Route path='/combo' element={<Combo></Combo>} />
         <Route path="/umpire" element={<Umpire></Umpire>} />
         <Route path='umpire/:umpire_id' element={<UmpireDetails></UmpireDetails>} />
