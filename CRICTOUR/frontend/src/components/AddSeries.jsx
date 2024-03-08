@@ -9,7 +9,6 @@ import react from "./../assets/react.svg";
 
 function AddSeries() {
     const [seriesInfo, setSeriesInfo] = useState({
-        tournamentId: '',
         tournamentName: '',
         host: '',
         winnerTeam: '',
@@ -54,7 +53,7 @@ function AddSeries() {
         setLoading(true);
         await delay(500);
         try {
-            const response = await axios.post('http://localhost:8000/addTournament', { seriesInfo });
+            const response = await axios.post('http://localhost:8000/addTournament', { dataToSend });
             if (response.data.message === 'Tournament added successfully') {
                 alert('Series added successfully');
             } else {
@@ -67,7 +66,6 @@ function AddSeries() {
         setLoading(false);
         // Reset form fields after submission
         setSeriesInfo({
-            tournamentId: '',
             tournamentName: '',
             host: '',
             winnerTeam: '',
@@ -109,17 +107,6 @@ function AddSeries() {
                     <div />
                 )}
                 <Form.Group className="mb-2" controlId="username">
-                    <Form.Label>Tournament ID</Form.Label>
-                    <Form.Control
-                        type="number"
-                        name='tournamentId'
-                        value={seriesInfo.tournamentId}
-                        placeholder="ID"
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group className="mb-2" controlId="username">
                     <Form.Label>Tournament Name</Form.Label>
                     <Form.Control
                         type="text"
@@ -142,12 +129,12 @@ function AddSeries() {
                     />
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="username">
-                    <Form.Label>Winner Team ID</Form.Label>
+                    <Form.Label>Winner Team Name</Form.Label>
                     <Form.Control
-                        type="number"
+                        type="text"
                         name='winnerTeam'
                         value={seriesInfo.winnerTeam}
-                        placeholder="Winner"
+                        placeholder="Winner Team Name"
                         onChange={handleInputChange}
                         required
                     />
@@ -206,6 +193,10 @@ function AddSeries() {
                         onChange={handleInputChange}
                         required
                     />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Series Logo</Form.Label>
+                    <Form.Control type="file" />
                 </Form.Group>
                 {!loading ? (
                     <Button className="w-100" variant="primary" type="submit">

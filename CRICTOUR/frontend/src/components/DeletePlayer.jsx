@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 
@@ -7,13 +8,19 @@ import '../assets/CSS/login.css';
 import vite from "./../assets/vite.svg";
 import react from "./../assets/react.svg";
 
-function DeleteSeries() {
-    const [tournamentName, setTournamentName] = useState('');
+function DeletePlayer() {
+    const [playerInfo, setPlayerInfo] = useState({
+        playerName: '',
+    });
+
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
-        setTournamentName(e.target.value);
+        setPlayerInfo({
+            ...playerInfo,
+            [e.target.name]: e.target.value
+        });
     }
 
     function delay(ms) {
@@ -25,9 +32,9 @@ function DeleteSeries() {
         setLoading(true);
         await delay(500);
         try {
-            const response = await axios.post('http://localhost:8000/deleteTournament', { tournamentName });
-            if (response.data.message === 'Tournament deleted successfully') {
-                alert('Series deleted successfully');
+            const response = await axios.post('http://localhost:8000/deletePlayer', { playerInfo });
+            if (response.data.message === 'Player deleted successfully') {
+                alert('Player deleted successfully');
             } else {
                 alert(response.data.message);
                 setShow(true);
@@ -37,7 +44,9 @@ function DeleteSeries() {
             alert('Internal Server Error. Please try again later.');
         }
         setLoading(false);
-        setTournamentName('');
+        setPlayerInfo({
+            playerName: '',
+        });
     }
 
     return (
@@ -55,34 +64,22 @@ function DeleteSeries() {
                     src={react}
                     alt="logo"
                 />
-                <div className="h4 mb-2 text-center">Series Information</div>
-                {/* ALert */}
-                {show ? (
-                    <Alert
-                        className="mb-2"
-                        variant="danger"
-                        onClose={() => setShow(false)}
-                        dismissible
-                    >
-                        Incorrect Information.
-                    </Alert>
-                ) : (
-                    <div />
-                )}
-                <Form.Group className="mb-2" controlId="username">
-                    <Form.Label>Tournament Name</Form.Label>
+                <div className="h4 mb-2 text-center">Delete Player</div>
+                {/* Form */}
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Team Name</Form.Label>
                     <Form.Control
                         type="text"
-                        name='tournamentName'
-                        value={tournamentName}
-                        placeholder="tournament name"
+                        name="playerName"
+                        value={playerInfo.playerName}
+                        placeholder="Enter player name"
                         onChange={handleInputChange}
                         required
                     />
                 </Form.Group>
                 {!loading ? (
                     <Button className="w-100" variant="primary" type="submit">
-                        Delete Series
+                        Delete Player
                     </Button>
                 ) : (
                     <Button className="w-100" variant="primary" type="submit" disabled>
@@ -90,12 +87,11 @@ function DeleteSeries() {
                     </Button>
                 )}
             </Form>
-            {/* Footer */}
             <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-                {/* Delete Series Form  | &copy;Bootstrap 2024 */}
+                {/* Delete Player Form  | &copy;Bootstrap 2024 */}
             </div>
         </div>
-    );
+    )
 }
 
-export default DeleteSeries;
+export default DeletePlayer;

@@ -417,13 +417,12 @@ async function run() {
         // });
 
         app.post("/addTournament", async (req, res) => {
-            const { tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate } = req.body.seriesInfo;
+            const { tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate } = req.body.dataToSend;
             try {
-                console.log("Received tournament details:", { tournamentId, tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate });
+                console.log("Received tournament details:", { tournamentName, host, winnerTeam, numberOfSixes, numberOfFours, numberOfHatTricks, startDate, endDate });
 
                 // Convert empty strings to null
                 const normalizedData = {
-                    tournamentId,
                     tournamentName,
                     host,
                     winnerTeam,
@@ -434,10 +433,14 @@ async function run() {
                     endDate
                 };
 
+                const id = await pool.query(`SELECT GET_TEAM_ID($1);`, [normalizedData.winnerTeam]);
+                const teamId = id.rows[0].get_team_id;
+                console.log(teamId);
+
                 await pool.query(`
-                INSERT INTO TOURNAMENT (TOURNAMENT_ID, TOURNAMENT_NAME, HOST, WINNER_TEAM_ID, NO_OF_SIXES, NO_OF_FOURS, NO_OF_HAT_TRICKS, START_DATE, END_DATE)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, TO_DATE($8, 'YYYY-MM-DD'), TO_DATE($9, 'YYYY-MM-DD'))`,
-                    [normalizedData.tournamentId, normalizedData.tournamentName, normalizedData.host, normalizedData.winnerTeam, normalizedData.numberOfSixes, normalizedData.numberOfFours, normalizedData.numberOfHatTricks, normalizedData.startDate, normalizedData.endDate]
+                INSERT INTO TOURNAMENT (TOURNAMENT_NAME, HOST, WINNER_TEAM_ID, NO_OF_SIXES, NO_OF_FOURS, NO_OF_HAT_TRICKS, START_DATE, END_DATE)
+                VALUES ($1, $2, $3, $4, $5, $6, TO_DATE($7, 'YYYY-MM-DD'), TO_DATE($8, 'YYYY-MM-DD'))`,
+                    [normalizedData.tournamentName, normalizedData.host, teamId, normalizedData.numberOfSixes, normalizedData.numberOfFours, normalizedData.numberOfHatTricks, normalizedData.startDate, normalizedData.endDate]
                 );
 
                 // Optionally, you can send a success response back to the client
@@ -449,16 +452,16 @@ async function run() {
         });
 
         app.post('/deleteTournament', async (req, res) => {
-            const { tournamentId } = req.body;
+            const { tournamentName } = req.body;
             try {
-                console.log("Received request to delete tournament:", { tournamentId });
+                console.log("Received request to delete tournament:", { tournamentName });
 
                 // Capture PostgreSQL notices
                 let notices = [];
                 await pool.query(`
                     DELETE FROM TOURNAMENT
-                    WHERE TOURNAMENT_ID = $1
-                `, [tournamentId], (err, result) => {
+                    WHERE TOURNAMENT_NAME = $1;
+                `, [tournamentName], (err, result) => {
                     if (err) {
                         console.error(`PostgreSQL Error: ${err.message}`);
                         res.status(500).send("Internal Server Error");
@@ -473,6 +476,142 @@ async function run() {
                 } else {
                     // If no notices, send the success message only
                     res.status(200).json({ message: "Tournament deleted successfully" });
+                }
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
+        app.post('/updateTournament', async (req, res) => { });
+
+        app.post('/addTeam', async (req, res) => {
+            const { teamName, teamCaptain, teamCoach } = req.body.dataToSend;
+            try {
+                console.log("Received team details:", { teamName, teamCaptain, teamCoach });
+
+                // Convert empty strings to null
+                const normalizedData = {
+                    teamName,
+                    teamCaptain: teamCaptain === '' ? null : teamCaptain,
+                    teamCoach: teamCoach === '' ? null : teamCoach
+                };
+
+                const id = await pool.query(`SELECT GET_PLAYER_ID($1);`, [normalizedData.teamCaptain]);
+                const playerId = id.rows[0].get_player_id;
+                console.log(playerId);
+
+                const id2 = await pool.query(`SELECT GET_coach_ID($1);`, [normalizedData.teamCoach]);
+                const coachId = id2.rows[0].get_coach_id;
+                console.log(coachId);
+
+                await pool.query(`
+                INSERT INTO TEAM (TEAM_NAME, CAPTAIN_ID, COACH_ID)
+                VALUES ($1, $2, $3)`,
+                    [normalizedData.teamName, playerId, coachId]
+                );
+
+                // Optionally, you can send a success response back to the client
+                res.status(201).json({ message: "Team added successfully" });
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
+        app.post('/deleteTeam', async (req, res) => {
+            const { teamName } = req.body.teamInfo;
+            try {
+                console.log("Received request to delete team:", { teamName });
+
+                const id = await pool.query(`SELECT GET_TEAM_ID($1);`, [teamName]);
+                const teamId = id.rows[0].get_team_id;
+                console.log(teamId);
+
+                // Capture PostgreSQL notices
+                let notices = [];
+                await pool.query(`
+                    DELETE FROM TEAM
+                    WHERE TEAM_ID = $1;
+                `, [teamId], (err, result) => {
+                    if (err) {
+                        console.error(`PostgreSQL Error: ${err.message}`);
+                        res.status(500).send("Internal Server Error");
+                        return;
+                    }
+                    notices = result.notices; // Capture PostgreSQL notices
+                });
+
+                if (notices.length > 0) {
+                    // If there are notices, send them along with the response
+                    res.status(200).json({ message: notices });
+                } else {
+                    // If no notices, send the success message only
+                    res.status(200).json({ message: "Team deleted successfully" });
+                }
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
+        app.post('/addPlayer', async (req, res) => {
+            const { playerFirstName, playerLastName, nationality, dateOfBirth, playerTeam, playerType } = req.body.dataToSend;
+            try {
+                console.log("Received player details:", { playerFirstName, playerLastName, nationality, dateOfBirth, playerTeam, playerType });
+
+                // Convert empty strings to null
+                const normalizedData = {
+                    playerFirstName,
+                    playerLastName,
+                    nationality,
+                    dateOfBirth: dateOfBirth === '' ? null : dateOfBirth,
+                    playerTeam,
+                    playerType: playerType === '' ? 'ALL-ROUNDER' : playerType,
+                };
+
+                await pool.query(`
+                CALL INSERT_PLAYER($1, $2, $3, $4, $5, $6);`,
+                    [normalizedData.playerFirstName, normalizedData.playerLastName, normalizedData.nationality, normalizedData.dateOfBirth, normalizedData.playerTeam, normalizedData.playerType]
+                );
+
+                // Optionally, you can send a success response back to the client
+                res.status(201).json({ message: "Player added successfully" });
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
+        app.post('/deletePlayer', async (req, res) => {
+            const { playerName } = req.body.playerInfo;
+            try {
+                console.log("Received request to delete player:", { playerName });
+
+                const id = await pool.query(`SELECT GET_PLAYER_ID($1);`, [playerName]);
+                const playerId = id.rows[0].get_player_id;
+                console.log(playerId);
+
+                // Capture PostgreSQL notices
+                let notices = [];
+                await pool.query(`
+                    DELETE FROM PLAYER
+                    WHERE PLAYERID = $1;
+                `, [playerId], (err, result) => {
+                    if (err) {
+                        console.error(`PostgreSQL Error: ${err.message}`);
+                        res.status(500).send("Internal Server Error");
+                        return;
+                    }
+                    notices = result.notices; // Capture PostgreSQL notices
+                });
+
+                if (notices.length > 0) {
+                    // If there are notices, send them along with the response
+                    res.status(200).json({ message: notices });
+                } else {
+                    // If no notices, send the success message only
+                    res.status(200).json({ message: "Player deleted successfully" });
                 }
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
@@ -1147,7 +1286,6 @@ async function run() {
                 const sql = `
                     SELECT
                         P.PERSONID AS PLAYER_ID,
-                        P.IMAGE,
                         (P.FIRST_NAME || ' ' || P.LAST_NAME) AS FULL_NAME,
                         T.TEAM_NAME AS TEAM,
                         PL.TYPE,
@@ -1158,7 +1296,7 @@ async function run() {
                     JOIN TEAM_PARTICIPATION TP ON T.TEAM_ID = TP.TEAM_ID AND TP.TOURNAMENT_ID = $1;
                 `;
                 const players = await pool.query(sql, [tournamentId]);
-                // console.log(players.rows);
+                console.log(players.rows);
                 res.json(players.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
