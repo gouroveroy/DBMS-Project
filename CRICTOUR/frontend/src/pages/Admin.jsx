@@ -4,35 +4,46 @@ import AddSeries from '../components/AddSeries';
 import DeleteSeries from '../components/DeleteSeries';
 import AddTeam from '../components/AddTeam';
 import DeleteTeam from '../components/DeleteTeam';
+import DeletePlayer from '../components/DeletePlayer';
+import AddPlayer from '../components/AddPlayer';
 
 import '../assets/CSS/combo.css';
 import '../assets/CSS/login.css';
+// import '../assets/CSS/admin.css';
 
 function Admin() {
   const [addSeriesVisible, setAddSeriesVisible] = useState(false);
   const [deleteSeriesVisible, setDeleteSeriesVisible] = useState(false);
   const [addTeamVisible, setAddTeamVisible] = useState(false);
   const [deleteTeamVisible, setDeleteTeamVisible] = useState(false);
+  const [addPlayerVisible, setAddPlayerVisible] = useState(false);
+  const [deletePlayerVisible, setDeletePlayerVisible] = useState(false);
 
   const showAddSeries = () => {
     setAddSeriesVisible(true);
     setDeleteSeriesVisible(false);
     setAddTeamVisible(false);
     setDeleteTeamVisible(false);
+    setAddPlayerVisible(false);
+    setDeletePlayerVisible(false);
   }
-  
+
   const showDeleteSeries = () => {
     setAddSeriesVisible(false);
     setDeleteSeriesVisible(true);
     setAddTeamVisible(false);
     setDeleteTeamVisible(false);
+    setAddPlayerVisible(false);
+    setDeletePlayerVisible(false);
   }
-  
+
   const showAddTeam = () => {
     setAddSeriesVisible(false);
     setDeleteSeriesVisible(false);
     setAddTeamVisible(true);
     setDeleteTeamVisible(false);
+    setAddPlayerVisible(false);
+    setDeletePlayerVisible(false);
   }
 
   const showDeleteTeam = () => {
@@ -40,20 +51,35 @@ function Admin() {
     setDeleteSeriesVisible(false);
     setAddTeamVisible(false);
     setDeleteTeamVisible(true);
+    setAddPlayerVisible(false);
+    setDeletePlayerVisible(false);
+  }
+
+  const showAddPlayer = () => {
+    setAddSeriesVisible(false);
+    setDeleteSeriesVisible(false);
+    setAddTeamVisible(false);
+    setDeleteTeamVisible(false);
+    setAddPlayerVisible(true);
+    setDeletePlayerVisible(false);
+  }
+
+  const showDeletePlayer = () => {
+    setAddSeriesVisible(false);
+    setDeleteSeriesVisible(false);
+    setAddTeamVisible(false);
+    setDeleteTeamVisible(false);
+    setAddPlayerVisible(false);
+    setDeletePlayerVisible(true);
   }
 
   return (
     <div style={container}>
-      <center>
+      <center style={{marginLeft: '70px'}}>
         <div className="btn-group container scs">
           <button className="btn btn-primary active" onClick={() => showAddSeries()} style={box}>
             <div style={adminStyle}>
               Add Series
-            </div>
-          </button>
-          <button className="btn btn-primary active" onClick={() => showDeleteSeries()} style={box}>
-            <div style={adminStyle}>
-              Delete Series
             </div>
           </button>
           <button className="btn btn-primary active" onClick={() => showAddTeam()} style={box}>
@@ -61,9 +87,24 @@ function Admin() {
               Add Team
             </div>
           </button>
+          <button className="btn btn-primary active" onClick={() => showAddPlayer()} style={box}>
+            <div style={adminStyle}>
+              Add Player
+            </div>
+          </button>
+          <button className="btn btn-primary active" onClick={() => showDeleteSeries()} style={box}>
+            <div style={adminStyle}>
+              Delete Series
+            </div>
+          </button>
           <button className="btn btn-primary active" onClick={() => showDeleteTeam()} style={box}>
             <div style={adminStyle}>
               Delete Team
+            </div>
+          </button>
+          <button className="btn btn-primary active" onClick={() => showDeletePlayer()} style={box}>
+            <div style={adminStyle}>
+              Delete Player
             </div>
           </button>
         </div>
@@ -80,9 +121,17 @@ function Admin() {
       <div className={`login-section ${addTeamVisible ? 'visible' : ''}`}>
         <AddTeam></AddTeam>
       </div>
-      
+
       <div className={`login-section ${deleteTeamVisible ? 'visible' : ''}`}>
         <DeleteTeam></DeleteTeam>
+      </div>
+
+      <div className={`login-section ${addPlayerVisible ? 'visible' : ''}`}>
+        <AddPlayer></AddPlayer>
+      </div>
+
+      <div className={`login-section ${deletePlayerVisible ? 'visible' : ''}`}>
+        <DeletePlayer></DeletePlayer>
       </div>
     </div>
   );
@@ -102,6 +151,8 @@ const container = {
   height: "175vh",
   margin: '20px',
   width: '30%',
+  textAlign: 'center',
+  justifyContent: 'center',
 }
 
 const box = {

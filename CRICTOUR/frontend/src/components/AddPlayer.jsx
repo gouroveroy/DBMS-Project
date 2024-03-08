@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 
@@ -7,20 +8,22 @@ import '../assets/CSS/login.css';
 import vite from "./../assets/vite.svg";
 import react from "./../assets/react.svg";
 
-function AddTeam() {
-    const [teamInfo, setTeamInfo] = useState({
-        teamName: '',
-        teamCoach: '',
-        teamCaptain: '',
-        teamLogo: ''
+function AddPlayer() {
+    const [playerInfo, setPlayerInfo] = useState({
+        playerFirstName: '',
+        playerLastName: '',
+        nationality: '',
+        dateOfBirth: '',
+        playerTeam: '',
+        playerType: ''
     });
 
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
-        setTeamInfo({
-            ...teamInfo,
+        setPlayerInfo({
+            ...playerInfo,
             [e.target.name]: e.target.value
         });
     }
@@ -31,20 +34,19 @@ function AddTeam() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { teamCoach, teamCaptain, teamLogo, ...formData } = teamInfo;
+        const { dateOfBirth, playerType, ...formData } = playerInfo;
         const dataToSend = {
             ...formData,
-            teamCoach: teamCoach === '' ? null : teamCoach,
-            teamCaptain: teamCaptain === '' ? null : teamCaptain,
-            teamLogo: teamLogo === '' ? null : teamLogo
+            dateOfBirth: dateOfBirth === '' ? 'null' : dateOfBirth,
+            playerType: playerType === '' ? 'ALL-ROUNDER' : playerType
         }
         console.log(dataToSend);
         setLoading(true);
         await delay(500);
         try {
-            const response = await axios.post('http://localhost:8000/addTeam', { dataToSend });
-            if (response.data.message === 'Team added successfully') {
-                alert('Team added successfully');
+            const response = await axios.post('http://localhost:8000/addPlayer', { dataToSend });
+            if (response.data.message === 'Player added successfully') {
+                alert('Player added successfully');
             } else {
                 alert(response.data.message);
                 setShow(true);
@@ -54,11 +56,13 @@ function AddTeam() {
             alert('Internal Server Error. Please try again later.');
         }
         setLoading(false);
-        setTeamInfo({
-            teamName: '',
-            teamCoach: '',
-            teamCaptain: '',
-            teamLogo: ''
+        setPlayerInfo({
+            playerFirstName: '',
+            playerLastName: '',
+            nationality: '',
+            dateOfBirth: '',
+            playerTeam: '',
+            playerType: ''
         });
     }
 
@@ -77,7 +81,7 @@ function AddTeam() {
                     src={react}
                     alt="logo"
                 />
-                <div className="h4 mb-2 text-center">Add Team</div>
+                <div className="h4 mb-2 text-center">Add Player</div>
                 {/* ALert */}
                 {show ? (
                     <Alert
@@ -93,43 +97,76 @@ function AddTeam() {
                 )}
                 {/* Form */}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Team Name</Form.Label>
+                    <Form.Label>Player First Name</Form.Label>
                     <Form.Control
                         type="text"
-                        name='teamName'
-                        value={teamInfo.teamName}
-                        placeholder="Enter team name"
+                        name='playerFirstName'
+                        value={playerInfo.playerFirstName}
+                        placeholder="Enter player first name"
                         onChange={handleInputChange}
                         required
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Team Coach</Form.Label>
+                    <Form.Label>Player Last Name</Form.Label>
                     <Form.Control
                         type="text"
-                        name='teamCoach'
-                        value={teamInfo.teamCoach}
-                        placeholder="Enter team coach"
+                        name='playerLastName'
+                        value={playerInfo.playerLastName}
+                        placeholder="Enter player last name"
+                        onChange={handleInputChange}
+                        required
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Nationality</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name='nationality'
+                        value={playerInfo.nationality}
+                        placeholder="Enter nationality"
+                        onChange={handleInputChange}
+                        required
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Date of Birth</Form.Label>
+                    <Form.Control
+                        type="date"
+                        name='dateOfBirth'
+                        value={playerInfo.dateOfBirth}
+                        placeholder="Enter date of birth"
                         onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Team Captain</Form.Label>
+                    <Form.Label>Player Team</Form.Label>
                     <Form.Control
                         type="text"
-                        name='teamCaptain'
-                        value={teamInfo.teamCaptain}
-                        placeholder="Enter team captain"
+                        name='playerTeam'
+                        value={playerInfo.playerTeam}
+                        placeholder="Enter player team"
+                        onChange={handleInputChange}
+                        required
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Player Type</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name='playerType'
+                        value={playerInfo.playerType}
+                        placeholder="Enter player type"
                         onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Team Logo</Form.Label>
+                    <Form.Label>Player Image</Form.Label>
                     <Form.Control type="file" />
                 </Form.Group>
                 {!loading ? (
                     <Button className="w-100" variant="primary" type="submit">
-                        Add Team
+                        Add Player
                     </Button>
                 ) : (
                     <Button className="w-100" variant="primary" type="submit" disabled>
@@ -138,10 +175,10 @@ function AddTeam() {
                 )}
             </Form>
             <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-                {/* Add Team Form  | &copy;Bootstrap 2024 */}
+                {/* Add Player Form  | &copy;Bootstrap 2024 */}
             </div>
         </div>
-    );
+    )
 }
 
-export default AddTeam;
+export default AddPlayer;
