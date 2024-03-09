@@ -30,9 +30,9 @@ function Header() {
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/teams">Teams</Link>
                     </li>
-                    <li style={liStyle}>
+                    {/* <li style={liStyle}>
                         <Link style={linkStyle} to="/match">Rankings</Link>
-                    </li>
+                    </li> */}
                     {user ? (
                         user === 'admin' ?
                             (
@@ -59,7 +59,7 @@ function Header() {
                                     </li>
                                     <li style={{ ...liStyle, position: 'absolute', right: '20px', top: '8px' }}>
                                         <Link to='/user'>
-                                            <img src="images/icons/user.png" alt="admin" style={{ width: '8vh', height: '8vh' }} />
+                                            <img src="images/icons/user.png" alt="user" style={{ width: '8vh', height: '8vh' }} />
                                         </Link>
                                     </li>
                                 </>

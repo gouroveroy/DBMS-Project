@@ -1,0 +1,18 @@
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center items horizontally */
+}
+
+.news-item {
+    flex: 0 0 calc(30% - 20px); /* Each item takes up 30% of the container's width with a gap of 20px between them */
+    max-width: calc(30% - 20px); /* Limit the maximum width of each item */
+    height: 80vh; /* Set the height of each item */
+    margin-bottom: 20px;
+}
+
+.news-item iframe {
+    width: 100%;
+    height: 100%;
+}

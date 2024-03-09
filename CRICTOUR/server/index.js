@@ -485,10 +485,14 @@ async function run() {
                 const isRestored = check_restore.rows[0].restore_tournament;
                 console.log(isRestored);
 
-                if (isRestored == 1) {
-                    res.status(200).json({ message: "Tournament restored successfully" });
+                if (isRestored !== null && Number.isInteger(isRestored)) {
+                    if (isRestored === 1) {
+                        res.status(200).json({ message: "Tournament restored successfully" });
+                    } else {
+                        res.status(200).json({ message: "Tournament permanently deleted" });
+                    }
                 } else {
-                    res.status(200).json({ message: "Tournament permanently deleted" });
+                    res.status(500).send("Invalid response from the server");
                 }
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
@@ -566,6 +570,34 @@ async function run() {
             }
         });
 
+        app.post('/restoreTeam', async (req, res) => {
+            const { teamName } = req.body;
+            try {
+                console.log("Received request to restore team:", { teamName });
+
+                const id = await pool.query(`SELECT GET_DELETED_TEAM_ID($1);`, [teamName]);
+                const teamId = id.rows[0].get_deleted_team_id;
+                console.log(teamId);
+
+                const check_restore = await pool.query(`SELECT RESTORE_TEAM($1);`, [teamId]);
+                const isRestored = check_restore.rows[0].restore_team;
+                console.log(isRestored);
+
+                if (isRestored !== null && Number.isInteger(isRestored)) {
+                    if (isRestored === 1) {
+                        res.status(200).json({ message: "Team restored successfully" });
+                    } else {
+                        res.status(200).json({ message: "Team permanently deleted" });
+                    }
+                } else {
+                    res.status(500).send("Invalid response from the server");
+                }
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
+
         app.post('/addPlayer', async (req, res) => {
             const { playerFirstName, playerLastName, nationality, dateOfBirth, playerTeam, playerType } = req.body.dataToSend;
             try {
@@ -602,27 +634,41 @@ async function run() {
                 const id = await pool.query(`SELECT GET_PLAYER_ID($1);`, [playerName]);
                 const playerId = id.rows[0].get_player_id;
                 console.log(playerId);
-
-                // Capture PostgreSQL notices
-                let notices = [];
                 await pool.query(`
-                    DELETE FROM PLAYER
-                    WHERE PLAYERID = $1;
-                `, [playerId], (err, result) => {
-                    if (err) {
-                        console.error(`PostgreSQL Error: ${err.message}`);
-                        res.status(500).send("Internal Server Error");
-                        return;
-                    }
-                    notices = result.notices; // Capture PostgreSQL notices
-                });
+                    DELETE FROM PERSON
+                    WHERE PERSONID = $1;
+                `, [playerId]
+                );
+                res.status(200).json({ message: 'Player deleted successfully'});
+            } catch (error) {
+                console.error(`Server Error: ${error.message}`);
+                res.status(500).send("Internal Server Error");
+            }
+        });
 
-                if (notices.length > 0) {
-                    // If there are notices, send them along with the response
-                    res.status(200).json({ message: notices });
+        app.post('/restorePlayer', async (req, res) => {
+            const { playerName } = req.body;
+            try {
+                console.log("Received request to restore player:", { playerName });
+
+                // const id = await pool.query(`SELECT GET_DELETED_PLAYER_ID($1);`, [playerName]);
+                const id2 = await pool.query(`SELECT GET_DELETED_PERSON_ID($1);`, [playerName]);
+                // const playerId = id.rows[0].get_deleted_player_id;
+                const personId = id2.rows[0].get_deleted_person_id;
+                console.log(personId);
+
+                const check_restore = await pool.query(`SELECT RESTORE_PLAYER($1, $2);`, [personId, personId]);
+                const isRestored = check_restore.rows[0].restore_player;
+                console.log(isRestored);
+
+                if (isRestored !== null && Number.isInteger(isRestored)) {
+                    if (isRestored === 1) {
+                        res.status(200).json({ message: "Player restored successfully" });
+                    } else {
+                        res.status(200).json({ message: "Player permanently deleted" });
+                    }
                 } else {
-                    // If no notices, send the success message only
-                    res.status(200).json({ message: "Player deleted successfully" });
+                    res.status(500).send("Invalid response from the server");
                 }
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
@@ -1350,7 +1396,31 @@ async function run() {
             }
         });
 
-        //Retreive data for the performance of a player in a tournament
+        app.get('/news', async (req, res) => {
+            try {
+                const news = await pool.query('SELECT * FROM NEWS;');
+                res.status(200).json(news.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        app.get('/jersey', async (req, res) => {
+            try {
+                const jersey = await pool.query(
+                    `SELECT JERSEY.TEAM_ID, TEAM.TEAM_NAME, JERSEY.COLOR
+                FROM JERSEY
+                JOIN TEAM
+                ON JERSEY.TEAM_ID = TEAM.TEAM_ID;`);
+                res.status(200).json(jersey.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        //Retrieve data for the performance of a player in a tournament
         app.get("/tournament/:tournament_id/playerPerformance/:player_id", async (req, res) => {
             try {
                 const sql = `

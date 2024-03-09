@@ -33,6 +33,7 @@ import TOTM from './pages/TOTM';
 import PlayerPerformance from './pages/PlayerPerformance';
 import UserProfile from './pages/UserProfile';
 import AdminProfile from './pages/AdminProfile';
+import Jersey from './pages/Jersey';
 
 import Rank from './components/Rank';
 import Header from './components/Nav/Header';
@@ -72,6 +73,7 @@ export default function App() {
         <Route path="/teams/:team_id" element={<TeamDetails></TeamDetails>} />
         <Route path='/venue' element={<Venue></Venue>} />
         <Route path='/venue/:venue_id' element={<VenueDetails></VenueDetails>} />
+        <Route path='/jersey' element={<Jersey></Jersey>} />
         <Route path='/dream11' element={<Dream11></Dream11>} />
         <Route path='/tournaments' element={<Tournaments></Tournaments>} />
         <Route path='/tournaments/:tournament_id' element={<TournamentDetails></TournamentDetails>} />
