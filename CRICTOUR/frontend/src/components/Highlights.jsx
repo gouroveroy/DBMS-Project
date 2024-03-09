@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player'
 
 import './../assets/CSS/footer.css';
-
+import './../assets/CSS/highlights.css';
 function Highlights() {
     const [highlights, setHighlights] = useState([]);
     const highlightContainerRef = useRef(null);
