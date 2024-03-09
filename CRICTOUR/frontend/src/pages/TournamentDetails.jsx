@@ -117,6 +117,7 @@ function TournamentDetails() {
                     <Dropdown.Item href={`/tournaments/${tournament_id}/matches`}>Matches</Dropdown.Item>
                     <Dropdown.Item href={`/tournaments/${tournament_id}/awards`}>Stats</Dropdown.Item>
                     <Dropdown.Item href={`/tournaments/${tournament_id}/TOTM`}>Team of the tournament</Dropdown.Item>
+                    <Dropdown.Item href={`/tournaments/${tournament_id}/standings`}>Standings</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             {/* Tournament details */}

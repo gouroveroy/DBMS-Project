@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function Rank() {
+    const { tournament_id } = useParams();
     const [teams, setTeams] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/pointTable')
+        fetch(`http://localhost:8000/pointTable/${tournament_id}`)
             .then(response => response.json())
             .then(data => setTeams(data))
             .catch(error => console.error(error));
     }, []);
+
+    console.log(tournament_id);
 
     return (
         <div>

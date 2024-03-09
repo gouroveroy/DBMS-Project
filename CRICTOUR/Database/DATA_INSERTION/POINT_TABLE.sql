@@ -20,3 +20,38 @@ VALUES
     -- Team 9
     (79, 1, 9, 8, 0, 1, 17) -- Assuming Team 9 played 9 matches, won 8, lost 0, drawn 1, and earned 17 points
     ;
+
+INSERT INTO POINT_TABLE(TEAM_ID,TOURNAMENT_ID,MATCHES,WON,LOST,DRAW,POINTS)
+ VALUES
+   (71,4,4,2,2,0,4),
+   (72,4,4,3,1,0,6),
+   (80,4,4,1,3,0,2);
+   
+UPDATE POINT_TABLE
+SET NRR=0.337
+WHERE TEAM_ID=72
+;
+
+UPDATE POINT_TABLE
+SET NRR =-.293
+WHERE TEAM_ID=71
+;
+
+UPDATE POINT_TABLE
+SET NRR=-0.085
+WHERE TEAM_ID=80
+;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -35,7 +35,7 @@ import UserProfile from './pages/UserProfile';
 import AdminProfile from './pages/AdminProfile';
 import Jersey from './pages/Jersey';
 
-import Rank from './components/Rank';
+import Rank from './pages/Rank';
 import Header from './components/Nav/Header';
 import Footer from './components/Nav/Footer';
 
@@ -64,7 +64,7 @@ export default function App() {
         <Route path='/combo' element={<Combo></Combo>} />
         <Route path="/umpire" element={<Umpire></Umpire>} />
         <Route path='umpire/:umpire_id' element={<UmpireDetails></UmpireDetails>} />
-        <Route path="/rank" element={<Rank></Rank>} />
+        <Route path="/tournaments/:tournament_id/standings" element={<Rank></Rank>} />
         <Route path="/coach" element={<Coach></Coach>} />
         <Route path='coach/:coach_id' element={<CoachDetails></CoachDetails>} />
         <Route path="/player" element={<Player></Player>} />

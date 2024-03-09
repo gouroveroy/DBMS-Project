@@ -180,16 +180,19 @@ async function run() {
             }
         });
 
-        app.get("/pointTable", async (req, res) => {
+        app.get("/pointTable/:tournament_id", async (req, res) => {
             try {
+                console.log("point table: ")
+                console.log(req.params.tournament_id);
                 const sql = `
                 SELECT T.TEAM_NAME AS NAME,
                 P.MATCHES MATCHES,
                 P.WON WON, P.LOST LOST, P.DRAW DRAW, P.POINTS POINTS, P.NRR NRR
                 FROM POINT_TABLE P JOIN TEAM T
-                ON (P.TEAM_ID = T.TEAM_ID);
-                `
-                const result = await pool.query(sql);
+                ON (P.TEAM_ID = T.TEAM_ID)
+                WHERE P.TOURNAMENT_ID = $1;
+                `;
+                const result = await pool.query(sql, [req.params.tournament_id]);
                 res.json(result.rows);
             } catch (error) {
                 console.error(`PostgreSQL Error: ${error.message}`);
