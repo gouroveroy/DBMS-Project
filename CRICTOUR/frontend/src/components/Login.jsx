@@ -104,6 +104,7 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [forgetPassword, setForgetPassword] = useState(false);
 
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -114,10 +115,10 @@ function Login(props) {
         await delay(100);
         try {
             const response = await axios.post('http://localhost:8000/login', { email, password, selection });
-    
+
             setUser(response.data.user);
             localStorage.setItem('user', JSON.stringify(response.data.user));
-    
+
             if (response.data.user === 'admin') {
                 window.location.href = '/home';
             } else if (response.data.user === email) {
@@ -132,9 +133,11 @@ function Login(props) {
             setShow(true);
         }
         setLoading(false);
-    };    
+    };
 
-    const handlePassword = () => { };
+    const handlePassword = () => {
+
+    };
 
     function delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -212,7 +215,7 @@ function Login(props) {
                     <Button
                         className="text-muted px-0 me-3" // Add margin to create space between the buttons
                         variant="link"
-                        onClick={handlePassword}
+                        onClick={() => setForgetPassword(!forgetPassword)}
                     >
                         Forgot password?
                     </Button>
@@ -224,6 +227,29 @@ function Login(props) {
             {/* Footer */}
             <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
                 Login Form  | &copy;Bootstrap 2024
+            </div>
+            <div>
+                {forgetPassword ? (
+                    <div className="d-flex justify-content-center align-items-center">
+                        <Form onSubmit={handlePassword}>
+                            <div className="shadow p-4 bg-white rounded">
+                                <Form.Group className="mb-2" controlId="username">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Username"
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button className="w-100" variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                            </div>
+                        </Form>
+                    </div>
+                ) : (
+                    <div />
+                )}
             </div>
         </div>
     );
