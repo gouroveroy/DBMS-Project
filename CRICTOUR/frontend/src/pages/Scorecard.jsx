@@ -279,6 +279,14 @@ function Scorecard() {
                         {winner_team} won the match
                     </span>
                 </div>
+                <div className="player-of-the-match" style={{ margin: '30px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div>
+                        <span>Man of the match</span>
+                    </div>
+                    <div>
+                        <span style={{ fontSize: '45px' }}>{motmName}</span>
+                    </div>
+                </div>
             </div>
             <div className="match-details-contanier">
                 <div className="option-button">
@@ -344,7 +352,7 @@ function Scorecard() {
                                                 <td onClick={() => setSelectedPlayer(batsman.player_id)}>
                                                     <div onClick={() => setIsOpen(!isOpen)}>
                                                         {batsman.player_name}
-                                                        {isOpen && selectedPlayer===batsman.player_id && (
+                                                        {isOpen && selectedPlayer === batsman.player_id && (
                                                             <ul>
                                                                 <Link to={`/player/${batsman.player_id}`}>
                                                                     <li>Career</li>
@@ -398,7 +406,7 @@ function Scorecard() {
                                                 <td onClick={() => setSelectedPlayer(bowler.player_id)}>
                                                     <div onClick={() => setIsOpen(!isOpen)}>
                                                         {bowler.player_name}
-                                                        {isOpen && selectedPlayer===bowler.player_id && (
+                                                        {isOpen && selectedPlayer === bowler.player_id && (
                                                             <ul>
                                                                 <Link to={`/player/${bowler.player_id}`}>
                                                                     <li>Career</li>
@@ -458,7 +466,7 @@ function Scorecard() {
                                                 <td onClick={() => setSelectedPlayer(batsman.player_id)}>
                                                     <div onClick={() => setIsOpen(!isOpen)}>
                                                         {batsman.player_name}
-                                                        {isOpen && selectedPlayer===batsman.player_id && (
+                                                        {isOpen && selectedPlayer === batsman.player_id && (
                                                             <ul>
                                                                 <Link to={`/player/${batsman.player_id}`}>
                                                                     <li>Career</li>
@@ -512,7 +520,7 @@ function Scorecard() {
                                                 <td onClick={() => setSelectedPlayer(bowler.player_id)}>
                                                     <div onClick={() => setIsOpen(!isOpen)}>
                                                         {bowler.player_name}
-                                                        {isOpen && selectedPlayer===bowler.player_id && (
+                                                        {isOpen && selectedPlayer === bowler.player_id && (
                                                             <ul>
                                                                 <Link to={`/player/${bowler.player_id}`}>
                                                                     <li>Career</li>

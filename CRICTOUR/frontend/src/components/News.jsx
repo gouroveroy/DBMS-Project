@@ -25,7 +25,7 @@ function News() {
             {newsData.length > 0 && (
                 <div className='news-container'>
                     {newsData.map(news => (
-                        <div key={news.match_id} className="news-item" style={{height: '30vh'}}>
+                        <div key={news.match_id} className="news-item" style={{height: '30vh',width:'60px'}}>
                             <iframe src={news.news_url} />
                         </div>
                     ))}
