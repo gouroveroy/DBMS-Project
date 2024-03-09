@@ -25,6 +25,8 @@ function Player() {
             return player.full_name.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchBy === 'team') {
             return player.team.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if (searchBy === 'type') {
+            return player.type.toLowerCase().includes(searchTerm.toLowerCase());
         }
     });
 
@@ -43,11 +45,17 @@ function Player() {
                     <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)} className="searchSelect">
                         <option value="name">Search by Name</option>
                         <option value="team">Search by Team</option>
+                        <option value="type">Search by type</option>
                     </select>
                 </div>
                 <div className="player-container">
                     {filteredPlayers.length === 0 ? (
-                        <div className='no-data-found'>No players found with this {searchBy === 'name' ? 'name' : 'team'}</div>
+                        <div>
+                            <div className='no-data-found'>No players found with this {searchBy === 'name' ? 'name' : (
+                                searchBy === 'team' ? 'team' : 'type'
+                            )}</div>
+                            
+                        </div>
                     ) : (
                         filteredPlayers.map(player => (
                             <div key={player.player_id}>

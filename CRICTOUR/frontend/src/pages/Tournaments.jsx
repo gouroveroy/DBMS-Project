@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../assets/CSS/tournaments.css'
 function Tournaments() {
     const [tournaments, setTournaments] = useState([]);
+    
 
     useEffect(() => {
         // Fetch the tournament data from the backend
