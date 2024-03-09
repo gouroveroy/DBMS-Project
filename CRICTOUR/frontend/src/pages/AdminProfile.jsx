@@ -56,10 +56,26 @@ function AdminProfile() {
         }
     }
 
-    const handleSubmitTeam = () => {
+    const handleSubmitTeam = async () => {
+        try {
+            const response = await axios.post('http://localhost:8000/restoreTeam', { teamName });
+            console.log('response: ', response);
+            alert(response.data.message);
+        } catch (error) {
+            console.error(error);
+            alert('Internal Server Error. Please try again later.');
+        }
     }
 
-    const handleSubmitPlayer = () => {
+    const handleSubmitPlayer = async () => {
+        try {
+            const response = await axios.post('http://localhost:8000/restorePlayer', { playerName });
+            console.log('response: ', response);
+            alert(response.data.message);
+        } catch (error) {
+            console.error(error);
+            alert('Internal Server Error. Please try again later.');
+        }
     }
 
     return (
