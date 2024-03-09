@@ -1477,6 +1477,32 @@ async function run() {
             }
         });
 
+        app.post('/suggestion', async (req, res) => {
+            const { tournamentIdd } = req.body;
+            try {
+                const sql = `
+                SELECT PERSON.PERSONID, PERSON.FIRST_NAME || ' ' || PERSON.LAST_NAME AS FULL_NAME, DREAM11_PLAYERS_POINT(PLAYERID)
+                FROM PLAYER
+                JOIN PERSON
+                ON PLAYER.PLAYERID = PERSON.PERSONID
+                JOIN TEAM
+                ON PLAYER.TEAM_ID = TEAM.TEAM_ID
+                JOIN TEAM_PARTICIPATION
+                ON TEAM.TEAM_ID = TEAM_PARTICIPATION.TEAM_ID
+                JOIN TOURNAMENT
+                ON TEAM_PARTICIPATION.TOURNAMENT_ID = TOURNAMENT.TOURNAMENT_ID
+                WHERE TOURNAMENT.TOURNAMENT_ID = $1
+                ORDER BY DREAM11_PLAYERS_POINT(PLAYERID) DESC
+                LIMIT 15;
+                `;
+                const result = await pool.query(sql, [tournamentIdd]);
+                console.log(result.rows);
+                res.status(200).json(result.rows);
+            } catch (error) {
+                console.error(`PostgreSQL Error: ${error.message}`);
+                res.status(500).json({ error: "Internal Server Error" });
+            }
+        });
 
     } finally {
         // console.log("Shutting down server");

@@ -17,6 +17,8 @@ function Dream11() {
     const [tournamentIdd, setTournamentIdd] = useState();
     const [totalPoints, setTotalPoints] = useState(0);
     const [showSelectedPlayers, setShowSelectedPlayers] = useState(false);
+    const [showSuggestion, setShowSuggestion] = useState(false);
+    const [suggestedPlayers, setSuggestedPlayers] = useState([]);
 
     useEffect(() => {
         // Fetch the tournament data from the backend
@@ -26,11 +28,24 @@ function Dream11() {
             .catch(error => console.error(error));
     }, []);
 
+    // useEffect(() => {
+    //     // Fetch the player data from the backend
+    //     fetch('http://localhost:8000/suggestion')
+    //         .then(response => response.json())
+    //         .then(data => setSuggestedPlayers(data))
+    //         .catch(error => console.error(error));
+    // }, []);
+
     const handleAddPlayerSelection = (playerId) => {
         if (selectedPlayers.includes(playerId)) {
             // Player is already selected, don't add again
             alert('Player already selected');
             return;
+        }
+        else if (suggestedPlayers.includes(playerId)) {
+            // Remove playerId from suggestedPlayers if it's present
+            const updatedSuggestedPlayers = suggestedPlayers.filter((id) => id !== playerId);
+            setSuggestedPlayers(updatedSuggestedPlayers);
         }
         setSelectedPlayers([...selectedPlayers, playerId]);
         alert('Player added successfully');
@@ -41,8 +56,10 @@ function Dream11() {
             // Player is already selected, remove from selected players
             setSelectedPlayers(selectedPlayers.filter((id) => id !== playerId));
             alert('Player removed successfully');
+            return;
         } else {
             alert('Player not selected');
+            return;
         }
     };
 
@@ -54,7 +71,11 @@ function Dream11() {
         setTournamentIdd(tournamentId);
         try {
             const response = await axios.post('http://localhost:8000/playerByTournament', { tournamentId });
+            console.log(response.data);
             setPlayerList(response.data);
+            // const response2 = await axios.post('http://localhost:8000/suggestion', { tournamentIdd });
+            // console.log(response2.data);
+            // setSuggestedPlayers(response2.data);
         } catch (error) {
             console.error('Error:', error);
             alert('Internal Server Error. Please try again later.');
@@ -63,6 +84,8 @@ function Dream11() {
         setPlayerSelectionVisible(true);
         setComparisonVisible(false);
     }
+
+
 
     const handleSubmit = async () => {
         try {
@@ -84,6 +107,28 @@ function Dream11() {
         setTournamentSelectionVisible(false);
         setPlayerSelectionVisible(false);
         setComparisonVisible(true);
+    }
+
+    // useEffect(() => {
+    //     // Fetch the suggestion data from the backend
+    //     fetch(`http://localhost:8000/suggestion/${tournamentId}`)
+    //         .then(response => response.json())
+    //         .then(data => setTournaments(data))
+    //         .catch(error => console.error(error));
+    // }, [tournamentId]);
+
+
+    const handleSuggestion = async () => {
+        try {
+            setShowSuggestion(true);
+            console.log(tournamentIdd);
+            const response = await axios.post('http://localhost:8000/suggestion', { tournamentIdd });
+            console.log(response.data);
+            setSuggestedPlayers(response.data);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Internal Server Error. Please try again later.');
+        }
     }
 
     const sortedComparedTeam = [...comparedTeam].sort((a, b) => b.total_points - a.total_points);
@@ -118,7 +163,24 @@ function Dream11() {
                             <Dropdown.Item onClick={() => handleSubmit()}>Submit Selection</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <h2 style={{ marginLeft: '350px' }}>Dream 11</h2>
+                    <h2 style={{ marginLeft: '350px', marginRight: '250px' }}>Dream 11</h2>
+                    <button onClick={() => handleSuggestion()}>Need Suggestion?</button>
+                    {/* <div> */}
+                    {showSuggestion && (
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" className="custom-dropdown">
+                                Suggestion
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {suggestedPlayers.map((suggestedPlayer, index) => (
+                                    <div key={index}>
+                                        <Dropdown.Item >{suggestedPlayer.full_name}</Dropdown.Item>
+                                    </div>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    )}
+                    {/* </div> */}
                 </div>
                 {showSelectedPlayers && (
                     <div className="player-container" style={{ marginTop: '100px' }}>
@@ -179,8 +241,8 @@ function Dream11() {
                                 ))}
                             </tbody>
                         </table>
-                        <h2 style={{marginTop: '50px'}}>Winning Percentage With Other Team</h2>
-                        <table style={{marginTop: '50px', marginBottom: '50px'}}>
+                        <h2 style={{ marginTop: '50px' }}>Winning Percentage With Other Team</h2>
+                        <table style={{ marginTop: '50px', marginBottom: '50px' }}>
                             <thead>
                                 <tr>
                                     <th>Team Name</th>
