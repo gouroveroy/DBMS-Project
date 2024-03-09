@@ -493,7 +493,7 @@ async function run() {
                     }
                 } else {
                     res.status(500).send("Invalid response from the server");
-                }                
+                }
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
                 res.status(500).send("Internal Server Error");
@@ -1354,7 +1354,31 @@ async function run() {
             }
         });
 
-        //Retreive data for the performance of a player in a tournament
+        app.get('/news', async (req, res) => {
+            try {
+                const news = await pool.query('SELECT * FROM NEWS;');
+                res.status(200).json(news.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        app.get('/jersey', async (req, res) => {
+            try {
+                const jersey = await pool.query(
+                `SELECT JERSEY.TEAM_ID, TEAM.TEAM_NAME, JERSEY.COLOR
+                FROM JERSEY
+                JOIN TEAM
+                ON JERSEY.TEAM_ID = TEAM.TEAM_ID;`);
+                res.status(200).json(jersey.rows);
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
+
+        //Retrieve data for the performance of a player in a tournament
         app.get("/tournament/:tournament_id/playerPerformance/:player_id", async (req, res) => {
             try {
                 const sql = `
