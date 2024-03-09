@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import '../assets/CSS/news.css';
 
 function News() {
@@ -25,7 +24,7 @@ function News() {
             {newsData.length > 0 && (
                 <div className='news-container'>
                     {newsData.map(news => (
-                        <div key={news.match_id} className="news-item" style={{height: '30vh',width:'60px'}}>
+                        <div key={news.match_id} className="news-item" style={{height: '50vh'}}>
                             <iframe src={news.news_url} />
                         </div>
                     ))}
