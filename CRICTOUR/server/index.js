@@ -485,11 +485,15 @@ async function run() {
                 const isRestored = check_restore.rows[0].restore_tournament;
                 console.log(isRestored);
 
-                if (isRestored == 1) {
-                    res.status(200).json({ message: "Tournament restored successfully" });
+                if (isRestored !== null && Number.isInteger(isRestored)) {
+                    if (isRestored === 1) {
+                        res.status(200).json({ message: "Tournament restored successfully" });
+                    } else {
+                        res.status(200).json({ message: "Tournament permanently deleted" });
+                    }
                 } else {
-                    res.status(200).json({ message: "Tournament permanently deleted" });
-                }
+                    res.status(500).send("Invalid response from the server");
+                }                
             } catch (error) {
                 console.error(`Server Error: ${error.message}`);
                 res.status(500).send("Internal Server Error");
