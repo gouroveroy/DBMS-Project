@@ -16,7 +16,7 @@ function Header() {
             <nav style={navStyle}>
                 <ul style={ulStyle}>
                     <li style={logoStyle}>
-                        <img src="images/icons/logo.jpg" alt="logo" style={{ height: '8vh', width: '8vh', marginRight: '50px' }} />
+                        <img src="images/icons/logo.jpg" alt="logo" style={{ height: '8vh', width: '8vh', marginRight: '50px',borderRadius:'50px' }} />
                     </li>
                     <li style={liStyle}>
                         <Link style={linkStyle} to="/home">Home</Link>
